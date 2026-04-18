@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Highlite — Design System</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
   /* =========================================================
      DESIGN TOKENS
@@ -36,7 +36,7 @@
     --gradient-dark:    linear-gradient(180deg, #1E2340 0%, #2D3560 60%, #3D4580 100%);
 
     /* --- Typography --- */
-    --font-en:     'Roboto', serif;
+    --font-en:     'Optima', 'Optima Nova LT Pro', 'Candara', sans-serif;
     --font-jp:     'Noto Sans JP', serif;
     --font-system: 'Hiragino Kaku Gothic ProN', -apple-system, sans-serif;
 
@@ -186,7 +186,9 @@
   }
 
   .ds-nav-link {
-    display: block;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
     color: rgba(255,255,255,0.65);
     font-size: 13px;
     font-family: var(--font-en);
@@ -196,7 +198,26 @@
     letter-spacing: 0.02em;
   }
 
-  .ds-nav-link:hover { color: #fff; }
+  .ds-nav-link::after {
+    content: attr(data-jp);
+    font-family: var(--font-jp);
+    font-size: 10px;
+    color: var(--color-crystal-blue);
+    letter-spacing: 0.05em;
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity 0.2s var(--easing-standard), transform 0.2s var(--easing-standard);
+    white-space: nowrap;
+  }
+
+  .ds-nav-link:hover {
+    color: #fff;
+  }
+
+  .ds-nav-link:hover::after {
+    opacity: 1;
+    transform: translateX(0);
+  }
 
   /* Main content */
   .ds-main {
@@ -571,7 +592,7 @@
     align-items: center;
     justify-content: center;
     padding: 14px 20px;
-    background: var(--gradient-crystal);
+    background: url('illust-brand/contact.png') center / cover no-repeat;
     color: #fff;
     font-family: var(--font-en);
     font-size: 16px;
@@ -582,17 +603,11 @@
     transition: opacity var(--duration-base) var(--easing-standard);
     text-decoration: none;
     border: none;
-    min-width: 120px;
+    min-width: 140px;
+    min-height: 80px;
   }
 
   .hl-fab:hover { opacity: 0.9; }
-
-  .hl-fab .fab-sub {
-    font-size: 11px;
-    opacity: 0.8;
-    letter-spacing: 0.02em;
-    margin-top: 2px;
-  }
 
   /* 6. Menu Button */
   .hl-menu-btn {
@@ -790,26 +805,34 @@
     margin-bottom: 16px;
   }
 
-  .ds-preview-hero::before {
-    content: '';
+  .ds-preview-hero .hero-mv-img {
     position: absolute;
     right: 0;
     top: 0;
-    bottom: 0;
+    height: 100%;
     width: 55%;
-    background: radial-gradient(ellipse at 60% 40%, rgba(155,140,200,0.25) 0%, rgba(123,186,212,0.2) 50%, transparent 80%);
+    object-fit: cover;
+    object-position: left center;
     pointer-events: none;
   }
 
-  /* Crystal decoration */
-  .ds-preview-hero .crystal-deco {
-    position: absolute;
-    right: 120px;
-    top: 40px;
-    width: 200px;
-    height: 200px;
-    opacity: 0.4;
-    pointer-events: none;
+  .ds-preview-contact {
+    border-radius: 12px;
+    overflow: hidden;
+    min-height: 280px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+
+  .ds-preview-contact img {
+    width: 100%;
+    height: 100%;
+    min-height: 280px;
+    object-fit: cover;
+    display: block;
   }
 
   .hero-content { position: relative; z-index: 1; }
@@ -907,6 +930,74 @@
   .ds-sidebar::-webkit-scrollbar { width: 4px; }
   .ds-sidebar::-webkit-scrollbar-track { background: transparent; }
   .ds-sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+
+  /* ===== ILLUSTRATION CARDS ===== */
+  .illust-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 12px 12px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s var(--easing-standard), box-shadow 0.2s var(--easing-standard);
+    /* チェッカー背景でアルファ透明を可視化 */
+    background-image:
+      linear-gradient(#fff 0%, #fff 100%),
+      repeating-conic-gradient(#e8e8e8 0% 25%, #f5f5f5 0% 50%);
+    background-size: cover, 16px 16px;
+    background-blend-mode: normal;
+  }
+
+  .illust-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .illust-card img {
+    width: 100%;
+    height: 96px;
+    object-fit: contain;
+    display: block;
+  }
+
+  .illust-card--wide img {
+    height: 128px;
+  }
+
+  .illust-card span {
+    font-family: var(--font-jp);
+    font-size: 11px;
+    color: var(--color-text-muted);
+    text-align: center;
+    letter-spacing: 0.03em;
+    line-height: 1.4;
+  }
+
+  /* ===== SCROLL REVEAL ANIMATIONS ===== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.55s var(--easing-standard),
+      transform 0.55s var(--easing-standard);
+    transition-delay: calc(var(--reveal-delay, 0) * 1ms);
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Instant for users who prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
 </style>
 </head>
 <body>
@@ -917,8 +1008,7 @@
   <aside class="ds-sidebar">
     <div class="ds-sidebar-brand">
       <a class="brand-mark" href="#">
-        <span class="brand-star">✦</span>
-        Highlite
+        <img src="logo/logo-white.svg" alt="Highlite" style="height:28px; display:block;">
       </a>
       <div class="ds-version">Design System v1.0</div>
     </div>
@@ -926,28 +1016,30 @@
     <nav>
       <div class="ds-nav-group">
         <div class="ds-nav-label">Foundation</div>
-        <a class="ds-nav-link" href="#overview">Overview</a>
-        <a class="ds-nav-link" href="#colors">Colors</a>
-        <a class="ds-nav-link" href="#typography">Typography</a>
-        <a class="ds-nav-link" href="#spacing">Spacing</a>
-        <a class="ds-nav-link" href="#motion">Motion</a>
+        <a class="ds-nav-link" href="#overview"    data-jp="概要">Overview</a>
+        <a class="ds-nav-link" href="#colors"      data-jp="カラー">Colors</a>
+        <a class="ds-nav-link" href="#typography"  data-jp="タイポグラフィ">Typography</a>
+        <a class="ds-nav-link" href="#spacing"     data-jp="スペーシング">Spacing</a>
+        <a class="ds-nav-link" href="#motion"      data-jp="モーション">Motion</a>
       </div>
       <div class="ds-nav-group">
         <div class="ds-nav-label">Components</div>
-        <a class="ds-nav-link" href="#logo">Logo</a>
-        <a class="ds-nav-link" href="#diamond-btn">Diamond Button</a>
-        <a class="ds-nav-link" href="#section-header">Section Header</a>
-        <a class="ds-nav-link" href="#nav-card">Navigation Card</a>
-        <a class="ds-nav-link" href="#fab">Say Hello! FAB</a>
-        <a class="ds-nav-link" href="#tags">Tags</a>
-        <a class="ds-nav-link" href="#article-card">Article Card</a>
-        <a class="ds-nav-link" href="#works-card">Works Card</a>
-        <a class="ds-nav-link" href="#approach">Approach Step</a>
+        <a class="ds-nav-link" href="#logo"           data-jp="ロゴ">Logo</a>
+        <a class="ds-nav-link" href="#diamond-btn"    data-jp="ダイヤモンドボタン">Diamond Button</a>
+        <a class="ds-nav-link" href="#section-header" data-jp="セクションヘッダー">Section Header</a>
+        <a class="ds-nav-link" href="#nav-card"       data-jp="ナビゲーションカード">Navigation Card</a>
+        <a class="ds-nav-link" href="#fab"            data-jp="フローティングボタン">Say Hello! FAB</a>
+        <a class="ds-nav-link" href="#tags"           data-jp="タグ">Tags</a>
+        <a class="ds-nav-link" href="#article-card"   data-jp="記事カード">Article Card</a>
+        <a class="ds-nav-link" href="#works-card"     data-jp="制作実績カード">Works Card</a>
+        <a class="ds-nav-link" href="#approach"       data-jp="アプローチステップ">Approach Step</a>
+        <a class="ds-nav-link" href="#illustration"  data-jp="イラスト素材">Illustration</a>
       </div>
       <div class="ds-nav-group">
         <div class="ds-nav-label">Patterns</div>
-        <a class="ds-nav-link" href="#hero">Hero Section</a>
-        <a class="ds-nav-link" href="#principles">Design Principles</a>
+        <a class="ds-nav-link" href="#hero"       data-jp="ヒーローセクション">Hero Section</a>
+        <a class="ds-nav-link" href="#contact"    data-jp="コンタクト">Contact</a>
+        <a class="ds-nav-link" href="#principles" data-jp="デザイン原則">Design Principles</a>
       </div>
     </nav>
   </aside>
@@ -978,6 +1070,7 @@
 
       <!-- Hero preview -->
       <div class="ds-preview-hero" id="hero">
+        <img class="hero-mv-img" src="illust-brand/main_mv.png" alt="Hero Main Visual">
         <div class="hero-content">
           <p class="hero-h1">価値の原石を作る。</p>
           <p class="hero-body">
@@ -1322,35 +1415,34 @@
         <p class="ds-section-desc">4点の星（✦）とWordmarkの組み合わせ。明るい背景用のダーク版と、暗い背景用のホワイト版の2バリアントがあります。</p>
       </div>
 
-      <p class="ds-component-label">Light Background — 明背景</p>
-      <div class="ds-component-canvas white">
-        <a class="hl-logo" href="#">
-          <span style="font-size:26px; color:#3D5070;">✦</span>
-          <span>Highlite</span>
-        </a>
+      <p class="ds-component-label">Light Background — 明背景（カラー版）</p>
+      <div class="ds-component-canvas white" style="padding: 40px;">
+        <img src="logo/logo.svg" alt="Highlite logo (color)" style="height: 48px; display:block;">
       </div>
 
-      <p class="ds-component-label">Dark Background — 暗背景</p>
-      <div class="ds-component-canvas dark">
-        <a class="hl-logo hl-logo--white" href="#">
-          <span style="font-size:26px; color:rgba(200,220,240,0.9);">✦</span>
-          <span>Highlite</span>
-        </a>
+      <p class="ds-component-label">Dark Background — 暗背景（白抜き版）</p>
+      <div class="ds-component-canvas dark" style="padding: 40px;">
+        <img src="logo/logo-white.svg" alt="Highlite logo (white)" style="height: 48px; display:block;">
       </div>
 
-      <div class="ds-table-wrap" style="margin-top:16px;">
+      <div class="ds-table-wrap" style="margin-top:24px;">
         <table class="ds-table">
           <thead><tr><th>Property</th><th>Value</th></tr></thead>
           <tbody>
-            <tr><td>Font</td><td><code>var(--font-en)</code> · Roboto</td></tr>
-            <tr><td>Size</td><td>20px</td></tr>
-            <tr><td>Weight</td><td>400 Regular</td></tr>
-            <tr><td>Color (dark)</td><td><code>#3D5070</code> — Brand Blue</td></tr>
-            <tr><td>Color (light)</td><td><code>#FFFFFF</code></td></tr>
-            <tr><td>Star color (dark)</td><td><code>#3D5070</code></td></tr>
-            <tr><td>Star color (light)</td><td><code>rgba(200,220,240,0.9)</code></td></tr>
+            <tr><td>Diamond icon color</td><td><code>#61789E</code> — Crystal Blue</td></tr>
+            <tr><td>Wordmark color</td><td><code>#4F4C51</code> — Dark Charcoal</td></tr>
+            <tr><td>White version</td><td><code>#FFFFFF</code> — 暗背景専用</td></tr>
+            <tr><td>ファイル（カラー）</td><td><code>logo/logo.svg</code></td></tr>
+            <tr><td>ファイル（白抜き）</td><td><code>logo/logo-white.svg</code></td></tr>
           </tbody>
         </table>
+      </div>
+
+      <div style="margin-top:16px; padding:16px; background:#f5f4f0; border-left:3px solid #61789E; font-size:13px; color:#4f4c51; line-height:1.7;">
+        <strong>使用ガイドライン</strong><br>
+        ・明るい背景（白・グレー系）→ <strong>カラー版</strong>（logo.svg）を使用<br>
+        ・暗い背景（ネイビー・黒系）→ <strong>白抜き版</strong>（logo-white.svg）を使用<br>
+        ・最小表示サイズ: 高さ 32px 以上を推奨
       </div>
     </section>
 
@@ -1505,17 +1597,14 @@
       </div>
 
       <div class="ds-component-canvas">
-        <a class="hl-fab" href="#">
-          <span>Say Hello!</span>
-          <span class="fab-sub">お問い合わせ</span>
-        </a>
+        <a class="hl-fab" href="#"></a>
       </div>
 
       <div class="ds-table-wrap" style="margin-top:16px;">
         <table class="ds-table">
           <thead><tr><th>Property</th><th>Value</th></tr></thead>
           <tbody>
-            <tr><td>Background</td><td><code>var(--gradient-crystal)</code></td></tr>
+            <tr><td>Background</td><td><code>illust-brand/contact.png</code> — center / cover</td></tr>
             <tr><td>Color</td><td><code>#FFFFFF</code></td></tr>
             <tr><td>Shape</td><td><code>clip-path: polygon(8% 0%, 92% 0%, 100% 8%, 100% 92%, 92% 100%, 8% 100%, 0% 92%, 0% 8%)</code></td></tr>
             <tr><td>Title font</td><td>Roboto 16px · weight 400</td></tr>
@@ -1683,6 +1772,85 @@
 
     <hr class="divider">
 
+    <!-- ILLUSTRATION -->
+    <section class="ds-section" id="illustration">
+      <div class="ds-section-header">
+        <div class="ds-section-en">Component</div>
+        <h2 class="ds-section-title">Illustration</h2>
+        <p class="ds-section-desc">Highliteのブランドイラスト素材一覧。水彩タッチのオブジェクトと矢印シリーズで構成されます。</p>
+      </div>
+
+      <!-- 矢印シリーズ -->
+      <p class="ds-component-label">Arrows — 矢印シリーズ</p>
+      <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap:12px; margin-bottom:32px;">
+        <div class="illust-card"><img src="illust/矢印上.png"       alt="矢印上"><span>矢印上</span></div>
+        <div class="illust-card"><img src="illust/矢印上-青.png"    alt="矢印上-青"><span>矢印上（青）</span></div>
+        <div class="illust-card"><img src="illust/矢印上曲.png"     alt="矢印上曲"><span>矢印上曲</span></div>
+        <div class="illust-card"><img src="illust/矢印上曲-青.png"  alt="矢印上曲-青"><span>矢印上曲（青）</span></div>
+        <div class="illust-card"><img src="illust/矢印上極曲.png"   alt="矢印上極曲"><span>矢印上極曲</span></div>
+        <div class="illust-card"><img src="illust/矢印上極曲-青.png" alt="矢印上極曲-青"><span>矢印上極曲（青）</span></div>
+        <div class="illust-card"><img src="illust/頭矢印.png"       alt="頭矢印"><span>頭矢印</span></div>
+        <div class="illust-card"><img src="illust/頭矢印-青.png"    alt="頭矢印-青"><span>頭矢印（青）</span></div>
+      </div>
+
+      <!-- オブジェクト -->
+      <p class="ds-component-label">Objects — オブジェクト</p>
+      <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap:12px; margin-bottom:32px;">
+        <div class="illust-card"><img src="illust/ラップトップ.png"   alt="ラップトップ"><span>ラップトップ</span></div>
+        <div class="illust-card"><img src="illust/スマートフォン.png" alt="スマートフォン"><span>スマートフォン</span></div>
+        <div class="illust-card"><img src="illust/コール.png"         alt="コール"><span>コール</span></div>
+        <div class="illust-card"><img src="illust/手紙-閉.png"        alt="手紙-閉"><span>手紙（閉）</span></div>
+        <div class="illust-card"><img src="illust/手紙-開.png"        alt="手紙-開"><span>手紙（開）</span></div>
+        <div class="illust-card"><img src="illust/本開.png"           alt="本開"><span>本開</span></div>
+        <div class="illust-card"><img src="illust/的.png"             alt="的"><span>的</span></div>
+        <div class="illust-card"><img src="illust/羊皮紙.png"         alt="羊皮紙"><span>羊皮紙</span></div>
+        <div class="illust-card"><img src="illust/ハート.png"         alt="ハート"><span>ハート</span></div>
+        <div class="illust-card"><img src="illust/グッド.png"         alt="グッド"><span>グッド</span></div>
+        <div class="illust-card"><img src="illust/マップピン.png"     alt="マップピン"><span>マップピン</span></div>
+        <div class="illust-card"><img src="illust/アース.png"         alt="アース"><span>アース</span></div>
+      </div>
+
+      <!-- ブランド / シーン -->
+      <p class="ds-component-label">Brand &amp; Scenes — ブランド・シーン</p>
+      <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap:12px;">
+        <div class="illust-card illust-card--wide"><img src="illust/ブランドマーク.png" alt="ブランドマーク"><span>ブランドマーク</span></div>
+        <div class="illust-card illust-card--wide"><img src="illust/ロゴベクター.png"   alt="ロゴベクター"><span>ロゴベクター</span></div>
+        <div class="illust-card illust-card--wide"><img src="illust/キャッスル.png"     alt="キャッスル"><span>キャッスル</span></div>
+        <div class="illust-card illust-card--wide"><img src="illust/インテリア.png"     alt="インテリア"><span>インテリア</span></div>
+        <div class="illust-card illust-card--wide"><img src="illust/night.png"           alt="night"><span>Night</span></div>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- CONTACT -->
+    <section class="ds-section" id="contact">
+      <div class="ds-section-header">
+        <div class="ds-section-en">Pattern</div>
+        <h2 class="ds-section-title">Contact</h2>
+        <p class="ds-section-desc">お問い合わせページのメインビジュアル。暗背景に白抜きのテキスト・ロゴを重ねて使用します。</p>
+      </div>
+
+      <p class="ds-component-label">Contact Visual — コンタクトビジュアル</p>
+      <div class="ds-preview-contact">
+        <img src="illust-brand/contact.png" alt="Contact Visual">
+      </div>
+
+      <div class="ds-table-wrap" style="margin-top:16px;">
+        <table class="ds-table">
+          <thead><tr><th>Property</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td>ファイル</td><td><code>illust-brand/contact.png</code></td></tr>
+            <tr><td>使用場面</td><td>Contactページ背景・メインビジュアル</td></tr>
+            <tr><td>テキスト色</td><td><code>#FFFFFF</code> — 白抜き</td></tr>
+            <tr><td>ロゴ</td><td>白抜き版（<code>logo/logo-white.svg</code>）を使用</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <hr class="divider">
+
     <!-- DESIGN PRINCIPLES -->
     <section class="ds-section" id="principles">
       <div class="ds-section-header">
@@ -1739,6 +1907,76 @@
 
   </main>
 </div>
+
+<script>
+(function () {
+  // ── 1. 対象セレクターと stagger 設定 ──────────────────────────────
+  const TARGETS = [
+    // section ヘッダー
+    { sel: '.ds-section-header',    stagger: 0   },
+    // コンポーネントラベル
+    { sel: '.ds-component-label',   stagger: 0   },
+    // プレビューキャンバス
+    { sel: '.ds-component-canvas',  stagger: 60  },
+    // テーブル
+    { sel: '.ds-table-wrap',        stagger: 80  },
+    // カラースウォッチ個別
+    { sel: '.color-swatch',         stagger: 40  },
+    // トークングループ
+    { sel: '.ds-token-group',       stagger: 50  },
+    // ヒーローセクション内テキスト
+    { sel: '.ds-hero-text',         stagger: 0   },
+    // ガイドラインボックス
+    { sel: '[style*="border-left"]',stagger: 0   },
+    // footer
+    { sel: 'footer',                stagger: 0   },
+  ];
+
+  // ── 2. .reveal クラスを付与 ────────────────────────────────────────
+  TARGETS.forEach(({ sel, stagger }) => {
+    const els = document.querySelectorAll(sel);
+    els.forEach((el, i) => {
+      el.classList.add('reveal');
+      if (stagger > 0) {
+        el.style.setProperty('--reveal-delay', i * stagger);
+      }
+    });
+  });
+
+  // ── 3. IntersectionObserver ───────────────────────────────────────
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target); // 一度だけ発火
+        }
+      });
+    },
+    {
+      threshold: 0.12,      // 12% 見えたらトリガー
+      rootMargin: '0px 0px -40px 0px',
+    }
+  );
+
+  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+  // ── 4. サイドバーのナビクリック時に対象セクションを再アニメーション ──
+  document.querySelectorAll('.ds-nav-link').forEach((link) => {
+    link.addEventListener('click', () => {
+      const id = link.getAttribute('href').slice(1);
+      const section = document.getElementById(id);
+      if (!section) return;
+      // 既に表示済みの要素を一瞬リセットして再生
+      const revealEls = section.querySelectorAll('.reveal.is-visible');
+      revealEls.forEach((el, i) => {
+        el.classList.remove('is-visible');
+        setTimeout(() => el.classList.add('is-visible'), 50 + i * 40);
+      });
+    });
+  });
+})();
+</script>
 
 </body>
 </html>
