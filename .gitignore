@@ -3,3 +3,9 @@
 highlite-ops
 highlite-ops
 highlite-ops
+
+# Claude Code internals
+.claude/
+
+# Local working files
+*.pptx
