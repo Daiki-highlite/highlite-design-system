@@ -1,0 +1,1840 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Highlite — AI-Centered Management Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-primary:#D9D9D9;
+  --bg-surface:#FAF9F5;
+  --bg-dark:#1E2340;
+  --bg-mid:#DBDAD9;
+  --text-primary:#141413;
+  --text-body:#555555;
+  --text-white:#FFFFFF;
+  --text-muted:#888888;
+  --brand-blue:#3D5070;
+  --border:rgba(31,30,29,.4);
+  --crystal-purple:#9B8CC8;
+  --crystal-blue:#7BBAD4;
+  --crystal-pink:#C8A4C4;
+  --crystal-teal:#8CC4D0;
+  --gradient-crystal:linear-gradient(135deg,#B8A8D8 0%,#88B8D4 40%,#C4A8C8 100%);
+  --gradient-dark:linear-gradient(180deg,#1E2340 0%,#2D3560 60%,#3D4580 100%);
+  --font-en:'Optima','Optima Nova LT Pro','Candara',sans-serif;
+  --font-jp:'Noto Sans JP',serif;
+  --tracking-display:.2em;
+  --tracking-heading:.1em;
+  --tracking-label:.1em;
+  --shadow-sm:0 2px 8px rgba(0,0,0,.06);
+  --shadow-md:0 4px 24px rgba(0,0,0,.10);
+  --shadow-crystal:0 8px 40px rgba(155,140,200,.20);
+  --easing:cubic-bezier(.4,0,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:#F5F4F0;
+  color:var(--text-body);
+  font-family:var(--font-jp);
+  font-size:16px;
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+
+/* ===================== LAYOUT ===================== */
+.app{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
+
+/* Sidebar */
+.sidebar{
+  position:sticky;top:0;height:100vh;overflow-y:auto;
+  background:var(--bg-dark);
+  padding:40px 0;
+  display:flex;flex-direction:column;gap:0;
+}
+.sidebar-brand{padding:0 28px 28px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:24px}
+.brand-mark{display:flex;align-items:center;color:var(--text-white)}
+.brand-logo{
+  display:block;width:90px;height:auto;
+  filter:drop-shadow(0 2px 12px rgba(155,140,200,.28));
+}
+.brand-diamond{
+  width:18px;height:18px;transform:rotate(45deg);
+  background:var(--gradient-crystal);
+  box-shadow:var(--shadow-crystal);
+}
+.sidebar-tag{
+  margin-top:12px;color:rgba(255,255,255,.55);
+  font-size:10px;letter-spacing:.24em;text-transform:uppercase;
+}
+.nav{display:flex;flex-direction:column;gap:2px;padding:0 16px}
+.nav-item{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 14px;border-radius:4px;
+  color:rgba(255,255,255,.72);
+  font-size:13px;letter-spacing:.08em;
+  transition:background var(--easing) .15s,color var(--easing) .15s;
+}
+.nav-item:hover,.nav-item.active{color:var(--text-white);background:rgba(255,255,255,.07)}
+.nav-item .dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.35)}
+.nav-item.active .dot{background:var(--crystal-blue);box-shadow:0 0 8px var(--crystal-blue)}
+
+.sidebar-foot{margin-top:auto;padding:24px 28px;color:rgba(255,255,255,.4);font-size:10px;letter-spacing:.2em}
+
+/* Main */
+.main{padding:48px 64px 96px;max-width:1400px}
+section{margin-bottom:88px;scroll-margin-top:24px}
+.sec-head{display:flex;align-items:baseline;gap:20px;margin-bottom:28px}
+.sec-en{
+  font-family:var(--font-en);
+  font-size:28px;letter-spacing:var(--tracking-heading);font-weight:300;
+  color:var(--text-primary);
+}
+.sec-jp{font-size:13px;letter-spacing:var(--tracking-label);color:var(--text-muted)}
+.sec-rule{flex:1;height:1px;background:var(--border);opacity:.35;margin-left:8px}
+
+/* ===================== HERO / VISION ===================== */
+.hero{
+  position:relative;
+  padding:96px 80px;
+  border-radius:2px;
+  background:var(--gradient-dark);
+  color:var(--text-white);
+  overflow:hidden;
+  isolation:isolate;
+}
+.hero::before{
+  content:"";position:absolute;inset:-20% -10%;
+  background:radial-gradient(circle at 20% 30%,rgba(155,140,200,.28),transparent 55%),
+             radial-gradient(circle at 80% 70%,rgba(123,186,212,.22),transparent 55%);
+  z-index:-1;
+  animation:drift 18s var(--easing) infinite alternate;
+}
+@keyframes drift{to{transform:translate3d(-2%,1%,0) scale(1.04)}}
+.hero-tag{
+  font-family:var(--font-en);font-size:11px;letter-spacing:.32em;
+  color:rgba(255,255,255,.55);margin-bottom:20px;
+}
+.hero-title{
+  font-family:var(--font-jp);font-weight:300;
+  font-size:40px;line-height:1.55;letter-spacing:.04em;
+  margin-bottom:32px;
+}
+.hero-title strong{font-weight:500;background:var(--gradient-crystal);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-sub{max-width:640px;color:rgba(255,255,255,.68);font-size:14px;line-height:1.9}
+.hero-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:56px}
+.kpi{
+  padding:20px 0 0;border-top:1px solid rgba(255,255,255,.18);
+}
+.kpi-label{font-size:10px;letter-spacing:.24em;color:rgba(255,255,255,.5);text-transform:uppercase;margin-bottom:10px}
+.kpi-value{font-family:var(--font-en);font-weight:300;font-size:30px;color:var(--text-white);letter-spacing:.04em}
+.kpi-unit{font-size:12px;color:rgba(255,255,255,.5);margin-left:4px}
+
+/* ===================== AI HUB ===================== */
+.hub{
+  background:var(--bg-surface);
+  border-radius:2px;
+  padding:56px 64px;
+  border:.5px solid var(--border);
+  display:grid;grid-template-columns:1.1fr 1fr;gap:64px;align-items:center;
+}
+.hub-title{font-family:var(--font-en);font-weight:300;font-size:24px;letter-spacing:.16em;color:var(--text-primary);margin-bottom:16px}
+.hub-sub{font-size:14px;color:var(--text-body);line-height:2;margin-bottom:28px}
+.hub-pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 12px;border:.5px solid var(--border);border-radius:100px;
+  font-size:11px;letter-spacing:.08em;color:var(--text-body);background:#fff;
+}
+.pill::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--crystal-purple)}
+
+/* Orbit visual */
+.orbit{
+  position:relative;aspect-ratio:1/1;max-width:380px;margin:0 auto;
+}
+.orbit-core{
+  position:absolute;inset:36%;border-radius:50%;
+  background:var(--gradient-crystal);box-shadow:var(--shadow-crystal);
+  display:grid;place-items:center;color:#fff;
+  font-family:var(--font-en);font-size:13px;letter-spacing:.24em;
+}
+.orbit-ring{position:absolute;inset:0;border:.5px dashed rgba(30,35,64,.2);border-radius:50%;animation:spin 40s linear infinite}
+.orbit-ring.r2{inset:14%;animation-duration:28s;animation-direction:reverse}
+.orbit-ring.r3{inset:26%;animation-duration:20s}
+@keyframes spin{to{transform:rotate(360deg)}}
+.orbit-node{
+  position:absolute;width:54px;height:54px;border-radius:50%;
+  background:#fff;border:.5px solid var(--border);
+  display:grid;place-items:center;
+  font-family:var(--font-en);font-size:10px;letter-spacing:.16em;color:var(--text-primary);
+  box-shadow:var(--shadow-sm);
+}
+.orbit-node.n1{top:0;left:50%;transform:translate(-50%,-10%)}
+.orbit-node.n2{top:50%;right:0;transform:translate(10%,-50%)}
+.orbit-node.n3{bottom:0;left:50%;transform:translate(-50%,10%)}
+.orbit-node.n4{top:50%;left:0;transform:translate(-10%,-50%)}
+
+/* ===================== MISSION TIMELINE ===================== */
+.timeline{
+  position:relative;
+  padding-left:32px;
+}
+.timeline::before{
+  content:"";position:absolute;left:9px;top:10px;bottom:10px;width:1px;
+  background:linear-gradient(180deg,var(--crystal-purple),var(--crystal-blue),var(--crystal-teal));
+  opacity:.65;
+}
+.tl-item{position:relative;margin-bottom:18px}
+.tl-marker{
+  position:absolute;left:-28px;top:22px;
+  width:12px;height:12px;border-radius:50%;
+  background:#fff;border:1.5px solid var(--crystal-purple);
+  transition:transform var(--easing) .25s,background var(--easing) .25s;
+}
+.tl-item[open] .tl-marker,.tl-item:hover .tl-marker{background:var(--crystal-purple);transform:scale(1.25)}
+.tl-summary{
+  list-style:none;cursor:pointer;
+  display:grid;grid-template-columns:120px 1fr auto;gap:24px;align-items:center;
+  padding:18px 24px;
+  background:var(--bg-surface);
+  border:.5px solid var(--border);
+  border-radius:2px;
+  transition:box-shadow var(--easing) .2s,transform var(--easing) .2s;
+}
+.tl-summary::-webkit-details-marker{display:none}
+.tl-item[open] .tl-summary{box-shadow:var(--shadow-md);transform:translateX(2px)}
+.tl-horizon{font-family:var(--font-en);font-size:18px;letter-spacing:.16em;color:var(--text-primary)}
+.tl-horizon small{display:block;font-size:10px;color:var(--text-muted);letter-spacing:.24em;margin-top:4px}
+.tl-goal{font-size:14px;color:var(--text-primary);line-height:1.7}
+.tl-chev{font-family:var(--font-en);font-size:12px;letter-spacing:.2em;color:var(--text-muted);transition:transform var(--easing) .25s}
+.tl-item[open] .tl-chev{transform:rotate(90deg);color:var(--crystal-purple)}
+.tl-body{
+  margin:8px 0 8px;padding:24px 32px 24px 32px;
+  background:#fff;border:.5px solid var(--border);border-left:3px solid var(--crystal-purple);
+  border-radius:2px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+}
+.tl-block h5{font-size:11px;letter-spacing:.2em;color:var(--text-muted);text-transform:uppercase;margin-bottom:10px}
+.tl-block ul{list-style:none;display:flex;flex-direction:column;gap:6px}
+.tl-block li{font-size:13px;color:var(--text-body);padding-left:14px;position:relative}
+.tl-block li::before{content:"";position:absolute;left:0;top:10px;width:6px;height:1px;background:var(--crystal-blue)}
+
+/* ===================== MEMBERS ===================== */
+.member-tabs{display:flex;gap:4px;margin-bottom:20px}
+.member-tab{
+  font-family:var(--font-en);font-size:12px;letter-spacing:.16em;
+  padding:10px 20px;color:var(--text-muted);
+  border-bottom:1px solid transparent;transition:all var(--easing) .2s;
+}
+.member-tab.active{color:var(--text-primary);border-bottom-color:var(--crystal-purple)}
+.member-tab:hover{color:var(--text-primary)}
+.member-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.m-card{
+  position:relative;
+  background:var(--bg-surface);
+  border:.5px solid var(--border);
+  padding:24px 24px 20px;
+  border-radius:2px;
+  transition:transform var(--easing) .25s,box-shadow var(--easing) .25s;
+  overflow:hidden;
+}
+.m-card::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--gradient-crystal);opacity:.8;
+}
+.m-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.m-head{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.m-avatar{
+  width:44px;height:44px;border-radius:50%;
+  background:var(--gradient-crystal);
+  display:grid;place-items:center;color:#fff;
+  font-family:var(--font-en);font-size:14px;letter-spacing:.08em;
+}
+.m-name{font-size:15px;color:var(--text-primary);font-weight:500;letter-spacing:.04em}
+.m-role{font-size:10px;letter-spacing:.2em;color:var(--text-muted);text-transform:uppercase}
+.m-wcm{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.wcm{
+  padding:10px 10px 12px;background:#fff;border:.5px solid var(--border);
+  border-radius:2px;min-height:96px;
+}
+.wcm label{display:block;font-family:var(--font-en);font-size:10px;letter-spacing:.24em;color:var(--crystal-purple);margin-bottom:6px}
+.wcm.can label{color:var(--crystal-blue)}
+.wcm.must label{color:var(--crystal-pink)}
+.wcm p{font-size:12px;line-height:1.65;color:var(--text-body)}
+.m-quote{
+  padding:10px 14px;background:rgba(155,140,200,.08);border-left:2px solid var(--crystal-purple);
+  font-size:12px;color:var(--text-primary);line-height:1.7;font-style:italic;
+}
+
+/* ===================== PROJECTS ===================== */
+.pj-switcher{display:flex;gap:0;margin-bottom:28px;border-bottom:1px solid var(--border)}
+.pj-tab{
+  padding:14px 28px;
+  font-family:var(--font-en);font-size:13px;letter-spacing:.16em;color:var(--text-muted);
+  position:relative;transition:color var(--easing) .2s;
+}
+.pj-tab small{display:block;font-family:var(--font-jp);font-size:10px;letter-spacing:.12em;margin-top:4px}
+.pj-tab.active{color:var(--text-primary)}
+.pj-tab.active::after{
+  content:"";position:absolute;bottom:-1px;left:0;right:0;height:2px;
+  background:var(--gradient-crystal);
+}
+.pj-tab:hover{color:var(--text-primary)}
+.pj-pane{display:none;animation:fade .3s var(--easing)}
+.pj-pane.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* Ore — leads table */
+.pj-meta{display:flex;gap:24px;margin-bottom:20px;font-size:12px;color:var(--text-muted);letter-spacing:.08em}
+.pj-meta b{font-family:var(--font-en);font-weight:400;color:var(--text-primary);font-size:16px;margin-right:4px}
+
+.lead-table{
+  width:100%;border-collapse:collapse;
+  background:var(--bg-surface);border:.5px solid var(--border);
+  font-size:13px;
+}
+.lead-table th{
+  text-align:left;padding:14px 18px;
+  font-family:var(--font-en);font-weight:400;font-size:11px;letter-spacing:.18em;
+  color:var(--text-muted);text-transform:uppercase;
+  border-bottom:1px solid var(--border);background:#fff;
+}
+.lead-table td{
+  padding:16px 18px;border-bottom:.5px solid rgba(31,30,29,.12);color:var(--text-primary);
+}
+.lead-table tr:last-child td{border-bottom:none}
+.lead-table tr:hover td{background:rgba(155,140,200,.04)}
+.status{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:4px 10px;border-radius:100px;
+  font-size:11px;letter-spacing:.08em;
+  border:.5px solid var(--border);background:#fff;
+}
+.status::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--text-muted)}
+.status.prospect::before{background:var(--text-muted)}
+.status.proposing::before{background:var(--crystal-blue)}
+.status.negotiating::before{background:var(--crystal-purple)}
+.status.won::before{background:#6FB38A}
+.status.lost::before{background:#D68898}
+.prob{font-family:var(--font-en);font-size:13px;letter-spacing:.04em}
+.bar{position:relative;width:80px;height:4px;background:rgba(31,30,29,.08);border-radius:2px;overflow:hidden;margin-top:4px}
+.bar span{position:absolute;left:0;top:0;bottom:0;background:var(--gradient-crystal)}
+
+/* Lite — delivery cards */
+.deliver-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}
+.d-card{
+  background:var(--bg-surface);border:.5px solid var(--border);
+  padding:24px;border-radius:2px;position:relative;
+  transition:transform var(--easing) .2s,box-shadow var(--easing) .2s;
+}
+.d-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.d-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px}
+.d-title{font-size:15px;color:var(--text-primary);font-weight:500;letter-spacing:.04em;line-height:1.4}
+.d-client{font-size:11px;color:var(--text-muted);letter-spacing:.12em;margin-top:2px;text-transform:uppercase}
+.d-phase{
+  font-family:var(--font-en);font-size:10px;letter-spacing:.18em;
+  padding:4px 8px;background:rgba(123,186,212,.14);color:var(--brand-blue);
+  white-space:nowrap;
+}
+.d-progress{margin:14px 0}
+.d-progress-bar{height:4px;background:rgba(31,30,29,.08);border-radius:2px;overflow:hidden;position:relative}
+.d-progress-bar span{position:absolute;left:0;top:0;bottom:0;background:var(--gradient-crystal)}
+.d-progress-label{display:flex;justify-content:space-between;font-size:10px;color:var(--text-muted);letter-spacing:.12em;margin-bottom:6px;font-family:var(--font-en)}
+.d-foot{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--text-muted);letter-spacing:.08em;margin-top:14px;padding-top:14px;border-top:.5px solid var(--border)}
+.d-team{display:flex}
+.d-team .m-avatar{width:24px;height:24px;font-size:10px;margin-left:-6px;border:2px solid var(--bg-surface)}
+.d-team .m-avatar:first-child{margin-left:0}
+
+/* Crysta — archive */
+.crysta-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.c-card{
+  background:linear-gradient(135deg,rgba(155,140,200,.06),rgba(123,186,212,.06));
+  border:.5px solid var(--border);
+  padding:20px;border-radius:2px;
+  transition:transform var(--easing) .2s;
+}
+.c-card:hover{transform:translateY(-2px)}
+.c-year{font-family:var(--font-en);font-size:10px;letter-spacing:.24em;color:var(--crystal-purple);margin-bottom:6px}
+.c-title{font-size:14px;color:var(--text-primary);font-weight:500;line-height:1.5;margin-bottom:8px}
+.c-meta{font-size:11px;color:var(--text-muted);letter-spacing:.08em}
+.c-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.c-tag{font-size:10px;letter-spacing:.08em;padding:2px 8px;background:#fff;border:.5px solid var(--border);border-radius:100px;color:var(--text-body)}
+
+/* ===================== FLOW ===================== */
+.flow-lane{margin-bottom:48px}
+.flow-lane-head{
+  display:flex;align-items:baseline;justify-content:space-between;
+  margin-bottom:14px;padding-bottom:10px;border-bottom:.5px solid var(--border);
+}
+.flow-lane-title{font-family:var(--font-en);font-size:18px;letter-spacing:.16em;color:var(--text-primary)}
+.flow-lane-title small{font-family:var(--font-jp);font-size:11px;color:var(--text-muted);letter-spacing:.12em;margin-left:14px}
+.flow-lane-title .dot-color{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--phase-color,var(--crystal-purple));margin-right:10px;vertical-align:middle}
+.flow-lane-hint{font-family:var(--font-en);font-size:10px;letter-spacing:.2em;color:var(--text-muted)}
+
+.flow-rail{
+  display:flex;gap:0;
+  overflow-x:auto;overflow-y:hidden;
+  padding:8px 4px 18px;
+  scroll-snap-type:x proximity;
+  scroll-behavior:smooth;
+}
+.flow-rail::-webkit-scrollbar{height:8px}
+.flow-rail::-webkit-scrollbar-track{background:rgba(31,30,29,.04);border-radius:4px}
+.flow-rail::-webkit-scrollbar-thumb{background:rgba(31,30,29,.18);border-radius:4px}
+.flow-rail::-webkit-scrollbar-thumb:hover{background:rgba(31,30,29,.32)}
+
+.flow-step{
+  flex:0 0 360px;
+  scroll-snap-align:start;
+  background:var(--bg-surface);
+  border:.5px solid var(--border);
+  border-radius:2px;
+  padding:18px 20px;
+  position:relative;
+  display:flex;flex-direction:column;gap:12px;
+  transition:transform var(--easing) .25s,box-shadow var(--easing) .25s;
+}
+.flow-step::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--phase-color,var(--crystal-purple));opacity:.85;
+}
+.flow-step:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+
+.flow-arrow{
+  flex:0 0 28px;display:flex;align-items:center;justify-content:center;
+  color:var(--phase-color,var(--crystal-purple));
+  font-family:var(--font-en);font-size:18px;letter-spacing:0;opacity:.6;
+}
+
+.fs-head{
+  display:flex;align-items:flex-start;justify-content:space-between;
+  border-bottom:.5px solid var(--border);padding-bottom:10px;
+}
+.fs-num{
+  font-family:var(--font-en);font-size:11px;letter-spacing:.24em;
+  color:var(--phase-color,var(--crystal-purple));
+}
+.fs-title{text-align:right}
+.fs-jp{font-size:15px;color:var(--text-primary);font-weight:500;letter-spacing:.04em;line-height:1.3}
+.fs-en{font-family:var(--font-en);font-size:9px;letter-spacing:.22em;color:var(--text-muted);text-transform:uppercase;margin-top:2px}
+
+.fs-block h6{
+  font-family:var(--font-en);font-size:9px;letter-spacing:.24em;
+  color:var(--phase-color,var(--crystal-purple));
+  margin-bottom:6px;text-transform:uppercase;font-weight:500;
+}
+.fs-block ul{list-style:none;display:flex;flex-direction:column;gap:4px}
+.fs-block li{
+  font-size:11.5px;line-height:1.65;color:var(--text-body);
+  padding-left:10px;position:relative;
+}
+.fs-block li::before{
+  content:"";position:absolute;left:0;top:9px;width:5px;height:1px;
+  background:var(--phase-color,var(--crystal-purple));
+}
+
+.fs-prompt{
+  background:#1E2340;
+  color:rgba(255,255,255,.9);
+  font-family:'SF Mono','Menlo','Monaco','Consolas',monospace;
+  font-size:10.5px;line-height:1.7;
+  padding:9px 11px;
+  border-radius:2px;
+  border-left:2px solid var(--phase-color,var(--crystal-purple));
+  white-space:pre-wrap;
+  word-break:break-word;
+}
+.fs-prompt + .fs-prompt{margin-top:6px}
+.fs-prompt::before{
+  content:"› ";color:var(--phase-color,var(--crystal-purple));font-weight:700;
+}
+
+.fs-push{
+  background:rgba(31,30,29,.04);
+  padding:10px 12px;
+  border-left:2px solid var(--phase-color,var(--crystal-purple));
+  font-size:11px;line-height:1.75;color:var(--text-body);
+}
+.fs-push-ch{
+  display:inline-block;
+  font-family:'SF Mono','Menlo','Monaco','Consolas',monospace;
+  font-size:10px;letter-spacing:.02em;
+  background:#1E2340;color:#fff;
+  padding:2px 8px;border-radius:100px;
+  margin-bottom:8px;max-width:100%;
+  overflow:hidden;text-overflow:ellipsis;
+}
+.fs-push ul{list-style:none;display:flex;flex-direction:column;gap:3px}
+.fs-push li{padding-left:10px;position:relative;font-size:11px;line-height:1.65}
+.fs-push li::before{
+  content:"";position:absolute;left:0;top:9px;width:4px;height:4px;border-radius:50%;
+  background:var(--phase-color,var(--crystal-purple));opacity:.7;
+}
+
+.flow-loop{
+  margin:32px 0;
+  padding:18px 24px;
+  border:1px dashed var(--crystal-purple);
+  border-radius:2px;
+  display:flex;align-items:center;gap:16px;
+  background:linear-gradient(90deg,rgba(155,140,200,.06),rgba(123,186,212,.04));
+  font-size:12.5px;color:var(--text-primary);line-height:1.75;
+}
+.flow-loop-icon{
+  flex:0 0 auto;
+  font-family:var(--font-en);font-size:24px;
+  color:var(--crystal-purple);
+  width:44px;height:44px;
+  border-radius:50%;background:#fff;
+  display:grid;place-items:center;
+  border:.5px solid var(--crystal-purple);
+}
+.flow-loop code{
+  font-family:'SF Mono','Menlo','Monaco','Consolas',monospace;
+  font-size:11px;background:#1E2340;color:#fff;
+  padding:2px 8px;border-radius:100px;
+}
+
+.flow-channels{
+  margin-top:24px;
+  background:var(--bg-surface);border:.5px solid var(--border);
+  padding:24px 28px;border-radius:2px;
+}
+.flow-channels h4{
+  font-family:var(--font-en);font-size:13px;letter-spacing:.2em;
+  color:var(--text-primary);margin-bottom:6px;
+}
+.flow-channels p.lead{font-size:12px;color:var(--text-muted);margin-bottom:18px;letter-spacing:.04em}
+.flow-channels-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.fc-card{
+  padding:14px 16px;border:.5px solid var(--border);
+  border-radius:2px;background:#fff;
+  border-left:3px solid var(--phase-color,var(--crystal-purple));
+}
+.fc-card-ch{
+  font-family:'SF Mono','Menlo','Monaco','Consolas',monospace;
+  font-size:11px;color:#fff;background:#1E2340;
+  padding:3px 9px;border-radius:100px;display:inline-block;margin-bottom:10px;
+}
+.fc-card-role{font-size:11.5px;color:var(--text-body);line-height:1.7}
+
+/* Footer */
+.foot{
+  margin-top:80px;padding:32px 0 0;border-top:.5px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:11px;color:var(--text-muted);letter-spacing:.12em;
+}
+.foot .brand-diamond{width:12px;height:12px}
+
+/* Responsive */
+@media (max-width:1100px){
+  .app{grid-template-columns:1fr}
+  .sidebar{position:relative;height:auto;flex-direction:row;padding:20px;align-items:center;gap:16px;overflow-x:auto}
+  .sidebar-brand{padding:0 16px 0 0;border-bottom:none;border-right:1px solid rgba(255,255,255,.1);margin-bottom:0}
+  .nav{flex-direction:row;padding:0;gap:4px}
+  .nav-item{padding:8px 12px}
+  .sidebar-foot{display:none}
+  .main{padding:32px 24px 64px}
+  .hero{padding:56px 28px}
+  .hero-title{font-size:28px}
+  .hub{grid-template-columns:1fr;padding:32px 24px;gap:32px}
+  .tl-summary{grid-template-columns:80px 1fr auto;gap:12px;padding:14px 16px}
+  .tl-horizon{font-size:14px}
+  .tl-body{grid-template-columns:1fr;padding:18px}
+  .hero-kpis{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ============== SIDEBAR ============== -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-mark">
+        <img class="brand-logo" src="logo/logo-white.png" alt="Highlite" />
+      </div>
+      <div class="sidebar-tag">AI-Centered Management</div>
+    </div>
+    <nav class="nav" id="nav">
+      <a class="nav-item active" href="#vision"><span class="dot"></span>Vision</a>
+      <a class="nav-item" href="#hub"><span class="dot"></span>AI Hub</a>
+      <a class="nav-item" href="#mission"><span class="dot"></span>Mission</a>
+      <a class="nav-item" href="#member"><span class="dot"></span>Member</a>
+      <a class="nav-item" href="#flow"><span class="dot"></span>Flow</a>
+      <a class="nav-item" href="#project"><span class="dot"></span>Project</a>
+    </nav>
+    <div class="sidebar-foot">© HIGHLITE / 2026</div>
+  </aside>
+
+  <!-- ============== MAIN ============== -->
+  <main class="main">
+
+    <!-- ======= VISION ======= -->
+    <section id="vision">
+      <div class="hero">
+        <div class="hero-tag">OUR VISION — 2026 / 04</div>
+        <h1 class="hero-title">事業に<strong>余白</strong>を。<br>本当に大切なものへ<strong>向き合う</strong>ために。</h1>
+        <p class="hero-sub">AIを経営の中心に据え、人の判断力・創造力を最大化する。Highliteは、思考・提案・遂行のループをAIで加速し、メンバーが「余白」の中で本質に向き合える経営を目指します。</p>
+        <div class="hero-kpis">
+          <div class="kpi"><div class="kpi-label">Active Leads</div><div class="kpi-value">12<span class="kpi-unit">件</span></div></div>
+          <div class="kpi"><div class="kpi-label">Running PJ</div><div class="kpi-value">7<span class="kpi-unit">件</span></div></div>
+          <div class="kpi"><div class="kpi-label">Archive</div><div class="kpi-value">24<span class="kpi-unit">件</span></div></div>
+          <div class="kpi"><div class="kpi-label">Members</div><div class="kpi-value">11<span class="kpi-unit">名</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======= AI HUB ======= -->
+    <section id="hub">
+      <div class="sec-head">
+        <div class="sec-en">AI HUB</div>
+        <div class="sec-jp">AIを中心に据えた意思決定ループ</div>
+        <div class="sec-rule"></div>
+      </div>
+      <div class="hub">
+        <div>
+          <h3 class="hub-title">THE CENTER IS AI</h3>
+          <p class="hub-sub">Vision / Mission / Member / Project のすべてが、AIを経由して繋がる。AIはただの道具ではなく、問いを立て、文脈を繋ぎ、判断を加速する共同経営者。</p>
+          <div class="hub-pills">
+            <span class="pill">Strategy</span>
+            <span class="pill">Ops Automation</span>
+            <span class="pill">Knowledge Graph</span>
+            <span class="pill">Delivery</span>
+            <span class="pill">Reflection</span>
+            <span class="pill">Brand Voice</span>
+          </div>
+        </div>
+        <div class="orbit" aria-hidden="true">
+          <div class="orbit-ring"></div>
+          <div class="orbit-ring r2"></div>
+          <div class="orbit-ring r3"></div>
+          <div class="orbit-core">AI<br><small style="font-size:9px;letter-spacing:.16em;opacity:.8">CORE</small></div>
+          <div class="orbit-node n1">VISION</div>
+          <div class="orbit-node n2">PROJECT</div>
+          <div class="orbit-node n3">MEMBER</div>
+          <div class="orbit-node n4">MISSION</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======= MISSION TIMELINE ======= -->
+    <section id="mission">
+      <div class="sec-head">
+        <div class="sec-en">MISSION</div>
+        <div class="sec-jp">マイルストーンをドリルダウン</div>
+        <div class="sec-rule"></div>
+      </div>
+      <div class="timeline">
+
+        <details class="tl-item" open>
+          <summary class="tl-summary">
+            <span class="tl-marker"></span>
+            <span class="tl-horizon">10Y<small>2036</small></span>
+            <span class="tl-goal">[North Star] AI共創型の経営モデルを業界標準に押し上げ、自社と顧客双方の「余白」を生み出す基幹企業となる。</span>
+            <span class="tl-chev">DRILL ›</span>
+          </summary>
+          <div class="tl-body">
+            <div class="tl-block"><h5>Goal</h5><ul><li>[Placeholder] グループ連結売上 X億円</li><li>[Placeholder] AI共創事業が売上の50%超</li></ul></div>
+            <div class="tl-block"><h5>Org</h5><ul><li>[Placeholder] 正社員30名 / パートナー100名以上</li><li>[Placeholder] 海外拠点1</li></ul></div>
+            <div class="tl-block"><h5>Impact</h5><ul><li>[Placeholder] 顧客の平均労働時間-20%達成事例を100件</li></ul></div>
+          </div>
+        </details>
+
+        <details class="tl-item">
+          <summary class="tl-summary">
+            <span class="tl-marker"></span>
+            <span class="tl-horizon">5Y<small>2031</small></span>
+            <span class="tl-goal">[Placeholder] AI × プロフェッショナルのハイブリッド型デリバリーで、業界内トップクラスの利益率を確立。</span>
+            <span class="tl-chev">DRILL ›</span>
+          </summary>
+          <div class="tl-body">
+            <div class="tl-block"><h5>Goal</h5><ul><li>[Placeholder] 売上 X億円 / 営業利益率 XX%</li><li>[Placeholder] 自社プロダクト1本をローンチ</li></ul></div>
+            <div class="tl-block"><h5>Org</h5><ul><li>[Placeholder] 正社員15名 / パートナー50名</li></ul></div>
+            <div class="tl-block"><h5>Capability</h5><ul><li>[Placeholder] 独自ナレッジグラフの運用化</li></ul></div>
+          </div>
+        </details>
+
+        <details class="tl-item">
+          <summary class="tl-summary">
+            <span class="tl-marker"></span>
+            <span class="tl-horizon">3Y<small>2029</small></span>
+            <span class="tl-goal">[Placeholder] Ore→Lite→Crystaのオペレーションを標準化し、AIに任せられる領域を50%以上に。</span>
+            <span class="tl-chev">DRILL ›</span>
+          </summary>
+          <div class="tl-body">
+            <div class="tl-block"><h5>Goal</h5><ul><li>[Placeholder] 平均リードタイム -40%</li><li>[Placeholder] PJ利益率 +10pt</li></ul></div>
+            <div class="tl-block"><h5>Org</h5><ul><li>[Placeholder] 正社員8名 / パートナー25名</li></ul></div>
+            <div class="tl-block"><h5>Product</h5><ul><li>[Placeholder] 内製AIワークフロー10本以上</li></ul></div>
+          </div>
+        </details>
+
+        <details class="tl-item">
+          <summary class="tl-summary">
+            <span class="tl-marker"></span>
+            <span class="tl-horizon">1Y<small>2027</small></span>
+            <span class="tl-goal">[Placeholder] AIを中心に据えた経営ダッシュボードを全社で運用し、意思決定の起点にする。</span>
+            <span class="tl-chev">DRILL ›</span>
+          </summary>
+          <div class="tl-body">
+            <div class="tl-block"><h5>Goal</h5><ul><li>[Placeholder] 主要KPIをAI月次レビューで運用</li><li>[Placeholder] 年次売上 X,XXX万円</li></ul></div>
+            <div class="tl-block"><h5>Operation</h5><ul><li>[Placeholder] Ore/Lite/Crystaテンプレート完全稼働</li></ul></div>
+            <div class="tl-block"><h5>Brand</h5><ul><li>[Placeholder] Brand Voice Guideline v1公開</li></ul></div>
+          </div>
+        </details>
+
+        <details class="tl-item">
+          <summary class="tl-summary">
+            <span class="tl-marker"></span>
+            <span class="tl-horizon">6M<small>2026/10</small></span>
+            <span class="tl-goal">[Placeholder] このダッシュボードを中心に、週次運用サイクルを回す。</span>
+            <span class="tl-chev">DRILL ›</span>
+          </summary>
+          <div class="tl-body">
+            <div class="tl-block"><h5>Deliverables</h5><ul><li>[Placeholder] メンバーWill/Can/Must更新</li><li>[Placeholder] Ore 20件精査・Lite 10本並行</li></ul></div>
+            <div class="tl-block"><h5>Cadence</h5><ul><li>[Placeholder] 週次レビュー / 月次振り返り</li></ul></div>
+            <div class="tl-block"><h5>Risk</h5><ul><li>[Placeholder] 稼働集中の平準化ルール策定</li></ul></div>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- ======= MEMBER ======= -->
+    <section id="member">
+      <div class="sec-head">
+        <div class="sec-en">MEMBER</div>
+        <div class="sec-jp">社員 / パートナー</div>
+        <div class="sec-rule"></div>
+      </div>
+      <div class="member-tabs" role="tablist">
+        <button class="member-tab active" data-mtab="employee">EMPLOYEE / 社員</button>
+        <button class="member-tab" data-mtab="partner">PARTNER / 業務委託</button>
+      </div>
+
+      <div class="member-grid" id="member-employee">
+        <!-- Employee cards -->
+        <article class="m-card">
+          <div class="m-head">
+            <div class="m-avatar">DH</div>
+            <div><div class="m-name">[Placeholder] Daiki H.</div><div class="m-role">Founder / CEO</div></div>
+          </div>
+          <div class="m-wcm">
+            <div class="wcm will"><label>WILL</label><p>[Placeholder] 事業に余白を創る</p></div>
+            <div class="wcm can"><label>CAN</label><p>[Placeholder] 戦略・事業設計</p></div>
+            <div class="wcm must"><label>MUST</label><p>[Placeholder] 経営判断</p></div>
+          </div>
+          <div class="m-quote">「本当に大切なものへ向き合える会社を作る」</div>
+        </article>
+        <article class="m-card">
+          <div class="m-head"><div class="m-avatar">NM</div><div><div class="m-name">[Placeholder] Member 02</div><div class="m-role">Delivery Lead</div></div></div>
+          <div class="m-wcm">
+            <div class="wcm will"><label>WILL</label><p>[Placeholder] 記入予定</p></div>
+            <div class="wcm can"><label>CAN</label><p>[Placeholder] 記入予定</p></div>
+            <div class="wcm must"><label>MUST</label><p>[Placeholder] 記入予定</p></div>
+          </div>
+          <div class="m-quote">「[Placeholder] 一言」</div>
+        </article>
+        <article class="m-card">
+          <div class="m-head"><div class="m-avatar">NM</div><div><div class="m-name">[Placeholder] Member 03</div><div class="m-role">AI / Ops</div></div></div>
+          <div class="m-wcm">
+            <div class="wcm will"><label>WILL</label><p>[Placeholder] 記入予定</p></div>
+            <div class="wcm can"><label>CAN</label><p>[Placeholder] 記入予定</p></div>
+            <div class="wcm must"><label>MUST</label><p>[Placeholder] 記入予定</p></div>
+          </div>
+          <div class="m-quote">「[Placeholder] 一言」</div>
+        </article>
+        <article class="m-card">
+          <div class="m-head"><div class="m-avatar">NM</div><div><div class="m-name">[Placeholder] Member 04</div><div class="m-role">Sales / BizDev</div></div></div>
+          <div class="m-wcm">
+            <div class="wcm will"><label>WILL</label><p>[Placeholder] 記入予定</p></div>
+            <div class="wcm can"><label>CAN</label><p>[Placeholder] 記入予定</p></div>
+            <div class="wcm must"><label>MUST</label><p>[Placeholder] 記入予定</p></div>
+          </div>
+          <div class="m-quote">「[Placeholder] 一言」</div>
+        </article>
+      </div>
+
+      <div class="member-grid" id="member-partner" style="display:none">
+        <article class="m-card">
+          <div class="m-head"><div class="m-avatar">PT</div><div><div class="m-name">[Placeholder] Partner 01</div><div class="m-role">Designer</div></div></div>
+          <div class="m-wcm">
+            <div class="wcm will"><label>WILL</label><p>[Placeholder] 記入予定</p></div>
+            <div class="wcm can"><label>CAN</label><p>[Placeholder] UI/UX</p></div>
+            <div class="wcm must"><label>MUST</label><p>[Placeholder] 案件デリバリー</p></div>
+          </div>
+          <div class="m-quote">「[Placeholder] 一言」</div>
+        </article>
+        <article class="m-card">
+          <div class="m-head"><div class="m-avatar">PT</div><div><div class="m-name">[Placeholder] Partner 02</div><div class="m-role">Engineer</div></div></div>
+          <div class="m-wcm">
+            <div class="wcm will"><label>WILL</label><p>[Placeholder] 記入予定</p></div>
+            <div class="wcm can"><label>CAN</label><p>[Placeholder] 実装</p></div>
+            <div class="wcm must"><label>MUST</label><p>[Placeholder] 記入予定</p></div>
+          </div>
+          <div class="m-quote">「[Placeholder] 一言」</div>
+        </article>
+        <article class="m-card">
+          <div class="m-head"><div class="m-avatar">PT</div><div><div class="m-name">[Placeholder] Partner 03</div><div class="m-role">Writer</div></div></div>
+          <div class="m-wcm">
+            <div class="wcm will"><label>WILL</label><p>[Placeholder] 記入予定</p></div>
+            <div class="wcm can"><label>CAN</label><p>[Placeholder] 執筆・編集</p></div>
+            <div class="wcm must"><label>MUST</label><p>[Placeholder] 記入予定</p></div>
+          </div>
+          <div class="m-quote">「[Placeholder] 一言」</div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ======= FLOW ======= -->
+    <section id="flow">
+      <div class="sec-head">
+        <div class="sec-en">FLOW</div>
+        <div class="sec-jp">フェーズ別 業務フロー（具体アクション / AIプロンプト / Push）</div>
+        <div class="sec-rule"></div>
+      </div>
+
+      <!-- ============ ORE LANE ============ -->
+      <div class="flow-lane" style="--phase-color:var(--crystal-purple)">
+        <div class="flow-lane-head">
+          <div class="flow-lane-title"><span class="dot-color"></span>ORE<small>鉱石フェーズ — リード獲得</small></div>
+          <div class="flow-lane-hint">SCROLL →</div>
+        </div>
+        <div class="flow-rail">
+
+          <article class="flow-step">
+            <div class="fs-head">
+              <span class="fs-num">01</span>
+              <div class="fs-title"><div class="fs-jp">接点創出</div><div class="fs-en">Touchpoint</div></div>
+            </div>
+            <div class="fs-block">
+              <h6>具体アクション</h6>
+              <ul>
+                <li>月初: Notion「コンテンツバックログ」から週次公開テーマ確定</li>
+                <li>週3本: X / LinkedIn / note 投稿</li>
+                <li>月1: ウェビナー or 登壇枠を確保</li>
+                <li>既存顧客3社にリファラル依頼</li>
+              </ul>
+            </div>
+            <div class="fs-block">
+              <h6>AIプロンプト例</h6>
+              <div class="fs-prompt">今週のニュース [リンク] から、Highliteの「余白」というキーワードに紐づく投稿テーマを5案、各想定リーチも併記して</div>
+              <div class="fs-prompt">[業界トレンド記事] を、Highliteブランドボイスで400字のLinkedIn投稿に変換して</div>
+              <div class="fs-prompt">[既存顧客名] に紹介依頼するDM文を、過去のやり取りトーンで起案して</div>
+            </div>
+            <div class="fs-block">
+              <h6>Push</h6>
+              <div class="fs-push">
+                <span class="fs-push-ch">#ore-リード・アサイン情報-cc</span>
+                <ul>
+                  <li>月初9時: 前月接点KPIサマリ（インプレッション・リード化率）</li>
+                  <li>週次: 投稿エンゲージメント上位3件をハイライト</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <div class="flow-arrow">▶</div>
+
+          <article class="flow-step">
+            <div class="fs-head">
+              <span class="fs-num">02</span>
+              <div class="fs-title"><div class="fs-jp">インバウンド受付</div><div class="fs-en">Inquiry</div></div>
+            </div>
+            <div class="fs-block">
+              <h6>具体アクション</h6>
+              <ul>
+                <li>問い合わせ受領 → 24h以内に一次返信</li>
+                <li>初回MTG日程を3候補提示</li>
+                <li>Notion「Ore Pipeline」に新規レコード作成 + 担当アサイン</li>
+              </ul>
+            </div>
+            <div class="fs-block">
+              <h6>AIプロンプト例</h6>
+              <div class="fs-prompt">以下の問い合わせ文 [本文] から、業界・規模・想定ニーズを3行で要約し、初回返信ドラフト（候補3パターン: 課題深掘り型 / 事例提示型 / 短期相談型）を作って</div>
+              <div class="fs-prompt">[企業名] のWebサイト・プレス情報を踏まえ、初回MTGで聞くべき仮説質問を5つ</div>
+            </div>
+            <div class="fs-block">
+              <h6>Push</h6>
+              <div class="fs-push">
+                <span class="fs-push-ch">#ore-リード・アサイン情報-cc</span>
+                <ul>
+                  <li>受領即時: 「問い合わせ着弾 + 自動アサイン候補」を投稿</li>
+                  <li>20h経過で未返信: 担当者へDMリマインド</li>
+                  <li>24h超過: 同チャンネルに @here でエスカレーション</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <div class="flow-arrow">▶</div>
+
+          <article class="flow-step">
+            <div class="fs-head">
+              <span class="fs-num">03</span>
+              <div class="fs-title"><div class="fs-jp">ニーズ把握</div><div class="fs-en">Discovery / BANTC</div></div>
+            </div>
+            <div class="fs-block">
+              <h6>具体アクション</h6>
+              <ul>
+                <li>初回MTG前: BANTCシートに公開情報ベースの仮説を記入</li>
+                <li>MTG中: 録音 + 質問テンプレ運用</li>
+                <li>MTG後: 文字起こし → BANTCスコアリング → Disco Note 共有</li>
+              </ul>
+            </div>
+            <div class="fs-block">
+              <h6>AIプロンプト例</h6>
+              <div class="fs-prompt">[企業名] の公開情報（HP / プレス / 採用ページ / IR）から、BANTCの仮説（B/A/N/T/C 各2行）を埋めて</div>
+              <div class="fs-prompt">議事録 [本文] からB/A/N/T/Cの言及箇所を抽出し、各5段階で評価。根拠引用つきで</div>
+              <div class="fs-prompt">BANTCスコア合計 [数値] を踏まえ、次の打ち手を「即提案 / 追加ヒアリング / 一旦離脱」の3択で判定理由つきで</div>
+            </div>
+            <div class="fs-block">
+              <h6>Push</h6>
+              <div class="fs-push">
+                <span class="fs-push-ch">#ore-リード・アサイン情報-cc</span>
+                <ul>
+                  <li>MTG終了直後: 録音URL + 文字起こし起動</li>
+                  <li>文字起こし完了（〜2h）: AI生成のDisco Note草稿</li>
+                  <li>BANTC合計 ≧15点: @here で「提案ステージ昇格」</li>
+                  <li>BANTC合計 &lt;8点: 「Crystaモニタリング行き」通知</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <div class="flow-arrow">▶</div>
+
+          <article class="flow-step">
+            <div class="fs-head">
+              <span class="fs-num">04</span>
+              <div class="fs-title"><div class="fs-jp">提案</div><div class="fs-en">Proposal</div></div>
+            </div>
+            <div class="fs-block">
+              <h6>具体アクション</h6>
+              <ul>
+                <li>過去類似案件（Crystaから）を3件抽出</li>
+                <li>非同期レビュー1回（DM共有 / 48h以内）</li>
+                <li>見積 + 契約書ドラフト</li>
+                <li>提案送付 → 7日後フォローアップ予約</li>
+              </ul>
+            </div>
+            <div class="fs-block">
+              <h6>AIプロンプト例</h6>
+              <div class="fs-prompt">BANTCシート [リンク] と類似事例3件 [リンク] を踏まえ、提案書スケルトン（課題→解決→価値→投資→体制→次の一歩）をMarkdownで作って</div>
+              <div class="fs-prompt">提案書ドラフト [リンク] を Highlite ブランドボイス基準でレビューし、トーン外れ箇所を「現状 / 修正案 / 理由」の3列で指摘して</div>
+              <div class="fs-prompt">見積金額 [数値] の根拠を、工数内訳・類似案件比較・ROI試算の3観点で1ページにまとめて</div>
+            </div>
+            <div class="fs-block">
+              <h6>Push</h6>
+              <div class="fs-push">
+                <span class="fs-push-ch">#ore-リード・アサイン情報-cc</span>
+                <ul>
+                  <li>ドラフト完成: レビュー依頼（48hデッドライン明示）</li>
+                  <li>送付完了: 「[企業名] 提案送付（金額・確度）」報告</li>
+                  <li>7日返答なし: 担当者DMにフォローアップタスク発行</li>
+                  <li>受注: 同チャンネルに祝福投稿 + Lite フェーズへ自動移行</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- ============ LITE LANE ============ -->
+      <div class="flow-lane" style="--phase-color:var(--crystal-blue)">
+        <div class="flow-lane-head">
+          <div class="flow-lane-title"><span class="dot-color"></span>LITE<small>磨きフェーズ — デリバリー</small></div>
+          <div class="flow-lane-hint">SCROLL →</div>
+        </div>
+        <div class="flow-rail">
+
+          <article class="flow-step">
+            <div class="fs-head">
+              <span class="fs-num">01</span>
+              <div class="fs-title"><div class="fs-jp">デリバリーキックオフ</div><div class="fs-en">Kickoff</div></div>
+            </div>
+            <div class="fs-block">
+              <h6>具体アクション</h6>
+              <ul>
+                <li>契約締結 → 3営業日以内にキックオフMTG</li>
+                <li>顧客連絡は既存メール or 顧客側Slackをそのまま使う</li>
+                <li>ゴール / スコープ / 体制 / マイルストーン / リスクを明文化</li>
+              </ul>
+            </div>
+            <div class="fs-block">
+              <h6>AIプロンプト例</h6>
+              <div class="fs-prompt">提案書 [リンク] と契約書 [リンク] から、キックオフ資料（ゴール / スコープ / 体制 / マイルストーン / リスク）をスライド10枚構成で起案して</div>
+              <div class="fs-prompt">スコープから、初月マイルストーン3つと検収基準（測定可能な形式で）を提案して</div>
+              <div class="fs-prompt">キックオフ向けに、お互いの「期待値ズレが起きそうなポイント」を5つリストアップして</div>
+            </div>
+            <div class="fs-block">
+              <h6>Push</h6>
+              <div class="fs-push">
+                <span class="fs-push-ch">#lite-lapidaristデリバリー-cc</span>
+                <ul>
+                  <li>キックオフ終了: 議事録 + 録画リンクを投稿（顧客にもメールでミラー）</li>
+                  <li>ダッシュボードのLite一覧に該当PJを自動追加</li>
+                  <li>マイルストーン → カレンダーに反映</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <div class="flow-arrow">▶</div>
+
+          <article class="flow-step">
+            <div class="fs-head">
+              <span class="fs-num">02</span>
+              <div class="fs-title"><div class="fs-jp">定例のセット</div><div class="fs-en">Cadence</div></div>
+            </div>
+            <div class="fs-block">
+              <h6>具体アクション</h6>
+              <ul>
+                <li>週次・月次の定例MTGをGoogle Calendarで設定（顧客と共有）</li>
+                <li>アジェンダ・議事録テンプレを共有</li>
+                <li>返信SLA・緊急時対応・休暇ルールを文書化</li>
+              </ul>
+            </div>
+            <div class="fs-block">
+              <h6>AIプロンプト例</h6>
+              <div class="fs-prompt">PJ概要 [リンク] から、週次MTGアジェンダのテンプレ（30分構成 / 進捗・課題・次週計画・リスク）を作って</div>
+              <div class="fs-prompt">定例議事録 [本文] から、Action / Decision / Risk の3区分で要約し、各Actionに担当・期日を付与して</div>
+              <div class="fs-prompt">直近4週の議事録 [リンク] から、繰り返し出ている懸念トピックを抽出して</div>
+            </div>
+            <div class="fs-block">
+              <h6>Push</h6>
+              <div class="fs-push">
+                <span class="fs-push-ch">#lite-lapidaristデリバリー-cc</span>
+                <ul>
+                  <li>定例終了30分以内: AI生成議事録 + Action Items を投稿</li>
+                  <li>Action Items の期日2日前: 担当者DMにリマインダ</li>
+                  <li>期日超過: 同チャンネルにエスカレーション</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <div class="flow-arrow">▶</div>
+
+          <article class="flow-step">
+            <div class="fs-head">
+              <span class="fs-num">03</span>
+              <div class="fs-title"><div class="fs-jp">チームビルド</div><div class="fs-en">Team Build</div></div>
+            </div>
+            <div class="fs-block">
+              <h6>具体アクション</h6>
+              <ul>
+                <li>PJ要件 × メンバーWill/Can/Must でアサイン決定</li>
+                <li>パートナー含めたキャパチェック</li>
+                <li>簡易RACI（主担当 / レビュー / 情報共有）で運用</li>
+              </ul>
+            </div>
+            <div class="fs-block">
+              <h6>AIプロンプト例</h6>
+              <div class="fs-prompt">PJ要件 [本文] とメンバー一覧 [Will/Can/Must テーブル] を照合し、最適アサイン候補を3パターン提案。各案の Pro/Con と稼働インパクトも併記</div>
+              <div class="fs-prompt">アサインメンバーの直近4週間の稼働率 [データ] から、追加余力を評価して。80%超は赤字で警告</div>
+              <div class="fs-prompt">メンバー [氏名] の Will [リンク] と、このPJのスコープを踏まえ、本人のキャリア成長メリットを1段落で</div>
+            </div>
+            <div class="fs-block">
+              <h6>Push</h6>
+              <div class="fs-push">
+                <span class="fs-push-ch">#lite-lapidaristデリバリー-cc</span>
+                <ul>
+                  <li>アサイン確定: 「PJ / 主担当 / 想定稼働」を投稿 + 個別メンバーDM</li>
+                  <li>稼働率80%超メンバーがアサインされた場合: @here 警告</li>
+                  <li>パートナー稼働: 業務委託契約書発行タスクを同チャンネルに起票</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <div class="flow-arrow">▶</div>
+
+          <article class="flow-step">
+            <div class="fs-head">
+              <span class="fs-num">04</span>
+              <div class="fs-title"><div class="fs-jp">デリバリー運営</div><div class="fs-en">Operations</div></div>
+            </div>
+            <div class="fs-block">
+              <h6>具体アクション</h6>
+              <ul>
+                <li>週次進捗レビュー（社内）</li>
+                <li>中間納品 → クライアントレビュー</li>
+                <li>最終納品 → 検収 → 請求へバトン</li>
+              </ul>
+            </div>
+            <div class="fs-block">
+              <h6>AIプロンプト例</h6>
+              <div class="fs-prompt">過去1週間のPJチャットログ [リンク] から、進捗 / ブロッカー / 次週計画 を3行で要約して</div>
+              <div class="fs-prompt">納品物 [リンク] を、契約書のスコープ条件 [リンク] と照合し、抜け漏れを「項目 / 状態 / 対応案」の3列で出力</div>
+              <div class="fs-prompt">検収完了報告メールを、顧客担当者 [氏名・役職] 向けに丁寧体で起案。次のCrystaフェーズ提案も最後の1段落で</div>
+            </div>
+            <div class="fs-block">
+              <h6>Push</h6>
+              <div class="fs-push">
+                <span class="fs-push-ch">#lite-lapidaristデリバリー-cc</span>
+                <ul>
+                  <li>毎週金曜17時: 全Lite PJの進捗サマリを一括投稿</li>
+                  <li>タスク期日3日前未完了: 担当者DM</li>
+                  <li>検収完了: 同チャンネルに祝福 + 請求フローへバトン</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- ============ LITE-ブランドデザイン SUB-LANE ============ -->
+      <div class="flow-lane" style="--phase-color:#6E7DA8">
+        <div class="flow-lane-head">
+          <div class="flow-lane-title"><span class="dot-color"></span>LITE / ブランドデザイン<small>価値定義 → デザインシステム → 実装連携</small></div>
+          <div class="flow-lane-hint">SCROLL →</div>
+        </div>
+        <div class="flow-rail">
+
+          <article class="flow-step">
+            <div class="fs-head">
+              <span class="fs-num">01</span>
+              <div class="fs-title"><div class="fs-jp">コア価値の特定</div><div class="fs-en">Core Value</div></div>
+            </div>
+            <div class="fs-block">
+              <h6>具体アクション</h6>
+              <ul>
+                <li>キックオフで得たコンテキストを整理</li>
+                <li>クライアントとのワークショップで「なぜ存在するか」を抽出</li>
+                <li>コアバリュー・パーパスを言語化</li>
+              </ul>
+            </div>
+            <div class="fs-block">
+              <h6>AIプロンプト例</h6>
+              <div class="fs-prompt">キックオフ議事録 [リンク] と顧客の事業内容 [リンク] から、ブランドのコア価値仮説を5案抽出。各案の根拠を併記して</div>
+              <div class="fs-prompt">[クライアント名] の競合5社のミッションステートメントと比較し、差別化ポイントを抽出して</div>
+              <div class="fs-prompt">コア価値ワークショップ用の質問リスト（30分構成 / 3パート）を作って</div>
+            </div>
+            <div class="fs-block">
+              <h6>Push</h6>
+              <div class="fs-push">
+                <span class="fs-push-ch">#lite-lapidaristデリバリー-cc</span>
+                <ul>
+                  <li>ワークショップ後: コア価値仮説3案を投稿</li>
+                  <li>合意完了: コア価値文書を同チャンネルにピン留め</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <div class="flow-arrow">▶</div>
+
+          <article class="flow-step">
+            <div class="fs-head">
+              <span class="fs-num">02</span>
+              <div class="fs-title"><div class="fs-jp">ブランド定義</div><div class="fs-en">Brand Definition</div></div>
+            </div>
+            <div class="fs-block">
+              <h6>具体アクション</h6>
+              <ul>
+                <li>パーパス・ビジョン・ミッション・バリューを言語化</li>
+                <li>パーソナリティ・トーンを定義</li>
+                <li>ブランドピラーを構造化</li>
+              </ul>
+            </div>
+            <div class="fs-block">
+              <h6>AIプロンプト例</h6>
+              <div class="fs-prompt">コア価値 [本文] を踏まえ、Vision / Mission / Values の3点セットを起案。各3案ずつ</div>
+              <div class="fs-prompt">ブランドパーソナリティを Big Five 軸で定量化し、レーダーチャート用のスコアと根拠を出力して</div>
+              <div class="fs-prompt">競合 [リスト] のトーン分析を踏まえ、本ブランドの独自トーン位置（warm/cool, formal/casual の2軸）を決定して</div>
+            </div>
+            <div class="fs-block">
+              <h6>Push</h6>
+              <div class="fs-push">
+                <span class="fs-push-ch">#lite-lapidaristデリバリー-cc</span>
+                <ul>
+                  <li>ブランド定義書ドラフト完成: レビュー依頼</li>
+                  <li>承認完了: 同チャンネルにピン留め</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <div class="flow-arrow">▶</div>
+
+          <article class="flow-step">
+            <div class="fs-head">
+              <span class="fs-num">03</span>
+              <div class="fs-title"><div class="fs-jp">コミュニケーションデザインの設定</div><div class="fs-en">Communication Design</div></div>
+            </div>
+            <div class="fs-block">
+              <h6>具体アクション</h6>
+              <ul>
+                <li>メッセージング階層（タグライン / メイン / サブ）を設計</li>
+                <li>ターゲットセグメント別のコミュニケーション軸を定義</li>
+                <li>主要チャネルでの表現ルール</li>
+              </ul>
+            </div>
+            <div class="fs-block">
+              <h6>AIプロンプト例</h6>
+              <div class="fs-prompt">ブランド定義 [リンク] から、ターゲット3セグメント向けのキーメッセージを各3案ずつ起案して</div>
+              <div class="fs-prompt">タグライン候補10本を、文字数・感情トーン・差別化度の3軸でスコアリング</div>
+              <div class="fs-prompt">主要チャネル（Web / SNS / 営業資料）ごとのトーン使い分けマトリクスを作って</div>
+            </div>
+            <div class="fs-block">
+              <h6>Push</h6>
+              <div class="fs-push">
+                <span class="fs-push-ch">#lite-lapidaristデリバリー-cc</span>
+                <ul>
+                  <li>メッセージング設計完成: サマリ投稿</li>
+                  <li>承認完了: メッセージングシートをピン留め</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <div class="flow-arrow">▶</div>
+
+          <article class="flow-step">
+            <div class="fs-head">
+              <span class="fs-num">04</span>
+              <div class="fs-title"><div class="fs-jp">テイストの決定</div><div class="fs-en">Taste Direction</div></div>
+            </div>
+            <div class="fs-block">
+              <h6>具体アクション</h6>
+              <ul>
+                <li>ムードボード作成（参考事例10〜20点）</li>
+                <li>クライアントとのテイスト方向性すり合わせ</li>
+                <li>言語化（モダン / クラシカル / 有機的 etc.）</li>
+              </ul>
+            </div>
+            <div class="fs-block">
+              <h6>AIプロンプト例</h6>
+              <div class="fs-prompt">ブランド定義 [リンク] とコミュニケーション設計 [リンク] から、デザインテイストの方向性を3案（各案にムードボード参考キーワード10件）</div>
+              <div class="fs-prompt">[業界] のリーディングブランド10社のビジュアル傾向を、形 / 色 / 余白 / 質感の4軸で分析して</div>
+              <div class="fs-prompt">ムードボード [リンク] から、クライアントが反応しそうなキーワード上位5つを抽出</div>
+            </div>
+            <div class="fs-block">
+              <h6>Push</h6>
+              <div class="fs-push">
+                <span class="fs-push-ch">#lite-lapidaristデリバリー-cc</span>
+                <ul>
+                  <li>ムードボード完成: クライアントレビュー前に同チャンネル投稿</li>
+                  <li>テイスト確定: 方向性キーワードをピン留め</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <div class="flow-arrow">▶</div>
+
+          <article class="flow-step">
+            <div class="fs-head">
+              <span class="fs-num">05</span>
+              <div class="fs-title"><div class="fs-jp">要素構成の決定</div><div class="fs-en">Element Composition / Claude Design</div></div>
+            </div>
+            <div class="fs-block">
+              <h6>具体アクション</h6>
+              <ul>
+                <li>ロゴ・タイポ・カラー・グリッド・モチーフの構成方針を決定</li>
+                <li>各要素の検討数と優先順位を設定</li>
+                <li>Claude Designに必要な入力情報を整理</li>
+              </ul>
+            </div>
+            <div class="fs-block">
+              <h6>AIプロンプト例</h6>
+              <div class="fs-prompt">テイスト方向性 [リンク] から、ロゴモチーフ候補を5案（形態 / 由来 / 想起される印象 を併記）</div>
+              <div class="fs-prompt">カラーパレットの仮案を3パターン（ベース / アクセント / セミトーン の組み合わせ）。各パターンの心理的効果も</div>
+              <div class="fs-prompt">タイポグラフィの組み合わせ案を3パターン（見出し用 / 本文用 / アクセント）</div>
+            </div>
+            <div class="fs-block">
+              <h6>Push</h6>
+              <div class="fs-push">
+                <span class="fs-push-ch">#lite-lapidaristデリバリー-cc</span>
+                <ul>
+                  <li>要素構成方針完成: サマリ投稿</li>
+                  <li>Claude Design発注: 進行ステータスを共有</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <div class="flow-arrow">▶</div>
+
+          <article class="flow-step">
+            <div class="fs-head">
+              <span class="fs-num">06</span>
+              <div class="fs-title"><div class="fs-jp">デザインシステムの参照</div><div class="fs-en">Design System Reference / Claude Design</div></div>
+            </div>
+            <div class="fs-block">
+              <h6>具体アクション</h6>
+              <ul>
+                <li>過去事例のデザインシステムを参照</li>
+                <li>業界横断のベストプラクティスを参照</li>
+                <li>ブランド固有の制約条件をClaude Designに渡す</li>
+              </ul>
+            </div>
+            <div class="fs-block">
+              <h6>AIプロンプト例</h6>
+              <div class="fs-prompt">要素構成方針 [リンク] と類似事例 [リンク3件] を踏まえ、本案件のデザインシステム骨格（カラートークン / タイポスケール / スペーシング / コンポーネント）を定義して</div>
+              <div class="fs-prompt">[業界] のデザインシステム5社の特徴を、トークン粒度 / 命名規則 / アクセシビリティ の3軸で比較して</div>
+              <div class="fs-prompt">本案件のデザイン制約（フォント費用 / アクセシビリティ / 多言語対応 etc.）チェックリストを作って</div>
+            </div>
+            <div class="fs-block">
+              <h6>Push</h6>
+              <div class="fs-push">
+                <span class="fs-push-ch">#lite-lapidaristデリバリー-cc</span>
+                <ul>
+                  <li>デザインシステム骨格完成: 共有</li>
+                  <li>参照事例リスト完成: 同チャンネルに投稿</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <div class="flow-arrow">▶</div>
+
+          <article class="flow-step">
+            <div class="fs-head">
+              <span class="fs-num">07</span>
+              <div class="fs-title"><div class="fs-jp">デザイン案の提示</div><div class="fs-en">Design Proposal / Claude Design</div></div>
+            </div>
+            <div class="fs-block">
+              <h6>具体アクション</h6>
+              <ul>
+                <li>Claude Designで初回デザイン案を生成</li>
+                <li>3〜5案のバリエーション</li>
+                <li>内部レビュー → クライアントレビュー</li>
+              </ul>
+            </div>
+            <div class="fs-block">
+              <h6>AIプロンプト例</h6>
+              <div class="fs-prompt">要素構成 [リンク] とデザインシステム骨格 [リンク] から、メインビジュアル3案・ロゴ3案・キーカラーパレット3案 を生成して</div>
+              <div class="fs-prompt">生成案 [リンク] を、ブランド定義 [リンク] に対する忠実度・新規性・実現可能性 の3軸でスコアリング</div>
+              <div class="fs-prompt">クライアントへの提案ナラティブ（各案の意図・想起される印象・採用時のリスク）を起案して</div>
+            </div>
+            <div class="fs-block">
+              <h6>Push</h6>
+              <div class="fs-push">
+                <span class="fs-push-ch">#lite-lapidaristデリバリー-cc</span>
+                <ul>
+                  <li>初回デザイン案完成: 同チャンネルにサムネ投稿</li>
+                  <li>クライアントレビュー実施: 結果サマリ投稿</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <div class="flow-arrow">▶</div>
+
+          <article class="flow-step">
+            <div class="fs-head">
+              <span class="fs-num">08</span>
+              <div class="fs-title"><div class="fs-jp">Figmaへの連携</div><div class="fs-en">Figma Handoff</div></div>
+            </div>
+            <div class="fs-block">
+              <h6>具体アクション</h6>
+              <ul>
+                <li>Claude Designの出力をFigmaに取り込み</li>
+                <li>レイヤー構造・命名・コンポーネント化</li>
+                <li>デザインシステムをFigma Variablesで実装</li>
+              </ul>
+            </div>
+            <div class="fs-block">
+              <h6>AIプロンプト例</h6>
+              <div class="fs-prompt">Claude Design出力 [リンク] のレイヤー命名規則を、Figmaのオートレイアウト/コンポーネント階層に最適化した案を出力</div>
+              <div class="fs-prompt">デザイントークン [リンク] を Figma Variables として定義する JSON 構造を生成して</div>
+              <div class="fs-prompt">主要コンポーネント [リスト] の Variants 構成（プロパティ・状態の組み合わせ）を表形式で</div>
+            </div>
+            <div class="fs-block">
+              <h6>Push</h6>
+              <div class="fs-push">
+                <span class="fs-push-ch">#lite-lapidaristデリバリー-cc</span>
+                <ul>
+                  <li>Figma取り込み完了: ファイルURLを投稿</li>
+                  <li>コンポーネント化完了: コンポーネント一覧をピン留め</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <div class="flow-arrow">▶</div>
+
+          <article class="flow-step">
+            <div class="fs-head">
+              <span class="fs-num">09</span>
+              <div class="fs-title"><div class="fs-jp">Figmaでの細部表現</div><div class="fs-en">Figma Detail Refinement</div></div>
+            </div>
+            <div class="fs-block">
+              <h6>具体アクション</h6>
+              <ul>
+                <li>インタラクション・ホバー・トランジションの定義</li>
+                <li>レスポンシブブレイクポイント</li>
+                <li>エッジケース（エラー・空状態・ローディング）の表現</li>
+              </ul>
+            </div>
+            <div class="fs-block">
+              <h6>AIプロンプト例</h6>
+              <div class="fs-prompt">主要コンポーネント [リスト] それぞれの状態（default / hover / active / disabled / error）の定義表を出力して</div>
+              <div class="fs-prompt">モバイル(375)/タブレット(768)/デスクトップ(1280) のブレイクポイントごとに、レイアウト変化のルールを記述して</div>
+              <div class="fs-prompt">空状態・エラー・ローディングのマイクロコピー候補を、ブランドトーンに沿って3パターンずつ</div>
+            </div>
+            <div class="fs-block">
+              <h6>Push</h6>
+              <div class="fs-push">
+                <span class="fs-push-ch">#lite-lapidaristデリバリー-cc</span>
+                <ul>
+                  <li>細部実装完了: スクリーンショット付き共有</li>
+                  <li>QAレビュー完了: 修正リストをピン留め</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <div class="flow-arrow">▶</div>
+
+          <article class="flow-step">
+            <div class="fs-head">
+              <span class="fs-num">10</span>
+              <div class="fs-title"><div class="fs-jp">エンジニアまたは先方への展開</div><div class="fs-en">Engineering Handoff</div></div>
+            </div>
+            <div class="fs-block">
+              <h6>具体アクション</h6>
+              <ul>
+                <li>実装スペック（Dev Mode / Storybook / トークンJSON）の整備</li>
+                <li>引き継ぎMTG実施</li>
+                <li>質問対応窓口の設定</li>
+              </ul>
+            </div>
+            <div class="fs-block">
+              <h6>AIプロンプト例</h6>
+              <div class="fs-prompt">Figma Dev Mode の出力 [リンク] から、エンジニア向け実装ガイド（コンポーネント / トークン / アクセシビリティ要件）を Markdown で起案</div>
+              <div class="fs-prompt">引き継ぎMTGのアジェンダ（30分構成 / デザインインテント・実装注意点・QAチェックリスト）を作って</div>
+              <div class="fs-prompt">デザイン → コードのギャップが生じやすいポイントを5つリストアップ</div>
+            </div>
+            <div class="fs-block">
+              <h6>Push</h6>
+              <div class="fs-push">
+                <span class="fs-push-ch">#lite-lapidaristデリバリー-cc</span>
+                <ul>
+                  <li>引き継ぎMTG完了: 議事録 + 質問対応窓口を投稿</li>
+                  <li>実装中の質問対応: スレッドで継続</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- ============ LITE-請求 SUB-LANE ============ -->
+      <div class="flow-lane" style="--phase-color:var(--crystal-teal)">
+        <div class="flow-lane-head">
+          <div class="flow-lane-title"><span class="dot-color"></span>LITE / 請求<small>検収後の専用線 — Operations 04 から分岐</small></div>
+          <div class="flow-lane-hint">SCROLL →</div>
+        </div>
+        <div class="flow-rail">
+
+          <article class="flow-step">
+            <div class="fs-head">
+              <span class="fs-num">01</span>
+              <div class="fs-title"><div class="fs-jp">請求書発行</div><div class="fs-en">Invoice</div></div>
+            </div>
+            <div class="fs-block">
+              <h6>具体アクション</h6>
+              <ul>
+                <li>検収完了 → 5営業日以内に請求書発行</li>
+                <li>件名・金額・支払期日・備考を契約書から自動引用</li>
+                <li>顧客送付 + 控えを社内ストレージへ保存</li>
+              </ul>
+            </div>
+            <div class="fs-block">
+              <h6>AIプロンプト例</h6>
+              <div class="fs-prompt">検収報告 [リンク] と契約書 [リンク] から、請求書記載項目（件名・金額・支払期日・備考）を生成して</div>
+              <div class="fs-prompt">請求書送付メールを、顧客担当者 [氏名] 向けに丁寧体で起案。支払期日と振込先を明記</div>
+            </div>
+            <div class="fs-block">
+              <h6>Push</h6>
+              <div class="fs-push">
+                <span class="fs-push-ch">#lite-請求・入金-cc</span>
+                <ul>
+                  <li>検収完了: 「[PJ名] 請求書発行タスク（期日: X日後）」起票</li>
+                  <li>請求書送付完了: 「[PJ名] 入金期日 X月X日」を記録</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <div class="flow-arrow">▶</div>
+
+          <article class="flow-step">
+            <div class="fs-head">
+              <span class="fs-num">02</span>
+              <div class="fs-title"><div class="fs-jp">入金管理</div><div class="fs-en">Payment Tracking</div></div>
+            </div>
+            <div class="fs-block">
+              <h6>具体アクション</h6>
+              <ul>
+                <li>入金期日カレンダーを月次で確認</li>
+                <li>期日近接案件をピックアップ</li>
+                <li>必要に応じて事前リマインドを顧客に送信</li>
+              </ul>
+            </div>
+            <div class="fs-block">
+              <h6>AIプロンプト例</h6>
+              <div class="fs-prompt">入金期日が今週の請求 [リスト] について、顧客向けの事前リマインドメール（簡潔・フレンドリー）を起案して</div>
+              <div class="fs-prompt">入金期日を [X日] 過ぎた請求 [リスト] について、催促メール（1次: 丁寧 / 2次: 念押し / 3次: 経営層宛）の3段階ドラフトを作って</div>
+            </div>
+            <div class="fs-block">
+              <h6>Push</h6>
+              <div class="fs-push">
+                <span class="fs-push-ch">#lite-請求・入金-cc</span>
+                <ul>
+                  <li>入金期日3日前未入金: 担当者DM</li>
+                  <li>入金期日超過: @here で催促タスク発行</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <div class="flow-arrow">▶</div>
+
+          <article class="flow-step">
+            <div class="fs-head">
+              <span class="fs-num">03</span>
+              <div class="fs-title"><div class="fs-jp">入金確認</div><div class="fs-en">Settlement</div></div>
+            </div>
+            <div class="fs-block">
+              <h6>具体アクション</h6>
+              <ul>
+                <li>銀行口座を週次で照合</li>
+                <li>入金確認 → 該当PJをCrystaへ正式移行</li>
+                <li>月次決算データに反映</li>
+              </ul>
+            </div>
+            <div class="fs-block">
+              <h6>AIプロンプト例</h6>
+              <div class="fs-prompt">通帳CSV [データ] と未収請求リスト [データ] を照合し、入金マッチング結果を「請求番号 / 入金日 / 差額」の表で出力して</div>
+              <div class="fs-prompt">月次の入金完了PJ一覧から、Crysta移行通知の社内アナウンス文を作って</div>
+            </div>
+            <div class="fs-block">
+              <h6>Push</h6>
+              <div class="fs-push">
+                <span class="fs-push-ch">#lite-請求・入金-cc</span>
+                <ul>
+                  <li>入金確認: 「[PJ名] 入金完了」を投稿（Crysta移行トリガー）</li>
+                  <li>月初9時: 前月の入金完了サマリ + 未収残レポート</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- ============ CRYSTA LANE ============ -->
+      <div class="flow-lane" style="--phase-color:var(--crystal-pink)">
+        <div class="flow-lane-head">
+          <div class="flow-lane-title"><span class="dot-color"></span>CRYSTA<small>結晶フェーズ — ナーチャリング</small></div>
+          <div class="flow-lane-hint">SCROLL →</div>
+        </div>
+        <div class="flow-rail">
+
+          <article class="flow-step">
+            <div class="fs-head">
+              <span class="fs-num">01</span>
+              <div class="fs-title"><div class="fs-jp">実績開示の許可</div><div class="fs-en">Disclosure</div></div>
+            </div>
+            <div class="fs-block">
+              <h6>具体アクション</h6>
+              <ul>
+                <li>入金完了後 2週間以内に実績開示打診</li>
+                <li>開示範囲を協議（実名 / 業種匿名 / 数値レンジ）</li>
+                <li>公開許諾書取得 → 事例コンテンツ化</li>
+              </ul>
+            </div>
+            <div class="fs-block">
+              <h6>AIプロンプト例</h6>
+              <div class="fs-prompt">PJ概要 [リンク] と顧客との関係性 [メモ] から、実績開示打診メールを起案して。開示パターン3案（実名 / 業種匿名 / 数値レンジのみ）を併記</div>
+              <div class="fs-prompt">合意済み開示条件 [本文] を踏まえ、Web掲載用の事例記事（800字 / 課題→アプローチ→成果→顧客の声）を起案</div>
+              <div class="fs-prompt">事例記事ドラフト [リンク] から、SNS用の引用ポスト案を3パターン（X / LinkedIn / note冒頭）</div>
+            </div>
+            <div class="fs-block">
+              <h6>Push</h6>
+              <div class="fs-push">
+                <span class="fs-push-ch">#cry-ナーチャリング・イベント-cc</span>
+                <ul>
+                  <li>Crysta移行時: 担当者DMに「実績開示打診」タスク自動発行</li>
+                  <li>許諾書取得: 「[PJ名] 事例コンテンツ化開始」投稿</li>
+                  <li>公開完了: 同チャンネルに公開URL投稿</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <div class="flow-arrow">▶</div>
+
+          <article class="flow-step">
+            <div class="fs-head">
+              <span class="fs-num">02</span>
+              <div class="fs-title"><div class="fs-jp">他イベントの開催</div><div class="fs-en">Co-event</div></div>
+            </div>
+            <div class="fs-block">
+              <h6>具体アクション</h6>
+              <ul>
+                <li>共催可能な形式を協議（ウェビナー / 対談 / オフライン勉強会）</li>
+                <li>企画 → 集客 → 当日運営 → アーカイブ</li>
+                <li>参加者リストをCRMへ取り込み（新規Ore候補化）</li>
+              </ul>
+            </div>
+            <div class="fs-block">
+              <h6>AIプロンプト例</h6>
+              <div class="fs-prompt">顧客の業種 [情報] と弊社の強み [情報] を踏まえ、共催ウェビナーのテーマ案を5つ。各テーマの想定ターゲット・予想参加者数も併記</div>
+              <div class="fs-prompt">過去の参加者層 [データ] と今回テーマから、集客文（LinkedIn 1案 / メール 1案 / X 1案）を作って</div>
+              <div class="fs-prompt">イベント後アンケート結果 [データ] から、新しい提案機会につながる発言を抽出して</div>
+            </div>
+            <div class="fs-block">
+              <h6>Push</h6>
+              <div class="fs-push">
+                <span class="fs-push-ch">#cry-ナーチャリング・イベント-cc</span>
+                <ul>
+                  <li>入金完了から30日経過Crystaに、共催イベント提案リマインダを担当者DM</li>
+                  <li>開催確定: 同チャンネルに告知準備依頼を投稿</li>
+                  <li>イベント終了: 参加者リストを #ore- に流し込み</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <div class="flow-arrow">▶</div>
+
+          <article class="flow-step">
+            <div class="fs-head">
+              <span class="fs-num">03</span>
+              <div class="fs-title"><div class="fs-jp">ブランド索敵</div><div class="fs-en">Brand Sensing</div></div>
+            </div>
+            <div class="fs-block">
+              <h6>具体アクション</h6>
+              <ul>
+                <li>過去顧客の発信（プレス・SNS・採用・IR）を月次モニタリング</li>
+                <li>新ニーズ仮説 → 再提案候補リスト化</li>
+                <li>必要なら Ore 01 へエスカレーション（ループ起点）</li>
+              </ul>
+            </div>
+            <div class="fs-block">
+              <h6>AIプロンプト例</h6>
+              <div class="fs-prompt">過去顧客 [社名一覧] の直近30日のプレスリリース・SNS投稿・採用情報から、Highliteが支援できそうな新ニーズ仮説を抽出。「企業 / 仮説 / 根拠リンク / 優先度スコア」のテーブル形式で</div>
+              <div class="fs-prompt">[顧客名] の最新IR資料 [リンク] から、ブランド・組織開発の課題仮説を3つ。各仮説に対する初回提案メールドラフトも併記</div>
+              <div class="fs-prompt">再提案候補TOP10 [リスト] を、「すぐ行ける / 半年寝かせる / 関係性メンテのみ」の3区分で仕分けして</div>
+            </div>
+            <div class="fs-block">
+              <h6>Push</h6>
+              <div class="fs-push">
+                <span class="fs-push-ch">#cry-ナーチャリング・イベント-cc</span>
+                <ul>
+                  <li>月初9時: 「Crysta 索敵レポート」自動配信（再提案候補TOP10）</li>
+                  <li>高優先度の新ニーズ検知: 担当者DMに即時 + 同チャンネルに @here</li>
+                  <li>半年無接触: 「関係性メンテ」タスクを #ore- に起票</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- ============ LOOP ============ -->
+      <div class="flow-loop">
+        <div class="flow-loop-icon">↺</div>
+        <div>
+          <strong>循環構造:</strong> Crysta 03「ブランド索敵」で発掘した再提案候補が、
+          <code>#ore-リード・アサイン情報-cc</code> に「Re-Pitch候補」として起票され、
+          Ore 01「接点創出」へ戻る。結晶化した関係性が、次の鉱脈を呼ぶ。
+        </div>
+      </div>
+
+      <!-- ============ CHANNELS ============ -->
+      <div class="flow-channels">
+        <h4>4-CHANNEL DESIGN</h4>
+        <p class="lead">小規模組織向けに、フェーズ別Pushを4チャンネルへ集約。経営判断系も独立せず、各 cc 内で <code>@here</code> 運用。</p>
+        <div class="flow-channels-grid">
+          <div class="fc-card" style="--phase-color:var(--crystal-purple)">
+            <div class="fc-card-ch">#ore-リード・アサイン情報-cc</div>
+            <div class="fc-card-role">Ore全フェーズ（接点・インバウンド・BANTC・提案）+ 担当アサイン通知。受注・SLA超過もここに集約。</div>
+          </div>
+          <div class="fc-card" style="--phase-color:var(--crystal-blue)">
+            <div class="fc-card-ch">#lite-lapidaristデリバリー-cc</div>
+            <div class="fc-card-role">Lite運用（キックオフ・定例・チームビルド・運営・進捗・検収）。週次サマリ・稼働警告もここ。</div>
+          </div>
+          <div class="fc-card" style="--phase-color:var(--crystal-teal)">
+            <div class="fc-card-ch">#lite-請求・入金-cc</div>
+            <div class="fc-card-role">請求書発行・入金期日管理・未入金リマインド・月次入金サマリ。</div>
+          </div>
+          <div class="fc-card" style="--phase-color:var(--crystal-pink)">
+            <div class="fc-card-ch">#cry-ナーチャリング・イベント-cc</div>
+            <div class="fc-card-role">Crysta全フェーズ（実績開示・共催イベント・ブランド索敵）+ 月次索敵レポート。</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======= PROJECT ======= -->
+    <section id="project">
+      <div class="sec-head">
+        <div class="sec-en">PROJECT</div>
+        <div class="sec-jp">Ore → Lite → Crysta</div>
+        <div class="sec-rule"></div>
+      </div>
+      <div class="pj-switcher" role="tablist">
+        <button class="pj-tab active" data-ptab="ore">ORE<small>鉱石 / リード</small></button>
+        <button class="pj-tab" data-ptab="lite">LITE<small>磨き / 遂行中</small></button>
+        <button class="pj-tab" data-ptab="crysta">CRYSTA<small>結晶 / 終了</small></button>
+      </div>
+
+      <!-- ORE -->
+      <div class="pj-pane active" id="pj-ore">
+        <div class="pj-meta">
+          <span><b>12</b>件 Active Leads</span>
+          <span><b>¥48M</b> Weighted Pipeline</span>
+          <span><b>31%</b> Avg. Probability</span>
+        </div>
+        <table class="lead-table">
+          <thead>
+            <tr><th>Company</th><th>Project</th><th>Owner</th><th>Stage</th><th>Probability</th><th>Next Action</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>[Placeholder] A社</td><td>AI導入PoC</td><td>DH</td><td><span class="status proposing">Proposing</span></td><td><span class="prob">60%</span><div class="bar"><span style="width:60%"></span></div></td><td>提案書レビュー</td></tr>
+            <tr><td>[Placeholder] B社</td><td>ブランド再構築</td><td>NM</td><td><span class="status negotiating">Negotiating</span></td><td><span class="prob">75%</span><div class="bar"><span style="width:75%"></span></div></td><td>見積調整</td></tr>
+            <tr><td>[Placeholder] C社</td><td>業務自動化</td><td>NM</td><td><span class="status prospect">Prospect</span></td><td><span class="prob">20%</span><div class="bar"><span style="width:20%"></span></div></td><td>初回ヒアリング</td></tr>
+            <tr><td>[Placeholder] D社</td><td>データ基盤構築</td><td>DH</td><td><span class="status proposing">Proposing</span></td><td><span class="prob">45%</span><div class="bar"><span style="width:45%"></span></div></td><td>要件すり合わせ</td></tr>
+            <tr><td>[Placeholder] E社</td><td>AI教育プログラム</td><td>NM</td><td><span class="status prospect">Prospect</span></td><td><span class="prob">15%</span><div class="bar"><span style="width:15%"></span></div></td><td>ニーズ調査</td></tr>
+            <tr><td>[Placeholder] F社</td><td>サイト刷新</td><td>PT</td><td><span class="status negotiating">Negotiating</span></td><td><span class="prob">80%</span><div class="bar"><span style="width:80%"></span></div></td><td>契約条件確認</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- LITE -->
+      <div class="pj-pane" id="pj-lite">
+        <div class="pj-meta">
+          <span><b>7</b>本 Running</span>
+          <span><b>¥24M</b> In-Progress Value</span>
+          <span><b>62%</b> Avg. Completion</span>
+        </div>
+        <div class="deliver-grid">
+          <article class="d-card">
+            <div class="d-head"><div><div class="d-title">[Placeholder] X社 AIワークフロー構築</div><div class="d-client">Client: X社</div></div><div class="d-phase">BUILD</div></div>
+            <div class="d-progress"><div class="d-progress-label"><span>Progress</span><span>68%</span></div><div class="d-progress-bar"><span style="width:68%"></span></div></div>
+            <div class="d-foot"><span>Due: 2026/06/30</span><div class="d-team"><div class="m-avatar">DH</div><div class="m-avatar">NM</div><div class="m-avatar">PT</div></div></div>
+          </article>
+          <article class="d-card">
+            <div class="d-head"><div><div class="d-title">[Placeholder] Y社 ブランドガイドライン</div><div class="d-client">Client: Y社</div></div><div class="d-phase">DESIGN</div></div>
+            <div class="d-progress"><div class="d-progress-label"><span>Progress</span><span>42%</span></div><div class="d-progress-bar"><span style="width:42%"></span></div></div>
+            <div class="d-foot"><span>Due: 2026/07/15</span><div class="d-team"><div class="m-avatar">NM</div><div class="m-avatar">PT</div></div></div>
+          </article>
+          <article class="d-card">
+            <div class="d-head"><div><div class="d-title">[Placeholder] Z社 LP制作</div><div class="d-client">Client: Z社</div></div><div class="d-phase">QA</div></div>
+            <div class="d-progress"><div class="d-progress-label"><span>Progress</span><span>88%</span></div><div class="d-progress-bar"><span style="width:88%"></span></div></div>
+            <div class="d-foot"><span>Due: 2026/05/08</span><div class="d-team"><div class="m-avatar">PT</div></div></div>
+          </article>
+          <article class="d-card">
+            <div class="d-head"><div><div class="d-title">[Placeholder] W社 データ分析</div><div class="d-client">Client: W社</div></div><div class="d-phase">DISCOVER</div></div>
+            <div class="d-progress"><div class="d-progress-label"><span>Progress</span><span>18%</span></div><div class="d-progress-bar"><span style="width:18%"></span></div></div>
+            <div class="d-foot"><span>Due: 2026/08/31</span><div class="d-team"><div class="m-avatar">DH</div><div class="m-avatar">NM</div></div></div>
+          </article>
+        </div>
+      </div>
+
+      <!-- CRYSTA -->
+      <div class="pj-pane" id="pj-crysta">
+        <div class="pj-meta">
+          <span><b>24</b>件 Archived</span>
+          <span><b>100%</b> Delivered</span>
+          <span><b>4.7</b>/5.0 Avg. Satisfaction</span>
+        </div>
+        <div class="crysta-grid">
+          <article class="c-card">
+            <div class="c-year">2025</div>
+            <div class="c-title">[Placeholder] α社 サービス再設計</div>
+            <div class="c-meta">Delivered: 2025/11 · 3ヶ月</div>
+            <div class="c-tags"><span class="c-tag">Brand</span><span class="c-tag">Design</span></div>
+          </article>
+          <article class="c-card">
+            <div class="c-year">2025</div>
+            <div class="c-title">[Placeholder] β社 AI導入支援</div>
+            <div class="c-meta">Delivered: 2025/09 · 5ヶ月</div>
+            <div class="c-tags"><span class="c-tag">AI</span><span class="c-tag">Ops</span></div>
+          </article>
+          <article class="c-card">
+            <div class="c-year">2025</div>
+            <div class="c-title">[Placeholder] γ社 コーポレートサイト</div>
+            <div class="c-meta">Delivered: 2025/07 · 2ヶ月</div>
+            <div class="c-tags"><span class="c-tag">Web</span></div>
+          </article>
+          <article class="c-card">
+            <div class="c-year">2024</div>
+            <div class="c-title">[Placeholder] δ社 データ基盤構築</div>
+            <div class="c-meta">Delivered: 2024/12 · 6ヶ月</div>
+            <div class="c-tags"><span class="c-tag">Data</span><span class="c-tag">Infra</span></div>
+          </article>
+          <article class="c-card">
+            <div class="c-year">2024</div>
+            <div class="c-title">[Placeholder] ε社 ワークショップ</div>
+            <div class="c-meta">Delivered: 2024/10 · 1ヶ月</div>
+            <div class="c-tags"><span class="c-tag">Workshop</span></div>
+          </article>
+          <article class="c-card">
+            <div class="c-year">2024</div>
+            <div class="c-title">[Placeholder] ζ社 動画制作</div>
+            <div class="c-meta">Delivered: 2024/06 · 2ヶ月</div>
+            <div class="c-tags"><span class="c-tag">Video</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <div style="display:flex;align-items:center;gap:8px;color:var(--text-muted)"><svg viewBox="-15 0 116 197.21" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="width:14px;height:auto;color:var(--brand-blue)"><path fill="currentColor" d="M81.03,102.49l19.67-4.18c.68-.15.69-1.12,0-1.27l-19.77-4.34-6.05-37.84c-.08-.51-.81-.55-.91-.04-1.29,6.48-4.63,24.6-6.52,34.91-9.88-2.03-17.19-10.2-18.09-20.29L41.9.35c-.05-.45-.7-.47-.77-.02l-11.4,72.83c-1.11,8.55-6.7,15.87-14.66,19.18l-14.48,6.04c-.74.29-.83.9.02,1.21l13.61,5.2c8.13,3.11,13.72,10.54,14.5,19.26l7.71,67.62c.05.45.7.47.77.02l11.04-65.73c1.29-9.93,8.71-18.13,18.49-20.43l.32-.07,6.55,56.76c.06.55.86.55.92,0l6.51-59.73Z"/></svg>HIGHLITE INC.</div>
+      <div>AI-CENTERED MANAGEMENT · v0.1</div>
+    </footer>
+  </main>
+</div>
+
+<script>
+  // ===== Smooth nav active state on scroll =====
+  const navItems = document.querySelectorAll('.nav-item');
+  const sections = Array.from(navItems).map(a => document.querySelector(a.getAttribute('href')));
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        const id = '#' + e.target.id;
+        navItems.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
+      }
+    });
+  }, { rootMargin:'-40% 0px -55% 0px', threshold:0 });
+  sections.forEach(s => s && io.observe(s));
+
+  // ===== Member tabs =====
+  document.querySelectorAll('.member-tab').forEach(t => {
+    t.addEventListener('click', () => {
+      document.querySelectorAll('.member-tab').forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+      const key = t.dataset.mtab;
+      document.getElementById('member-employee').style.display = key==='employee' ? '' : 'none';
+      document.getElementById('member-partner').style.display  = key==='partner'  ? '' : 'none';
+    });
+  });
+
+  // ===== Project tabs =====
+  document.querySelectorAll('.pj-tab').forEach(t => {
+    t.addEventListener('click', () => {
+      document.querySelectorAll('.pj-tab').forEach(x => x.classList.remove('active'));
+      document.querySelectorAll('.pj-pane').forEach(p => p.classList.remove('active'));
+      t.classList.add('active');
+      document.getElementById('pj-' + t.dataset.ptab).classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
