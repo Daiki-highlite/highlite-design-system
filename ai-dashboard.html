@@ -522,6 +522,132 @@ section{margin-bottom:88px;scroll-margin-top:24px}
 }
 .fc-card-role{font-size:11.5px;color:var(--text-body);line-height:1.7}
 
+/* ===================== HARNESS ===================== */
+.harness-hero{
+  background:var(--bg-surface);border:.5px solid var(--border);border-radius:2px;
+  padding:32px 36px;margin-bottom:32px;
+  display:grid;grid-template-columns:1.4fr 1fr;gap:32px;align-items:center;
+}
+.harness-hero h3{font-family:var(--font-en);font-size:22px;letter-spacing:.16em;color:var(--text-primary);margin-bottom:14px;font-weight:300}
+.harness-hero p{font-size:13px;color:var(--text-body);line-height:1.95;margin-bottom:18px}
+.harness-principles{display:flex;flex-direction:column;gap:10px}
+.harness-principle{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:10px 14px;background:#fff;border:.5px solid var(--border);
+  font-size:12px;color:var(--text-primary);line-height:1.65;
+}
+.harness-principle b{font-family:var(--font-en);font-size:11px;letter-spacing:.18em;color:var(--crystal-purple);margin-right:8px;flex-shrink:0}
+.harness-meta{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;font-size:11px}
+.harness-meta-item{padding:14px;background:#fff;border:.5px solid var(--border)}
+.harness-meta-item label{display:block;font-family:var(--font-en);font-size:9px;letter-spacing:.22em;color:var(--text-muted);margin-bottom:6px}
+.harness-meta-item code{font-family:'SF Mono','Menlo','Monaco',monospace;font-size:10.5px;color:var(--text-primary);word-break:break-all}
+
+.harness-section{margin-bottom:48px}
+.harness-section h4{
+  font-family:var(--font-en);font-size:14px;letter-spacing:.2em;
+  color:var(--text-primary);margin-bottom:6px;font-weight:400;
+}
+.harness-section .lead{font-size:12px;color:var(--text-muted);margin-bottom:18px;letter-spacing:.04em}
+
+/* Tree */
+.harness-tree{
+  background:#1E2340;color:rgba(255,255,255,.92);
+  font-family:'SF Mono','Menlo','Monaco','Consolas',monospace;
+  font-size:11.5px;line-height:1.7;
+  padding:24px 28px;border-radius:2px;
+  overflow-x:auto;white-space:pre;
+  border-left:3px solid var(--crystal-purple);
+}
+.harness-tree .t-dir{color:var(--crystal-blue)}
+.harness-tree .t-skill{color:var(--crystal-purple)}
+.harness-tree .t-shared{color:var(--crystal-pink)}
+.harness-tree .t-conn{color:var(--crystal-teal)}
+.harness-tree .t-comment{color:rgba(255,255,255,.45);font-style:italic}
+
+/* Cluster grid */
+.harness-clusters{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+.h-cluster{
+  background:var(--bg-surface);border:.5px solid var(--border);
+  border-radius:2px;padding:20px 22px;
+  border-top:2px solid var(--cluster-color,var(--crystal-purple));
+  display:flex;flex-direction:column;gap:12px;
+}
+.h-cluster-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-bottom:.5px solid var(--border);padding-bottom:10px}
+.h-cluster-name{font-family:var(--font-en);font-size:13px;letter-spacing:.16em;color:var(--text-primary)}
+.h-cluster-jp{font-size:11px;color:var(--text-muted);letter-spacing:.08em}
+.h-cluster-phase{
+  font-family:var(--font-en);font-size:9px;letter-spacing:.2em;
+  padding:3px 8px;background:rgba(155,140,200,.14);color:var(--cluster-color,var(--crystal-purple));
+  white-space:nowrap;
+}
+.h-cluster-desc{font-size:12px;color:var(--text-body);line-height:1.7}
+.h-cluster h6{font-family:var(--font-en);font-size:9px;letter-spacing:.22em;color:var(--cluster-color,var(--crystal-purple));margin-bottom:6px;text-transform:uppercase}
+.h-cluster-skills{display:flex;flex-wrap:wrap;gap:5px}
+.h-skill-chip{
+  font-family:'SF Mono','Menlo','Monaco',monospace;font-size:10px;
+  padding:3px 8px;background:#fff;border:.5px solid var(--border);
+  color:var(--text-body);
+}
+.h-cluster-trigger{font-size:11px;color:var(--text-muted);font-style:italic;line-height:1.65}
+.h-cluster-push{
+  font-family:'SF Mono','Menlo','Monaco',monospace;font-size:10px;
+  background:#1E2340;color:#fff;padding:3px 9px;border-radius:100px;
+  display:inline-block;
+}
+
+/* Lifecycle SVG */
+.harness-lifecycle{
+  background:var(--bg-surface);border:.5px solid var(--border);
+  padding:32px 28px;border-radius:2px;overflow-x:auto;
+}
+.harness-lifecycle svg{display:block;width:100%;min-width:780px;height:auto}
+
+/* Cross-cutting layers */
+.harness-cross{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.h-cross-card{
+  background:#fff;border:.5px solid var(--border);
+  padding:18px 20px;border-radius:2px;
+  border-left:3px solid var(--crystal-purple);
+}
+.h-cross-card h6{font-family:var(--font-en);font-size:10px;letter-spacing:.22em;color:var(--text-primary);margin-bottom:6px}
+.h-cross-card .h-cross-jp{font-size:11px;color:var(--text-muted);margin-bottom:10px;letter-spacing:.06em}
+.h-cross-card p{font-size:11.5px;color:var(--text-body);line-height:1.7;margin-bottom:8px}
+.h-cross-card ul{list-style:none;display:flex;flex-direction:column;gap:3px}
+.h-cross-card li{font-family:'SF Mono','Menlo','Monaco',monospace;font-size:10px;color:var(--text-body);padding-left:10px;position:relative}
+.h-cross-card li::before{content:"";position:absolute;left:0;top:7px;width:5px;height:1px;background:var(--crystal-purple)}
+
+/* Connector quick reference */
+.harness-conn{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.h-conn-card{
+  background:var(--bg-surface);border:.5px solid var(--border);
+  padding:16px 18px;border-radius:2px;
+  border-left:3px solid var(--conn-color,var(--crystal-teal));
+}
+.h-conn-card h6{font-family:var(--font-en);font-size:11px;letter-spacing:.18em;color:var(--text-primary);margin-bottom:4px}
+.h-conn-card .h-conn-jp{font-size:10px;color:var(--text-muted);letter-spacing:.06em;margin-bottom:10px}
+.h-conn-card p{font-size:11.5px;color:var(--text-body);line-height:1.7;margin-bottom:8px}
+.h-conn-card .h-conn-used{font-family:'SF Mono','Menlo','Monaco',monospace;font-size:10px;color:var(--text-muted);line-height:1.6}
+
+/* Trigger → Action matrix */
+.harness-matrix{
+  width:100%;border-collapse:collapse;
+  background:var(--bg-surface);border:.5px solid var(--border);
+  font-size:12px;
+}
+.harness-matrix th{
+  text-align:left;padding:12px 16px;
+  font-family:var(--font-en);font-weight:400;font-size:10px;letter-spacing:.2em;
+  color:var(--text-muted);text-transform:uppercase;
+  border-bottom:1px solid var(--border);background:#fff;
+}
+.harness-matrix td{
+  padding:12px 16px;border-bottom:.5px solid rgba(31,30,29,.1);
+  color:var(--text-primary);vertical-align:top;line-height:1.65;
+}
+.harness-matrix tr:last-child td{border-bottom:none}
+.harness-matrix tr:hover td{background:rgba(155,140,200,.04)}
+.harness-matrix code{font-family:'SF Mono','Menlo','Monaco',monospace;font-size:10.5px;color:var(--text-body);background:rgba(31,30,29,.05);padding:1px 5px;border-radius:2px}
+
 /* Footer */
 .foot{
   margin-top:80px;padding:32px 0 0;border-top:.5px solid var(--border);
@@ -566,6 +692,7 @@ section{margin-bottom:88px;scroll-margin-top:24px}
       <a class="nav-item" href="#mission"><span class="dot"></span>Mission</a>
       <a class="nav-item" href="#member"><span class="dot"></span>Member</a>
       <a class="nav-item" href="#flow"><span class="dot"></span>Flow</a>
+      <a class="nav-item" href="#harness"><span class="dot"></span>Harness</a>
       <a class="nav-item" href="#project"><span class="dot"></span>Project</a>
     </nav>
     <div class="sidebar-foot">© HIGHLITE / 2026</div>
@@ -1678,6 +1805,389 @@ section{margin-bottom:88px;scroll-margin-top:24px}
           </div>
         </div>
       </div>
+    </section>
+
+    <!-- ======= HARNESS ======= -->
+    <section id="harness">
+      <div class="sec-head">
+        <div class="sec-en">HARNESS</div>
+        <div class="sec-jp">AI共同経営の足場 — スキル設計と呼び出し関係</div>
+        <div class="sec-rule"></div>
+      </div>
+
+      <!-- Hero -->
+      <div class="harness-hero">
+        <div>
+          <h3>The Operating Layer</h3>
+          <p>ダッシュボードが「見るための地図」なら、Harnessは「動くための足場」。Highliteの全業務をClaude（Cowork / Code）に伴走させるためのスキル・コンテキスト・コネクタを一箇所に集約しました。各スキルはダッシュボードのフェーズ定義（Ore / Lite / Crysta）と完全に整合し、すべての通知が4チャンネルに集約される設計になっています。</p>
+          <div class="harness-principles">
+            <div class="harness-principle"><b>01</b>AIを共同経営者として扱う。タスクの委譲ではなく、共に問いを立てる相手として</div>
+            <div class="harness-principle"><b>02</b>小規模組織に最適化。通知は最小限、4チャンネルに集約</div>
+            <div class="harness-principle"><b>03</b>余白を残す。テンプレートは骨格だけ。書き込みすぎず、人の判断を消さない</div>
+          </div>
+        </div>
+        <div class="harness-meta">
+          <div class="harness-meta-item"><label>LOCATION</label><code>highlite-ai-harness/</code></div>
+          <div class="harness-meta-item"><label>FILES</label><code>30 markdown files</code></div>
+          <div class="harness-meta-item"><label>SKILL CLUSTERS</label><code>6</code></div>
+          <div class="harness-meta-item"><label>CONNECTORS</label><code>4 (GW/Slack/Zoom/Figma)</code></div>
+          <div class="harness-meta-item"><label>ROOT CONTEXT</label><code>CLAUDE.md</code></div>
+          <div class="harness-meta-item"><label>ENTRY POINT</label><code>README.md</code></div>
+        </div>
+      </div>
+
+      <!-- Directory tree -->
+      <div class="harness-section">
+        <h4>DIRECTORY STRUCTURE</h4>
+        <p class="lead">3層構成: 共通参照（_shared）→ スキル群（skills）→ 外部ツール参照（connectors）</p>
+        <div class="harness-tree"><span class="t-dir">highlite-ai-harness/</span>
+├── README.md                          <span class="t-comment"># エントリポイント・全体マップ</span>
+├── CLAUDE.md                          <span class="t-comment"># Claudeがまず読むルートコンテキスト</span>
+├── <span class="t-dir">skills/</span>
+│   ├── <span class="t-shared">_shared/</span>                       <span class="t-comment"># 全スキルが参照する共通リソース</span>
+│   │   ├── brand-voice.md             <span class="t-comment"># トーン&マナー（チェックリスト含む）</span>
+│   │   ├── glossary.md                <span class="t-comment"># 社内用語・伏字ルール</span>
+│   │   └── stakeholder-map.md         <span class="t-comment"># Will/Can/Must + RACI</span>
+│   ├── <span class="t-skill">lead/</span>                          <span class="t-comment"># Oreフェーズ（受注前）</span>
+│   │   ├── SKILL.md
+│   │   ├── inbound-triage.md          <span class="t-comment"># Step 02: 24h以内に一次返信</span>
+│   │   ├── discovery-notes.md         <span class="t-comment"># Step 03: BANTC + Disco Note</span>
+│   │   └── proposal-draft.md          <span class="t-comment"># Step 04: 提案書 + 見積</span>
+│   ├── <span class="t-skill">delivery/</span>                      <span class="t-comment"># Liteフェーズ（受注後）</span>
+│   │   ├── SKILL.md
+│   │   ├── kickoff.md                 <span class="t-comment"># Step 01: 3営業日以内</span>
+│   │   ├── creative-review.md         <span class="t-comment"># ブランドデザイン10ステップ</span>
+│   │   └── handoff.md                 <span class="t-comment"># Step 10: エンジニア/顧客への展開</span>
+│   ├── <span class="t-skill">project-mgmt/</span>                  <span class="t-comment"># 横串の運営</span>
+│   │   ├── SKILL.md
+│   │   ├── status-sync.md             <span class="t-comment"># 金17時の週次サマリ自動化</span>
+│   │   └── risk-log.md                <span class="t-comment"># リスク台帳・スコア9で即時対応</span>
+│   ├── <span class="t-skill">biz-mgmt/</span>                      <span class="t-comment"># 経営管理</span>
+│   │   ├── SKILL.md
+│   │   ├── pipeline-review.md         <span class="t-comment"># 週次パイプラインレビュー</span>
+│   │   └── financial-snapshot.md      <span class="t-comment"># 月次財務 + 請求/入金フロー</span>
+│   ├── <span class="t-skill">internal-marketing/</span>            <span class="t-comment"># Crysta起点の発信</span>
+│   │   ├── SKILL.md
+│   │   ├── case-study.md              <span class="t-comment"># 実績開示後の事例化</span>
+│   │   └── social-post.md             <span class="t-comment"># X/LinkedIn/note 月数本</span>
+│   └── <span class="t-skill">people-mgmt/</span>                   <span class="t-comment"># Will/Can/Must運用</span>
+│       ├── SKILL.md
+│       ├── 1on1-prep.md               <span class="t-comment"># 月次1on1の事前ブリーフ</span>
+│       ├── onboarding.md              <span class="t-comment"># フル/中/軽の3パターン</span>
+│       └── performance-review.md      <span class="t-comment"># 半期レビュー（対話型）</span>
+└── <span class="t-conn">connectors/</span>                        <span class="t-comment"># 外部ツールの参照ルール</span>
+    ├── google-workspace.md            <span class="t-comment"># Drive命名規則 + アクセス制御</span>
+    ├── slack.md                       <span class="t-comment"># 4チャンネル集約設計</span>
+    ├── zoom.md                        <span class="t-comment"># 録画 → 文字起こし → 議事録自動化</span>
+    └── figma.md                       <span class="t-comment"># HL-Brand + PJファイル構造</span></div>
+      </div>
+
+      <!-- Skill Clusters -->
+      <div class="harness-section">
+        <h4>SKILL CLUSTERS</h4>
+        <p class="lead">6つのスキル群 — 各SKILL.mdがエントリポイントとなり、サブスキルへ降りていく構成</p>
+        <div class="harness-clusters">
+
+          <article class="h-cluster" style="--cluster-color:var(--crystal-purple)">
+            <div class="h-cluster-head">
+              <div><div class="h-cluster-name">LEAD</div><div class="h-cluster-jp">受注前 / Oreフェーズ</div></div>
+              <span class="h-cluster-phase">ORE 02-04</span>
+            </div>
+            <div class="h-cluster-desc">問い合わせ受領から提案書送付まで。BANTC合計15点で提案ステージ昇格、8点未満でCrysta索敵対象へ。</div>
+            <div><h6>Sub-skills</h6><div class="h-cluster-skills"><span class="h-skill-chip">inbound-triage</span><span class="h-skill-chip">discovery-notes</span><span class="h-skill-chip">proposal-draft</span></div></div>
+            <div><h6>Triggers</h6><div class="h-cluster-trigger">「問い合わせ来た」「BANTC埋めて」「提案書ドラフト」</div></div>
+            <div><h6>Push</h6><div class="h-cluster-push">#ore-リード・アサイン情報-cc</div></div>
+          </article>
+
+          <article class="h-cluster" style="--cluster-color:var(--crystal-blue)">
+            <div class="h-cluster-head">
+              <div><div class="h-cluster-name">DELIVERY</div><div class="h-cluster-jp">受注後 / Liteフェーズ</div></div>
+              <span class="h-cluster-phase">LITE 01-10</span>
+            </div>
+            <div class="h-cluster-desc">キックオフから検収・引き継ぎまで。ブランドデザインの10ステップ（Claude Design運用含む）も担う。</div>
+            <div><h6>Sub-skills</h6><div class="h-cluster-skills"><span class="h-skill-chip">kickoff</span><span class="h-skill-chip">creative-review</span><span class="h-skill-chip">handoff</span></div></div>
+            <div><h6>Triggers</h6><div class="h-cluster-trigger">「キックオフ準備」「デザインレビュー」「引き継ぎ資料」</div></div>
+            <div><h6>Push</h6><div class="h-cluster-push">#lite-lapidaristデリバリー-cc</div></div>
+          </article>
+
+          <article class="h-cluster" style="--cluster-color:#6E7DA8">
+            <div class="h-cluster-head">
+              <div><div class="h-cluster-name">PROJECT MGMT</div><div class="h-cluster-jp">横串の運営</div></div>
+              <span class="h-cluster-phase">CROSS</span>
+            </div>
+            <div class="h-cluster-desc">フェーズ非依存。Slack/Zoom素材から週次サマリを自動生成、リスクは早期警報として共有。</div>
+            <div><h6>Sub-skills</h6><div class="h-cluster-skills"><span class="h-skill-chip">status-sync</span><span class="h-skill-chip">risk-log</span></div></div>
+            <div><h6>Triggers</h6><div class="h-cluster-trigger">「進捗まとめて」「リスク追加」「赤信号PJはどれ」</div></div>
+            <div><h6>Push</h6><div class="h-cluster-push">#lite-lapidaristデリバリー-cc</div></div>
+          </article>
+
+          <article class="h-cluster" style="--cluster-color:var(--crystal-teal)">
+            <div class="h-cluster-head">
+              <div><div class="h-cluster-name">BIZ MGMT</div><div class="h-cluster-jp">経営管理</div></div>
+              <span class="h-cluster-phase">ORE+LITE</span>
+            </div>
+            <div class="h-cluster-desc">Oreパイプラインの週次レビューと、Lite請求・入金の月次運用。数字は判断の補助、評価ではない。</div>
+            <div><h6>Sub-skills</h6><div class="h-cluster-skills"><span class="h-skill-chip">pipeline-review</span><span class="h-skill-chip">financial-snapshot</span></div></div>
+            <div><h6>Triggers</h6><div class="h-cluster-trigger">「パイプライン状況」「月次の数字」「請求書発行」</div></div>
+            <div><h6>Push</h6><div class="h-cluster-push">#lite-請求・入金-cc</div></div>
+          </article>
+
+          <article class="h-cluster" style="--cluster-color:var(--crystal-pink)">
+            <div class="h-cluster-head">
+              <div><div class="h-cluster-name">INTERNAL MARKETING</div><div class="h-cluster-jp">Crysta起点の発信</div></div>
+              <span class="h-cluster-phase">CRYSTA → ORE</span>
+            </div>
+            <div class="h-cluster-desc">事例記事・SNS発信を通じて、結晶化した価値を新たな鉱脈へ循環させる。Crysta→Oreループの起点。</div>
+            <div><h6>Sub-skills</h6><div class="h-cluster-skills"><span class="h-skill-chip">case-study</span><span class="h-skill-chip">social-post</span></div></div>
+            <div><h6>Triggers</h6><div class="h-cluster-trigger">「事例書いて」「LinkedIn投稿」「note記事」</div></div>
+            <div><h6>Push</h6><div class="h-cluster-push">#cry-ナーチャリング・イベント-cc</div></div>
+          </article>
+
+          <article class="h-cluster" style="--cluster-color:#9B7DC8">
+            <div class="h-cluster-head">
+              <div><div class="h-cluster-name">PEOPLE MGMT</div><div class="h-cluster-jp">人事 / Will-Can-Must運用</div></div>
+              <span class="h-cluster-phase">INDEPENDENT</span>
+            </div>
+            <div class="h-cluster-desc">フェーズと独立した人事リズム。1on1（月1-2）、オンボーディング（4週/2週/2-3日の3型）、半期レビュー（対話型）。</div>
+            <div><h6>Sub-skills</h6><div class="h-cluster-skills"><span class="h-skill-chip">1on1-prep</span><span class="h-skill-chip">onboarding</span><span class="h-skill-chip">performance-review</span></div></div>
+            <div><h6>Triggers</h6><div class="h-cluster-trigger">「1on1準備」「新メンバー受入」「半期レビュー」</div></div>
+            <div><h6>Push</h6><div class="h-cluster-push">DM中心 (個別)</div></div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- Lifecycle / Call Graph -->
+      <div class="harness-section">
+        <h4>LIFECYCLE & CALL GRAPH</h4>
+        <p class="lead">典型的な1案件のライフサイクル — どのスキルが、いつ、何を呼び出すか</p>
+        <div class="harness-lifecycle">
+          <svg viewBox="0 0 1200 520" xmlns="http://www.w3.org/2000/svg" aria-label="Lifecycle Call Graph">
+            <defs>
+              <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M0,0 L10,5 L0,10 z" fill="#888"/>
+              </marker>
+              <marker id="arr-loop" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M0,0 L10,5 L0,10 z" fill="#9B8CC8"/>
+              </marker>
+            </defs>
+
+            <!-- Phase regions -->
+            <rect x="20" y="120" width="280" height="280" fill="rgba(155,140,200,.06)" stroke="rgba(155,140,200,.4)" stroke-dasharray="3 3" rx="2"/>
+            <rect x="320" y="120" width="540" height="280" fill="rgba(123,186,212,.06)" stroke="rgba(123,186,212,.4)" stroke-dasharray="3 3" rx="2"/>
+            <rect x="880" y="120" width="300" height="280" fill="rgba(200,164,196,.06)" stroke="rgba(200,164,196,.4)" stroke-dasharray="3 3" rx="2"/>
+
+            <!-- Phase labels -->
+            <text x="160" y="105" text-anchor="middle" font-family="Optima, serif" font-size="13" letter-spacing="3" fill="#9B8CC8">ORE</text>
+            <text x="590" y="105" text-anchor="middle" font-family="Optima, serif" font-size="13" letter-spacing="3" fill="#7BBAD4">LITE</text>
+            <text x="1030" y="105" text-anchor="middle" font-family="Optima, serif" font-size="13" letter-spacing="3" fill="#C8A4C4">CRYSTA</text>
+
+            <!-- Cross-cutting top band -->
+            <rect x="20" y="20" width="1160" height="56" fill="rgba(31,30,29,.04)" stroke="rgba(31,30,29,.18)" rx="2"/>
+            <text x="40" y="42" font-family="Optima, serif" font-size="10" letter-spacing="2" fill="#555">CROSS-CUTTING REFERENCES</text>
+            <g font-family="SF Mono, monospace" font-size="10" fill="#141413">
+              <text x="40" y="62">_shared/brand-voice.md</text>
+              <text x="220" y="62">_shared/glossary.md</text>
+              <text x="380" y="62">_shared/stakeholder-map.md</text>
+              <text x="600" y="62">project-mgmt/status-sync.md</text>
+              <text x="800" y="62">project-mgmt/risk-log.md</text>
+              <text x="1000" y="62">connectors/*.md</text>
+            </g>
+
+            <!-- ORE nodes -->
+            <g>
+              <rect x="40" y="160" width="240" height="46" fill="#FAF9F5" stroke="#9B8CC8" stroke-width="0.5" rx="2"/>
+              <text x="160" y="180" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="11" font-weight="500" fill="#141413">inbound-triage.md</text>
+              <text x="160" y="196" text-anchor="middle" font-family="Optima, serif" font-size="9" letter-spacing="1" fill="#888">02 / INQUIRY</text>
+
+              <rect x="40" y="220" width="240" height="46" fill="#FAF9F5" stroke="#9B8CC8" stroke-width="0.5" rx="2"/>
+              <text x="160" y="240" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="11" font-weight="500" fill="#141413">discovery-notes.md</text>
+              <text x="160" y="256" text-anchor="middle" font-family="Optima, serif" font-size="9" letter-spacing="1" fill="#888">03 / BANTC</text>
+
+              <rect x="40" y="280" width="240" height="46" fill="#FAF9F5" stroke="#9B8CC8" stroke-width="0.5" rx="2"/>
+              <text x="160" y="300" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="11" font-weight="500" fill="#141413">proposal-draft.md</text>
+              <text x="160" y="316" text-anchor="middle" font-family="Optima, serif" font-size="9" letter-spacing="1" fill="#888">04 / PROPOSAL</text>
+
+              <rect x="40" y="340" width="240" height="46" fill="#FAF9F5" stroke="#7BBAD4" stroke-width="0.5" stroke-dasharray="2 2" rx="2"/>
+              <text x="160" y="360" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="11" fill="#888">biz-mgmt/pipeline-review.md</text>
+              <text x="160" y="376" text-anchor="middle" font-family="Optima, serif" font-size="9" letter-spacing="1" fill="#888">WEEKLY MONITOR</text>
+            </g>
+
+            <!-- LITE nodes -->
+            <g>
+              <rect x="340" y="160" width="240" height="46" fill="#FAF9F5" stroke="#7BBAD4" stroke-width="0.5" rx="2"/>
+              <text x="460" y="180" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="11" font-weight="500" fill="#141413">delivery/kickoff.md</text>
+              <text x="460" y="196" text-anchor="middle" font-family="Optima, serif" font-size="9" letter-spacing="1" fill="#888">01 / KICKOFF</text>
+
+              <rect x="340" y="220" width="240" height="46" fill="#FAF9F5" stroke="#6E7DA8" stroke-width="0.5" rx="2"/>
+              <text x="460" y="240" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="11" font-weight="500" fill="#141413">delivery/creative-review.md</text>
+              <text x="460" y="256" text-anchor="middle" font-family="Optima, serif" font-size="9" letter-spacing="1" fill="#888">BRAND DESIGN x10</text>
+
+              <rect x="340" y="280" width="240" height="46" fill="#FAF9F5" stroke="#7BBAD4" stroke-width="0.5" rx="2"/>
+              <text x="460" y="300" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="11" font-weight="500" fill="#141413">delivery/handoff.md</text>
+              <text x="460" y="316" text-anchor="middle" font-family="Optima, serif" font-size="9" letter-spacing="1" fill="#888">10 / HANDOFF</text>
+
+              <rect x="620" y="220" width="220" height="46" fill="#FAF9F5" stroke="#8CC4D0" stroke-width="0.5" rx="2"/>
+              <text x="730" y="240" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="11" font-weight="500" fill="#141413">financial-snapshot.md</text>
+              <text x="730" y="256" text-anchor="middle" font-family="Optima, serif" font-size="9" letter-spacing="1" fill="#888">INVOICE → SETTLEMENT</text>
+
+              <rect x="340" y="340" width="500" height="46" fill="#FAF9F5" stroke="#888" stroke-width="0.5" stroke-dasharray="2 2" rx="2"/>
+              <text x="590" y="360" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="11" fill="#888">project-mgmt/status-sync.md (週次) + risk-log.md (随時)</text>
+              <text x="590" y="376" text-anchor="middle" font-family="Optima, serif" font-size="9" letter-spacing="1" fill="#888">CONTINUOUS MONITOR</text>
+            </g>
+
+            <!-- CRYSTA nodes -->
+            <g>
+              <rect x="900" y="160" width="260" height="46" fill="#FAF9F5" stroke="#C8A4C4" stroke-width="0.5" rx="2"/>
+              <text x="1030" y="180" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="11" font-weight="500" fill="#141413">case-study.md</text>
+              <text x="1030" y="196" text-anchor="middle" font-family="Optima, serif" font-size="9" letter-spacing="1" fill="#888">DISCLOSURE</text>
+
+              <rect x="900" y="220" width="260" height="46" fill="#FAF9F5" stroke="#C8A4C4" stroke-width="0.5" rx="2"/>
+              <text x="1030" y="240" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="11" font-weight="500" fill="#141413">social-post.md</text>
+              <text x="1030" y="256" text-anchor="middle" font-family="Optima, serif" font-size="9" letter-spacing="1" fill="#888">X / LINKEDIN / NOTE</text>
+
+              <rect x="900" y="280" width="260" height="46" fill="#FAF9F5" stroke="#C8A4C4" stroke-width="0.5" rx="2"/>
+              <text x="1030" y="300" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="11" font-weight="500" fill="#141413">(Brand Sensing — 月次)</text>
+              <text x="1030" y="316" text-anchor="middle" font-family="Optima, serif" font-size="9" letter-spacing="1" fill="#888">RE-PITCH CANDIDATES</text>
+            </g>
+
+            <!-- Internal arrows -->
+            <line x1="160" y1="206" x2="160" y2="218" stroke="#888" stroke-width="1" marker-end="url(#arr)"/>
+            <line x1="160" y1="266" x2="160" y2="278" stroke="#888" stroke-width="1" marker-end="url(#arr)"/>
+
+            <line x1="460" y1="206" x2="460" y2="218" stroke="#888" stroke-width="1" marker-end="url(#arr)"/>
+            <line x1="460" y1="266" x2="460" y2="278" stroke="#888" stroke-width="1" marker-end="url(#arr)"/>
+
+            <line x1="1030" y1="206" x2="1030" y2="218" stroke="#888" stroke-width="1" marker-end="url(#arr)"/>
+            <line x1="1030" y1="266" x2="1030" y2="278" stroke="#888" stroke-width="1" marker-end="url(#arr)"/>
+
+            <!-- Phase transitions -->
+            <line x1="280" y1="303" x2="340" y2="183" stroke="#141413" stroke-width="1.2" marker-end="url(#arr)"/>
+            <text x="295" y="240" font-family="Optima, serif" font-size="9" letter-spacing="1" fill="#141413">WIN</text>
+
+            <line x1="580" y1="303" x2="620" y2="240" stroke="#141413" stroke-width="1.2" marker-end="url(#arr)"/>
+            <text x="585" y="285" font-family="Optima, serif" font-size="9" letter-spacing="1" fill="#141413">CHECKED</text>
+
+            <line x1="840" y1="240" x2="900" y2="183" stroke="#141413" stroke-width="1.2" marker-end="url(#arr)"/>
+            <text x="845" y="210" font-family="Optima, serif" font-size="9" letter-spacing="1" fill="#141413">PAID</text>
+
+            <!-- Loop arrow CRYSTA → ORE -->
+            <path d="M 900 303 Q 590 470 280 303" fill="none" stroke="#9B8CC8" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#arr-loop)"/>
+            <text x="590" y="465" text-anchor="middle" font-family="Optima, serif" font-size="10" letter-spacing="3" fill="#9B8CC8">↺ LOOP — Re-Pitch Candidates → Inbound</text>
+
+            <!-- Bottom legend -->
+            <g font-family="Optima, serif" font-size="9" letter-spacing="1" fill="#555">
+              <rect x="20" y="490" width="14" height="10" fill="#FAF9F5" stroke="#141413" stroke-width="0.5"/>
+              <text x="42" y="499">SKILL FILE</text>
+              <rect x="140" y="490" width="14" height="10" fill="#FAF9F5" stroke="#888" stroke-width="0.5" stroke-dasharray="2 2"/>
+              <text x="162" y="499">CONTINUOUS / MONITOR</text>
+              <line x1="320" y1="495" x2="345" y2="495" stroke="#141413" stroke-width="1.2" marker-end="url(#arr)"/>
+              <text x="352" y="499">PHASE TRANSITION</text>
+              <line x1="500" y1="495" x2="525" y2="495" stroke="#9B8CC8" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#arr-loop)"/>
+              <text x="532" y="499">LOOP TO ORE</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Cross-cutting layers -->
+      <div class="harness-section">
+        <h4>CROSS-CUTTING LAYERS</h4>
+        <p class="lead">フェーズに依存せず、すべてのスキルから参照される3つの基盤</p>
+        <div class="harness-cross">
+          <div class="h-cross-card">
+            <h6>SHARED CONTEXT</h6>
+            <div class="h-cross-jp">_shared/ — 全スキルが参照</div>
+            <p>ブランドトーン・社内用語・担当マトリクスを集約。全アウトプットがここを通る関門。</p>
+            <ul>
+              <li>brand-voice.md</li>
+              <li>glossary.md</li>
+              <li>stakeholder-map.md</li>
+            </ul>
+          </div>
+          <div class="h-cross-card" style="border-left-color:var(--crystal-blue)">
+            <h6>CONTINUOUS OPS</h6>
+            <div class="h-cross-jp">project-mgmt/ — 横串で常時稼働</div>
+            <p>状況集約とリスク台帳。フェーズに紐付かず、Lite運営全般を支える神経系として動く。</p>
+            <ul>
+              <li>status-sync.md (週次)</li>
+              <li>risk-log.md (随時)</li>
+            </ul>
+          </div>
+          <div class="h-cross-card" style="border-left-color:var(--crystal-teal)">
+            <h6>EXTERNAL TOOLING</h6>
+            <div class="h-cross-jp">connectors/ — 外部ツールの参照ルール</div>
+            <p>Drive/Slack/Zoom/Figmaの命名規則・アクセス制御・取得方法を定義。スキルから「正しく取りに行く」ための地図。</p>
+            <ul>
+              <li>google-workspace.md</li>
+              <li>slack.md</li>
+              <li>zoom.md</li>
+              <li>figma.md</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trigger → Action Matrix -->
+      <div class="harness-section">
+        <h4>TRIGGER → ACTION MATRIX</h4>
+        <p class="lead">人間の発話 / イベントから、どのスキルが呼ばれるかの逆引き</p>
+        <table class="harness-matrix">
+          <thead>
+            <tr><th>トリガー</th><th>呼び出されるスキル</th><th>主な参照</th><th>Push先</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>「問い合わせ来た」「初回返信書いて」</td><td><code>lead/inbound-triage.md</code></td><td><code>_shared/brand-voice</code> + <code>stakeholder-map</code></td><td><code>#ore-リード・アサイン情報-cc</code></td></tr>
+            <tr><td>「BANTC埋めて」「Disco Note作って」</td><td><code>lead/discovery-notes.md</code></td><td><code>connectors/zoom</code> (文字起こし)</td><td><code>#ore-リード・アサイン情報-cc</code></td></tr>
+            <tr><td>「提案書作って」「見積根拠まとめて」</td><td><code>lead/proposal-draft.md</code></td><td>過去 Crysta 事例 + Disco Note</td><td><code>#ore-リード・アサイン情報-cc</code></td></tr>
+            <tr><td>「キックオフ準備」</td><td><code>delivery/kickoff.md</code></td><td>提案書 + 契約書 + Disco Note</td><td><code>#lite-lapidaristデリバリー-cc</code></td></tr>
+            <tr><td>「ブランドデザイン進める」</td><td><code>delivery/creative-review.md</code></td><td><code>connectors/figma</code> + Claude Design</td><td><code>#lite-lapidaristデリバリー-cc</code></td></tr>
+            <tr><td>「引き継ぎ資料作って」</td><td><code>delivery/handoff.md</code></td><td>Figma Dev Mode</td><td><code>#lite-lapidaristデリバリー-cc</code></td></tr>
+            <tr><td>「進捗まとめて」「週次サマリ」</td><td><code>project-mgmt/status-sync.md</code></td><td><code>connectors/slack</code> + <code>connectors/zoom</code></td><td><code>#lite-lapidaristデリバリー-cc</code></td></tr>
+            <tr><td>「リスク追加」「赤信号PJ」</td><td><code>project-mgmt/risk-log.md</code></td><td><code>stakeholder-map</code></td><td><code>#lite-lapidaristデリバリー-cc</code></td></tr>
+            <tr><td>「Oreの状況見て」</td><td><code>biz-mgmt/pipeline-review.md</code></td><td>Notion: Ore Pipeline</td><td><code>#ore-リード・アサイン情報-cc</code></td></tr>
+            <tr><td>「請求書発行」「月次の数字」</td><td><code>biz-mgmt/financial-snapshot.md</code></td><td>銀行CSV + 契約書一覧</td><td><code>#lite-請求・入金-cc</code></td></tr>
+            <tr><td>「事例書いて」「ケーススタディ」</td><td><code>internal-marketing/case-study.md</code></td><td>許諾済み案件 + 検収後コメント</td><td><code>#cry-ナーチャリング・イベント-cc</code></td></tr>
+            <tr><td>「LinkedIn投稿」「note書いて」</td><td><code>internal-marketing/social-post.md</code></td><td>事例 + Crysta索敵レポート</td><td><code>#ore-リード・アサイン情報-cc</code></td></tr>
+            <tr><td>「[名前]との1on1準備」</td><td><code>people-mgmt/1on1-prep.md</code></td><td>過去1on1メモ + WCM記述</td><td>DM</td></tr>
+            <tr><td>「新メンバー受入」「パートナー初稼働」</td><td><code>people-mgmt/onboarding.md</code></td><td>該当ロールに応じたカリキュラム</td><td>DM中心</td></tr>
+            <tr><td>「半期レビュー」</td><td><code>people-mgmt/performance-review.md</code></td><td>過去6ヶ月の1on1 + アウトプット</td><td>DM (限定アクセス)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Connectors -->
+      <div class="harness-section">
+        <h4>CONNECTORS — TOOL REFERENCE</h4>
+        <p class="lead">外部ツールの命名規則・アクセス制御・参照ルール</p>
+        <div class="harness-conn">
+          <div class="h-conn-card" style="--conn-color:#4285F4">
+            <h6>GOOGLE WORKSPACE</h6>
+            <div class="h-conn-jp">Drive / Calendar / Gmail</div>
+            <p>00_Brand 〜 99_Archive の数字プレフィックス階層。ファイル名は <code>YYYYMMDD_案件名_種別_v01.ext</code>。アクセス権はフォルダ単位で社員/パートナー/顧客を分離。</p>
+            <div class="h-conn-used">Used by: lead/* / delivery/* / biz-mgmt/* / internal-marketing/*</div>
+          </div>
+          <div class="h-conn-card" style="--conn-color:#4A154B">
+            <h6>SLACK</h6>
+            <div class="h-conn-jp">4 cc Channels</div>
+            <p>新規チャンネル作成は禁則。<code>:emoji: [フェーズ]-[Step]</code> 形式の投稿で検索性を担保。リアクションは状態表示用 (✓/👀/🙌)。</p>
+            <div class="h-conn-used">Used by: 全スキル (Push先として)</div>
+          </div>
+          <div class="h-conn-card" style="--conn-color:#2D8CFF">
+            <h6>ZOOM</h6>
+            <div class="h-conn-jp">録画 → 文字起こし → 議事録</div>
+            <p>Ore初回MTG以降は録画必須。AI Botが文字起こしから議事録を自動生成 (`_minutes.md`)。1on1録画は本人合意必須・90日以内に削除。</p>
+            <div class="h-conn-used">Used by: lead/discovery-notes / delivery/kickoff / project-mgmt/status-sync</div>
+          </div>
+          <div class="h-conn-card" style="--conn-color:#F24E1E">
+            <h6>FIGMA</h6>
+            <div class="h-conn-jp">HL-Brand Library + PJファイル</div>
+            <p>HL-Brandを必ず参照し、PJ固有トークンは03_Design-Systemで拡張。Claude Design出力は04_Designs/Claude Originに配置 → 人がBrand Fit/Craft/Feasibilityをレビュー。</p>
+            <div class="h-conn-used">Used by: delivery/creative-review / delivery/handoff</div>
+          </div>
+        </div>
+      </div>
+
     </section>
 
     <!-- ======= PROJECT ======= -->
