@@ -1,0 +1,41 @@
+# --- Quartz Setup LP / security & hardening (Xserver Apache) ---
+
+# Disable directory listing
+Options -Indexes
+
+<IfModule mod_headers.c>
+  # Prevent clickjacking
+  Header always set X-Frame-Options "SAMEORIGIN"
+  # Prevent MIME-type sniffing
+  Header always set X-Content-Type-Options "nosniff"
+  # Limit referrer leakage
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  # Disable powerful APIs we don't use
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+  # HSTS (enable only after confirming the entire site is HTTPS-only)
+  # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+  # Content Security Policy
+  # NOTE: 'unsafe-inline' is required because all CSS/JS is inlined in index.html
+  Header always set Content-Security-Policy "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'self' https://formsubmit.co; form-action 'self' https://formsubmit.co; frame-ancestors 'self'; base-uri 'self'; object-src 'none'"
+</IfModule>
+
+# Cache control for static assets
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+  ExpiresByType image/webp "access plus 30 days"
+  ExpiresByType text/html "access plus 1 hour"
+</IfModule>
+
+# Block access to dotfiles
+<FilesMatch "^\.">
+  Require all denied
+</FilesMatch>
+
+# Block access to common sensitive files if present
+<FilesMatch "(\.bak|\.sql|\.log|\.env|~)$">
+  Require all denied
+</FilesMatch>
