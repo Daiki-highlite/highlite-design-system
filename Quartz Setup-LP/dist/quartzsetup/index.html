@@ -1727,6 +1727,60 @@
   }
   .feature-visual--naked.is-in > img{transform:scale(1)}
 
+  /* Watercolor paint-on reveal — for Philosophy illustration */
+  .philosophy .feature-visual--side{
+    transform:none;
+    opacity:1;
+    transition:none;
+  }
+  .philosophy .feature-visual--naked > img{
+    opacity:0;
+    filter:blur(14px) saturate(.25) brightness(1.06);
+    transform:scale(.96) rotate(-.4deg);
+    -webkit-mask-image:
+      radial-gradient(ellipse 70% 60% at 42% 50%, #000 30%, transparent 78%),
+      radial-gradient(circle at 62% 32%, #000 22%, transparent 72%),
+      radial-gradient(circle at 30% 70%, #000 22%, transparent 72%),
+      radial-gradient(circle at 75% 78%, #000 18%, transparent 70%);
+    mask-image:
+      radial-gradient(ellipse 70% 60% at 42% 50%, #000 30%, transparent 78%),
+      radial-gradient(circle at 62% 32%, #000 22%, transparent 72%),
+      radial-gradient(circle at 30% 70%, #000 22%, transparent 72%),
+      radial-gradient(circle at 75% 78%, #000 18%, transparent 70%);
+    -webkit-mask-size:18% 18%, 12% 12%, 12% 12%, 10% 10%;
+            mask-size:18% 18%, 12% 12%, 12% 12%, 10% 10%;
+    -webkit-mask-position:42% 50%, 62% 32%, 30% 70%, 75% 78%;
+            mask-position:42% 50%, 62% 32%, 30% 70%, 75% 78%;
+    -webkit-mask-repeat:no-repeat;
+            mask-repeat:no-repeat;
+    -webkit-mask-composite:source-over;
+            mask-composite:add;
+    transition:
+      opacity 1.4s ease-out,
+      filter 1.6s ease-out,
+      transform 1.6s cubic-bezier(.22,.61,.36,1),
+      -webkit-mask-size 1.6s cubic-bezier(.22,.61,.36,1),
+      mask-size 1.6s cubic-bezier(.22,.61,.36,1);
+    will-change:opacity, filter, transform, mask-size;
+  }
+  .philosophy .feature-visual--naked.is-in > img{
+    opacity:1;
+    filter:blur(0) saturate(1) brightness(1);
+    transform:scale(1) rotate(0);
+    -webkit-mask-size:240% 240%, 220% 220%, 220% 220%, 200% 200%;
+            mask-size:240% 240%, 220% 220%, 220% 220%, 200% 200%;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .philosophy .feature-visual--naked > img{
+      transition:none;
+      opacity:1;
+      filter:none;
+      transform:none;
+      -webkit-mask-image:none;
+              mask-image:none;
+    }
+  }
+
   /* ===== Value parallax band (JS-driven parallax) ===== */
   .value-band{
     width:100%;
