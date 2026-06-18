@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>200万/月 戦略タスク | Highlite</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --slate:       #3D5070;
+      --slate-dark:  #2a3a52;
+      --slate-light: #5a6f8a;
+      --slate-pale:  #e8edf4;
+      --teal:        #4A9A8A;
+      --teal-pale:   #e6f4f2;
+      --purple:      #7B6FA0;
+      --blue:        #4A7CAC;
+      --pink:        #C47A8A;
+      --bg:          #F4F3F0;
+      --card:        #FFFFFF;
+      --text:        #1a1a2e;
+      --muted:       #7a8499;
+      --border:      #E0DDD8;
+      --font-en:     'Optima', 'Gill Sans', 'Trebuchet MS', sans-serif;
+      --font-ja:     'Noto Sans JP', 'Hiragino Kaku Gothic ProN', sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-ja);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Sidebar ── */
+    .layout { display: flex; min-height: 100vh; }
+
+    .sidebar {
+      width: 240px;
+      background: var(--slate-dark);
+      color: white;
+      padding: 32px 0;
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+    }
+
+    .sidebar-logo {
+      padding: 0 24px 32px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .sidebar-logo-label {
+      font-family: var(--font-en);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 6px;
+    }
+    .sidebar-logo-title {
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .sidebar-kgi {
+      padding: 20px 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .sidebar-kgi-label {
+      font-family: var(--font-en);
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 6px;
+    }
+    .sidebar-kgi-text {
+      font-size: 12px;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.6;
+    }
+
+    .sidebar-nav { padding: 20px 0; flex: 1; }
+    .nav-section-label {
+      font-family: var(--font-en);
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      padding: 0 24px;
+      margin-bottom: 6px;
+      margin-top: 16px;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 24px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      border-left: 2px solid transparent;
+    }
+    .nav-item:hover { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.9); }
+    .nav-item.active {
+      background: rgba(255,255,255,0.08);
+      color: white;
+      border-left-color: var(--teal);
+    }
+    .nav-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .nav-count {
+      margin-left: auto;
+      font-size: 11px;
+      background: rgba(255,255,255,0.12);
+      padding: 1px 7px;
+      border-radius: 10px;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .sidebar-progress { padding: 20px 24px; border-top: 1px solid rgba(255,255,255,0.08); }
+    .sidebar-progress-label {
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .progress-bar-wrap {
+      background: rgba(255,255,255,0.1);
+      border-radius: 4px;
+      height: 5px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--teal);
+      border-radius: 4px;
+      transition: width 0.4s ease;
+    }
+
+    /* ── Main ── */
+    .main {
+      margin-left: 240px;
+      flex: 1;
+      padding: 40px 48px 80px;
+      max-width: calc(100vw - 240px);
+    }
+
+    /* ── Top Bar ── */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 36px;
+    }
+    .topbar-title {
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--slate-dark);
+    }
+    .topbar-filters {
+      display: flex;
+      gap: 8px;
+    }
+    .filter-btn {
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: white;
+      font-size: 12px;
+      font-family: var(--font-ja);
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .filter-btn:hover { border-color: var(--slate-light); color: var(--slate); }
+    .filter-btn.active {
+      background: var(--slate);
+      border-color: var(--slate);
+      color: white;
+    }
+
+    /* ── Stats Row ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px 24px;
+    }
+    .stat-label {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 6px;
+      font-family: var(--font-en);
+      letter-spacing: 0.06em;
+    }
+    .stat-value {
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--slate-dark);
+      line-height: 1;
+    }
+    .stat-sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* ── Phase Section ── */
+    .phase-section { margin-bottom: 48px; }
+    .phase-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .phase-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .phase-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--slate-dark);
+    }
+    .phase-meta {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .phase-progress-wrap {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .phase-prog-bar {
+      width: 80px;
+      height: 4px;
+      background: var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .phase-prog-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.4s;
+    }
+
+    /* ── Task Card ── */
+    .task-list { display: flex; flex-direction: column; gap: 8px; }
+
+    .task-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      transition: opacity 0.2s, border-color 0.2s;
+      cursor: pointer;
+    }
+    .task-card:hover { border-color: var(--slate-light); }
+    .task-card.done { opacity: 0.5; }
+    .task-card.done .task-title { text-decoration: line-through; color: var(--muted); }
+    .task-card.hidden { display: none; }
+
+    /* Checkbox */
+    .task-check {
+      width: 20px; height: 20px;
+      border: 1.5px solid var(--border);
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s, border-color 0.15s;
+      cursor: pointer;
+    }
+    .task-check:hover { border-color: var(--teal); }
+    .task-card.done .task-check {
+      background: var(--teal);
+      border-color: var(--teal);
+    }
+    .task-check svg { display: none; }
+    .task-card.done .task-check svg { display: block; }
+
+    .task-body { flex: 1; min-width: 0; }
+    .task-title { font-size: 14px; color: var(--text); line-height: 1.5; margin-bottom: 6px; }
+    .task-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+    /* Status Badge */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .status-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+    }
+    .status-todo   { background: #F3F4F6; color: #6B7280; }
+    .status-todo::before   { background: #9CA3AF; }
+    .status-doing  { background: #DBEAFE; color: #1E40AF; }
+    .status-doing::before  { background: #3B82F6; }
+    .status-done   { background: #D1FAE5; color: #065F46; }
+    .status-done::before   { background: var(--teal); }
+
+    /* Priority */
+    .priority-badge {
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 11px;
+      font-family: var(--font-en);
+    }
+    .p-highest { background: #FEF3C7; color: #92400E; }
+    .p-high    { background: #FEE2E2; color: #991B1B; }
+    .p-mid     { background: #DBEAFE; color: #1E40AF; }
+    .p-low     { background: #F3F4F6; color: #6B7280; }
+
+    /* Layer tag */
+    .layer-tag {
+      font-size: 11px;
+      color: var(--muted);
+      font-family: var(--font-en);
+    }
+
+    /* ── Status menu ── */
+    .status-menu {
+      position: fixed;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      padding: 6px;
+      z-index: 1000;
+      min-width: 140px;
+      display: none;
+    }
+    .status-menu.visible { display: block; }
+    .status-menu-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 5px;
+      font-size: 13px;
+      cursor: pointer;
+      color: var(--text);
+    }
+    .status-menu-item:hover { background: var(--bg); }
+    .status-menu-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+    }
+
+    /* ── Empty State ── */
+    .empty-state {
+      text-align: center;
+      padding: 48px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-label">Highlite</div>
+      <div class="sidebar-logo-title">200万/月<br>戦略タスク管理</div>
+    </div>
+
+    <div class="sidebar-kgi">
+      <div class="sidebar-kgi-label">KGI</div>
+      <div class="sidebar-kgi-text">7月以降、毎月200万円の売上をデジタルマーケティング手法で継続達成する</div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">フィルター</div>
+      <div class="nav-item active" onclick="filterPhase('all')">
+        <span class="nav-dot" style="background:#9CA3AF"></span>
+        すべて
+        <span class="nav-count" id="count-all">0</span>
+      </div>
+      <div class="nav-item" onclick="filterPhase('todo')">
+        <span class="nav-dot" style="background:#9CA3AF"></span>
+        未着手
+        <span class="nav-count" id="count-todo">0</span>
+      </div>
+      <div class="nav-item" onclick="filterPhase('doing')">
+        <span class="nav-dot" style="background:#3B82F6"></span>
+        進行中
+        <span class="nav-count" id="count-doing">0</span>
+      </div>
+      <div class="nav-item" onclick="filterPhase('done')">
+        <span class="nav-dot" style="background:#4A9A8A"></span>
+        完了
+        <span class="nav-count" id="count-done">0</span>
+      </div>
+
+      <div class="nav-section-label" style="margin-top:24px;">フェーズ</div>
+      <div class="nav-item" onclick="filterPhase('june')">
+        <span class="nav-dot" style="background:#C47A8A"></span>
+        6月 — 今月
+        <span class="nav-count" id="count-june">0</span>
+      </div>
+      <div class="nav-item" onclick="filterPhase('july')">
+        <span class="nav-dot" style="background:#4A7CAC"></span>
+        7月 — 開始月
+        <span class="nav-count" id="count-july">0</span>
+      </div>
+      <div class="nav-item" onclick="filterPhase('aug')">
+        <span class="nav-dot" style="background:#7B6FA0"></span>
+        8〜9月
+        <span class="nav-count" id="count-aug">0</span>
+      </div>
+      <div class="nav-item" onclick="filterPhase('ongoing')">
+        <span class="nav-dot" style="background:#4A9A8A"></span>
+        継続タスク
+        <span class="nav-count" id="count-ongoing">0</span>
+      </div>
+    </nav>
+
+    <div class="sidebar-progress">
+      <div class="sidebar-progress-label">
+        <span>全体進捗</span>
+        <span id="progress-pct">0%</span>
+      </div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="progress-bar" style="width:0%"></div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── Main ── -->
+  <main class="main">
+
+    <div class="topbar">
+      <div class="topbar-title" id="view-title">すべてのタスク</div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-label">Total Tasks</div>
+        <div class="stat-value" id="stat-total">0</div>
+        <div class="stat-sub">全タスク</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">In Progress</div>
+        <div class="stat-value" style="color:var(--blue)" id="stat-doing">0</div>
+        <div class="stat-sub">進行中</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Completed</div>
+        <div class="stat-value" style="color:var(--teal)" id="stat-done">0</div>
+        <div class="stat-sub">完了</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">High Priority</div>
+        <div class="stat-value" style="color:var(--pink)" id="stat-high">0</div>
+        <div class="stat-sub">最高・高優先度</div>
+      </div>
+    </div>
+
+    <!-- Task Sections (dynamically rendered) -->
+    <div id="task-container"></div>
+
+  </main>
+</div>
+
+<!-- Status Menu -->
+<div class="status-menu" id="status-menu">
+  <div class="status-menu-item" onclick="setStatus('todo')">
+    <div class="status-menu-dot" style="background:#9CA3AF"></div> 未着手
+  </div>
+  <div class="status-menu-item" onclick="setStatus('doing')">
+    <div class="status-menu-dot" style="background:#3B82F6"></div> 進行中
+  </div>
+  <div class="status-menu-item" onclick="setStatus('done')">
+    <div class="status-menu-dot" style="background:#4A9A8A"></div> 完了
+  </div>
+</div>
+
+<script>
+  // ── Task Data ──
+  const TASKS = [
+    // 6月
+    { id:'t00', phase:'june', title:'【ヒアリング】メンバーに既存案件の実態を確認する（業種・規模・金額感・受注経路・現在の進行状況）', layer:'現状把握 — 施策設計の前提', priority:'highest' },
+    { id:'t01', phase:'june', title:'LP：ファーストビューのコピー・構成を見直す',          layer:'Layer 01 — インバウンド設計', priority:'highest' },
+    { id:'t02', phase:'june', title:'LP：「まず資料を見てみる」DL資料CTAを追加する',       layer:'Layer 01 — インバウンド設計', priority:'highest' },
+    { id:'t03', phase:'june', title:'LP：SaaS文脈のメッセージを追加する',                  layer:'Layer 01 — インバウンド設計', priority:'high' },
+    { id:'t04', phase:'june', title:'LinkedIn：個人名義（Yuto）での投稿を開始する（週2本）', layer:'Layer 01 — インバウンド設計', priority:'high' },
+    { id:'t05', phase:'june', title:'Google リスティング：ターゲットキーワードリストを作成する', layer:'Layer 01 — インバウンド設計', priority:'high' },
+    { id:'t06', phase:'june', title:'Google リスティング：RSA広告文（見出し・説明文）を作成する', layer:'Layer 01 — インバウンド設計', priority:'high' },
+    { id:'t07', phase:'june', title:'Brandri：記事1本目のテーマを決定する',               layer:'Layer 02 — コンテンツ連動', priority:'high' },
+    { id:'t08', phase:'june', title:'現在進行中・完了済み案件をリストアップし、リテイナー提案対象を確認する', layer:'Layer 03 — リテイナー', priority:'high' },
+    // 7月
+    { id:'t09', phase:'july', title:'Google リスティング：広告出稿を開始する',            layer:'Layer 01 — インバウンド設計', priority:'high' },
+    { id:'t10', phase:'july', title:'Brandri：記事1本目を公開する',                       layer:'Layer 02 — コンテンツ連動', priority:'mid' },
+    { id:'t11', phase:'july', title:'LinkedIn：ラグジュアリー × AI テーマの投稿を開始する', layer:'Layer 02 — コンテンツ連動', priority:'mid' },
+    { id:'t12', phase:'july', title:'リテイナー：完了済み案件への提案を実施する',           layer:'Layer 03 — リテイナー', priority:'mid' },
+    { id:'t13', phase:'july', title:'Google 広告：週次でCTR・CPCを確認し改善する',         layer:'Layer 01 — インバウンド設計', priority:'mid' },
+    // 8〜9月
+    { id:'t14', phase:'aug',  title:'LP流入データをもとにA/Bテストを実施する',             layer:'Layer 01 — インバウンド設計', priority:'mid' },
+    { id:'t15', phase:'aug',  title:'リターゲティング広告を設定する（LP流入が月100以上になったら）', layer:'Layer 01 — インバウンド設計', priority:'low' },
+    { id:'t16', phase:'aug',  title:'リテイナー：2社目への提案を実施する',                 layer:'Layer 03 — リテイナー', priority:'mid' },
+    { id:'t17', phase:'aug',  title:'完了案件の事例記事化（Crystaフェーズ）を開始する',    layer:'Layer 03 — リテイナー', priority:'mid' },
+    { id:'t18', phase:'aug',  title:'月次レポート可視化の仕組みを設計する',               layer:'Layer 03 — リテイナー', priority:'mid' },
+    // 継続タスク
+    { id:'t19', phase:'ongoing', title:'LinkedIn投稿を週2本のペースで継続する',           layer:'Layer 01・02 — 共通', priority:'high' },
+    { id:'t20', phase:'ongoing', title:'Brandri記事を月1本のペースで公開する',            layer:'Layer 02 — コンテンツ連動', priority:'mid' },
+    { id:'t21', phase:'ongoing', title:'Google広告のキーワード・入札を月次で最適化する',   layer:'Layer 01 — インバウンド設計', priority:'mid' },
+    { id:'t22', phase:'ongoing', title:'マルジェラKGI向けのLinkedIn投稿を月1本出す',      layer:'Layer 02 — コンテンツ連動', priority:'mid' },
+    { id:'t23', phase:'ongoing', title:'リテイナー顧客に月次レポートを届ける',            layer:'Layer 03 — リテイナー', priority:'mid' },
+  ];
+
+  const PHASES = [
+    { key:'june',    label:'6月 — 今月',   color:'#C47A8A', desc:'LP整備・広告準備・LinkedIn開始' },
+    { key:'july',    label:'7月 — 開始月', color:'#4A7CAC', desc:'広告出稿・記事公開・リテイナー提案' },
+    { key:'aug',     label:'8〜9月',       color:'#7B6FA0', desc:'流入増加・リテイナー2社目・事例化' },
+    { key:'ongoing', label:'継続タスク',   color:'#4A9A8A', desc:'月次・週次の定常アクション' },
+  ];
+
+  const PRIORITY_LABEL = { highest:'最高', high:'高', mid:'中', low:'低' };
+  const PRIORITY_CLASS = { highest:'p-highest', high:'p-high', mid:'p-mid', low:'p-low' };
+  const STATUS_LABEL   = { todo:'未着手', doing:'進行中', done:'完了' };
+  const STATUS_CLASS   = { todo:'status-todo', doing:'status-doing', done:'status-done' };
+
+  // ── State ──
+  let statuses = {};
+  let currentFilter = 'all';
+  let menuTargetId = null;
+
+  function loadStatuses() {
+    try { statuses = JSON.parse(localStorage.getItem('hl-task-statuses') || '{}'); } catch(e) { statuses = {}; }
+    TASKS.forEach(t => { if (!statuses[t.id]) statuses[t.id] = 'todo'; });
+  }
+
+  function saveStatuses() {
+    localStorage.setItem('hl-task-statuses', JSON.stringify(statuses));
+  }
+
+  // ── Render ──
+  function render() {
+    const container = document.getElementById('task-container');
+    container.innerHTML = '';
+
+    const phases = currentFilter === 'all' || ['todo','doing','done'].includes(currentFilter)
+      ? PHASES
+      : PHASES.filter(p => p.key === currentFilter);
+
+    phases.forEach(phase => {
+      let tasks = TASKS.filter(t => t.phase === phase.key);
+      if (['todo','doing','done'].includes(currentFilter)) {
+        tasks = tasks.filter(t => statuses[t.id] === currentFilter);
+      }
+      if (tasks.length === 0) return;
+
+      const doneCount = tasks.filter(t => statuses[t.id] === 'done').length;
+      const pct = tasks.length ? Math.round(doneCount / tasks.length * 100) : 0;
+
+      const section = document.createElement('div');
+      section.className = 'phase-section';
+      section.innerHTML = `
+        <div class="phase-header">
+          <div class="phase-dot" style="background:${phase.color}"></div>
+          <div class="phase-title">${phase.label}</div>
+          <div class="phase-meta">${phase.desc}</div>
+          <div class="phase-progress-wrap">
+            <span>${doneCount}/${tasks.length}</span>
+            <div class="phase-prog-bar">
+              <div class="phase-prog-fill" style="background:${phase.color};width:${pct}%"></div>
+            </div>
+          </div>
+        </div>
+        <div class="task-list" id="list-${phase.key}"></div>
+      `;
+      container.appendChild(section);
+
+      const list = section.querySelector(`#list-${phase.key}`);
+      tasks.forEach(task => {
+        const st = statuses[task.id];
+        const card = document.createElement('div');
+        card.className = `task-card ${st === 'done' ? 'done' : ''}`;
+        card.dataset.id = task.id;
+        card.innerHTML = `
+          <div class="task-check" onclick="toggleDone(event,'${task.id}')">
+            <svg width="12" height="9" viewBox="0 0 12 9" fill="none">
+              <path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="task-body">
+            <div class="task-title">${task.title}</div>
+            <div class="task-meta">
+              <span class="status-badge ${STATUS_CLASS[st]}" onclick="openMenu(event,'${task.id}')">${STATUS_LABEL[st]}</span>
+              <span class="priority-badge ${PRIORITY_CLASS[task.priority]}">${PRIORITY_LABEL[task.priority]}</span>
+              <span class="layer-tag">${task.layer}</span>
+            </div>
+          </div>
+        `;
+        list.appendChild(card);
+      });
+    });
+
+    updateStats();
+    updateCounts();
+  }
+
+  function toggleDone(e, id) {
+    e.stopPropagation();
+    statuses[id] = statuses[id] === 'done' ? 'todo' : 'done';
+    saveStatuses();
+    render();
+  }
+
+  function openMenu(e, id) {
+    e.stopPropagation();
+    menuTargetId = id;
+    const menu = document.getElementById('status-menu');
+    menu.style.left = (e.clientX) + 'px';
+    menu.style.top  = (e.clientY + 8) + 'px';
+    menu.classList.add('visible');
+  }
+
+  function setStatus(st) {
+    if (menuTargetId) {
+      statuses[menuTargetId] = st;
+      saveStatuses();
+      render();
+    }
+    document.getElementById('status-menu').classList.remove('visible');
+    menuTargetId = null;
+  }
+
+  document.addEventListener('click', () => {
+    document.getElementById('status-menu').classList.remove('visible');
+    menuTargetId = null;
+  });
+
+  function filterPhase(f) {
+    currentFilter = f;
+    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+
+    const titles = {
+      all:'すべてのタスク', todo:'未着手のタスク', doing:'進行中のタスク', done:'完了したタスク',
+      june:'6月 — 今月のタスク', july:'7月 — 開始月のタスク', aug:'8〜9月のタスク', ongoing:'継続タスク'
+    };
+    document.getElementById('view-title').textContent = titles[f] || 'タスク一覧';
+    render();
+  }
+
+  function updateStats() {
+    const all   = TASKS.length;
+    const doing = TASKS.filter(t => statuses[t.id] === 'doing').length;
+    const done  = TASKS.filter(t => statuses[t.id] === 'done').length;
+    const high  = TASKS.filter(t => ['highest','high'].includes(t.priority) && statuses[t.id] !== 'done').length;
+    const pct   = all ? Math.round(done / all * 100) : 0;
+
+    document.getElementById('stat-total').textContent = all;
+    document.getElementById('stat-doing').textContent = doing;
+    document.getElementById('stat-done').textContent  = done;
+    document.getElementById('stat-high').textContent  = high;
+    document.getElementById('progress-pct').textContent = pct + '%';
+    document.getElementById('progress-bar').style.width  = pct + '%';
+  }
+
+  function updateCounts() {
+    const counts = { all:0, todo:0, doing:0, done:0, june:0, july:0, aug:0, ongoing:0 };
+    TASKS.forEach(t => {
+      const st = statuses[t.id];
+      counts.all++;
+      counts[st]++;
+      counts[t.phase]++;
+    });
+    Object.entries(counts).forEach(([k,v]) => {
+      const el = document.getElementById('count-' + k);
+      if (el) el.textContent = v;
+    });
+  }
+
+  // ── Init ──
+  loadStatuses();
+  render();
+</script>
+</body>
+</html>

@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>200万/月 継続達成 戦略 | Highlite</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --slate:        #3D5070;
+      --slate-dark:   #2a3a52;
+      --slate-light:  #5a6f8a;
+      --teal:         #4A9A8A;
+      --purple:       #7B6FA0;
+      --blue:         #4A7CAC;
+      --pink:         #C47A8A;
+      --bg:           #F8F7F5;
+      --bg-card:      #FFFFFF;
+      --text:         #1a1a2e;
+      --text-muted:   #6B7280;
+      --border:       #E5E3DE;
+      --font-en:      'Optima', 'Gill Sans', 'Trebuchet MS', sans-serif;
+      --font-ja:      'Noto Sans JP', 'Hiragino Kaku Gothic ProN', sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-ja);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      font-size: 15px;
+    }
+
+    /* ── Header ── */
+    .header {
+      background: var(--slate-dark);
+      color: white;
+      padding: 72px 40px;
+    }
+    .header-inner { max-width: 860px; margin: 0 auto; }
+    .header-label {
+      font-family: var(--font-en);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 20px;
+    }
+    .header h1 {
+      font-size: 34px;
+      font-weight: 300;
+      line-height: 1.4;
+      margin-bottom: 20px;
+    }
+    .header-meta { font-size: 13px; color: rgba(255,255,255,0.4); }
+
+    /* ── KGI Banner ── */
+    .kgi-banner {
+      background: var(--slate);
+      border-left: 3px solid var(--teal);
+      color: white;
+      padding: 28px 40px;
+      max-width: 860px;
+      margin: 48px auto 0;
+    }
+    .kgi-banner-label {
+      font-family: var(--font-en);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 10px;
+    }
+    .kgi-banner p {
+      font-size: 17px;
+      font-weight: 300;
+      line-height: 1.7;
+      color: white;
+      margin: 0;
+    }
+
+    /* ── Main ── */
+    .main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 72px 40px 120px;
+    }
+
+    /* ── Section ── */
+    .section { margin-bottom: 88px; }
+    .section-label {
+      font-family: var(--font-en);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--slate);
+      margin-bottom: 8px;
+    }
+    .section > h2 {
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--slate-dark);
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 28px;
+    }
+    h3 {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--slate);
+      margin: 36px 0 14px;
+    }
+    p { color: #374151; margin-bottom: 16px; }
+
+    /* ── Flywheel ── */
+    .flywheel {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 40px 32px;
+      margin: 24px 0;
+    }
+    .flywheel-flow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+    .flywheel-item {
+      background: var(--slate-dark);
+      color: white;
+      padding: 16px 32px;
+      font-size: 14px;
+      text-align: center;
+      width: 100%;
+      max-width: 500px;
+      border-radius: 2px;
+    }
+    .flywheel-item.accent { background: var(--teal); }
+    .flywheel-arrow {
+      color: var(--slate-light);
+      font-size: 18px;
+      padding: 6px 0;
+      line-height: 1;
+    }
+    .flywheel-note {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 20px;
+      font-style: italic;
+    }
+
+    /* ── Insight Box ── */
+    .insight {
+      background: #F0F4F8;
+      border-left: 3px solid var(--slate);
+      padding: 16px 24px;
+      margin: 20px 0;
+      font-size: 14px;
+      color: #374151;
+    }
+    .insight-label {
+      font-family: var(--font-en);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--slate);
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    /* ── Table ── */
+    .table-wrap { overflow-x: auto; margin: 16px 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+    th {
+      background: var(--slate);
+      color: white;
+      padding: 10px 16px;
+      text-align: left;
+      font-weight: 400;
+      font-size: 11.5px;
+      letter-spacing: 0.04em;
+    }
+    td {
+      padding: 11px 16px;
+      border-bottom: 1px solid var(--border);
+      color: #374151;
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) td { background: #FAFAF8; }
+
+    /* ── Pill ── */
+    .pill {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-family: var(--font-en);
+    }
+    .pill-high { background: #FEF3C7; color: #92400E; }
+    .pill-mid  { background: #DBEAFE; color: #1E40AF; }
+    .pill-low  { background: #F3F4F6; color: #6B7280; }
+
+    /* ── Tag ── */
+    .tag {
+      display: inline-block;
+      background: var(--slate);
+      color: white;
+      padding: 2px 8px;
+      font-size: 11px;
+      border-radius: 2px;
+      font-family: var(--font-en);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Cards ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin: 20px 0;
+    }
+    .card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 28px 24px;
+    }
+    .card-num {
+      font-family: var(--font-en);
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--border);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .card h4 {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--slate);
+      margin-bottom: 8px;
+    }
+    .card p { font-size: 13px; color: var(--text-muted); margin: 0; }
+
+    /* ── Timeline ── */
+    .timeline { position: relative; padding-left: 28px; margin: 24px 0; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 3px; top: 8px; bottom: 8px;
+      width: 1px;
+      background: var(--border);
+    }
+    .timeline-item { position: relative; margin-bottom: 40px; }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -32px; top: 6px;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--slate);
+    }
+    .tl-label {
+      font-family: var(--font-en);
+      font-size: 11.5px;
+      letter-spacing: 0.1em;
+      color: var(--slate);
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+    .tl-body ul { list-style: none; padding: 0; }
+    .tl-body li {
+      font-size: 13.5px;
+      color: #374151;
+      padding: 4px 0 4px 16px;
+      position: relative;
+    }
+    .tl-body li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--text-muted);
+    }
+
+    /* ── Retainer Scenarios ── */
+    .scenario-row td:first-child { font-weight: 500; }
+    .scenario-highlight td { background: #F0F4F8 !important; }
+    .scenario-highlight td:first-child { color: var(--slate); }
+
+    /* ── Checklist ── */
+    .checklist { list-style: none; padding: 0; }
+    .checklist li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      color: #374151;
+    }
+    .checklist li:last-child { border-bottom: none; }
+    .check-box {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid var(--slate-light);
+      border-radius: 2px;
+      margin-top: 2px;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 72px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-inner">
+      <div class="header-label">Highlite — KGI Strategy 2026</div>
+      <h1>毎月200万円 継続達成<br>デジタルマーケティング戦略</h1>
+      <div class="header-meta">作成日：2026年6月18日 &nbsp;|&nbsp; 記録者：Yuto Furukawa</div>
+    </div>
+  </header>
+
+  <div style="max-width:860px;margin:0 auto;padding:0 40px;">
+    <div class="kgi-banner" style="padding:28px 40px;margin:48px 0 0;">
+      <div class="kgi-banner-label">KGI</div>
+      <p>7月以降、毎月200万円の売上を<br>デジタルマーケティング手法で継続的に達成する</p>
+    </div>
+  </div>
+
+  <main class="main">
+
+    <!-- ── 全体像 ── -->
+    <section class="section">
+      <div class="section-label">Structure</div>
+      <h2>仕組みの全体像</h2>
+
+      <p>200万/月の継続は、プロジェクト型の積み上げではなく、<strong>リテイナーを基盤にした安定構造</strong>が必要です。コンテンツが起点となるフライホイールで、獲得→継続→実績→再獲得の循環を設計します。</p>
+
+      <div class="flywheel">
+        <div class="flywheel-flow">
+          <div class="flywheel-item accent">コンテンツ（Brandri・LinkedIn）</div>
+          <div class="flywheel-arrow">↓ 認知・信頼</div>
+          <div class="flywheel-item">LP → 問い合わせ → Clear / Prism プロジェクト</div>
+          <div class="flywheel-arrow">↓ 完了後の自然な流れ</div>
+          <div class="flywheel-item">ブランドOS型リテイナー（月額継続）</div>
+          <div class="flywheel-arrow">↓ 実績・顧客の声</div>
+          <div class="flywheel-item accent">コンテンツに戻る</div>
+        </div>
+        <div class="flywheel-note">コンテンツが全ての起点。循環が回り始めると200万/月が構造的に安定する。</div>
+      </div>
+    </section>
+
+    <!-- ── Layer 01 ── -->
+    <section class="section">
+      <div class="section-label">Layer 01</div>
+      <h2>インバウンド設計</h2>
+
+      <h3>LP（Quartz Setup）の整備</h3>
+      <p>現状LPは完成しているが、流入・問い合わせともにゼロ。LP整備と集客は同時並行で進める必要があります。</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>課題</th><th>対応方針</th><th>優先度</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ファーストビューで「社内にデザイン機能を構築する」が伝わらない</td>
+              <td>コピー・構成の見直し</td>
+              <td><span class="pill pill-high">最高</span></td>
+            </tr>
+            <tr>
+              <td>DL資料のCTAが未実装</td>
+              <td>「まず資料を見てみる」CTA追加</td>
+              <td><span class="pill pill-high">最高</span></td>
+            </tr>
+            <tr>
+              <td>SaaS文脈への訴求がない</td>
+              <td>SaaS向けメッセージを追加</td>
+              <td><span class="pill pill-mid">高</span></td>
+            </tr>
+            <tr>
+              <td>実績・社会的証明がない</td>
+              <td>ケーススタディ的な記述で代替（当面）</td>
+              <td><span class="pill pill-low">中</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>集客チャネル設計</h3>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>チャネル</th><th>役割</th><th>着手タイミング</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="tag">Google</span>&ensp;リスティング広告</td>
+              <td>検索意図のある層を直接刈り取る（短期）</td>
+              <td>LP整備完了後すぐ</td>
+            </tr>
+            <tr>
+              <td><span class="tag">Brandri</span>&ensp;記事</td>
+              <td>課題認識層の教育と信頼構築（中長期）</td>
+              <td>月1本ペースで開始</td>
+            </tr>
+            <tr>
+              <td><span class="tag">LinkedIn</span>&ensp;個人名義（Yuto）</td>
+              <td>意思決定者への認知拡大</td>
+              <td>今すぐ開始可能</td>
+            </tr>
+            <tr>
+              <td><span class="tag">RTG</span>&ensp;リターゲティング</td>
+              <td>LP訪問者への再接触</td>
+              <td>月間流入100以上になったら</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── Layer 02 ── -->
+    <section class="section">
+      <div class="section-label">Layer 02</div>
+      <h2>マルジェラKGIとのコンテンツ連動</h2>
+
+      <p>2つのKGIは<strong>同じコンテンツエンジンで動かせます</strong>。1本の記事が、SaaS経営者とラグジュアリーブランド担当者の両方に届く設計が可能です。</p>
+
+      <div class="insight">
+        <div class="insight-label">Key Insight</div>
+        コンテンツの「テーマ」はターゲットごとに書き分けるが、「トーン・品質・発信者（Yuto名義）」は共通。BrandriはSaaS寄り、LinkedInはラグジュアリー寄りに発信先を分けることで、1つのコンテンツ制作コストで2つのKGIを動かす。
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>記事テーマ</th><th>200万KGIへの効果</th><th>マルジェラKGIへの効果</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>「ブランドをAIでシステム化するとは何か」</td>
+              <td>SaaS経営者の課題認識を高める</td>
+              <td>高感度ブランドの専門家として認知</td>
+            </tr>
+            <tr>
+              <td>「デザインの判断をチームに伝える仕組み」</td>
+              <td>Clear / Prismへの関心喚起</td>
+              <td>ブランドOSの概念を広める</td>
+            </tr>
+            <tr>
+              <td>「ラグジュアリーブランドのAI活用の考え方」</td>
+              <td>高単価への意識づけ</td>
+              <td>直接ターゲットに刺さる</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── Layer 03 ── -->
+    <section class="section">
+      <div class="section-label">Layer 03</div>
+      <h2>リテイナー維持設計</h2>
+
+      <p>200万/月の安定基盤はリテイナーです。プロジェクト型だけでは毎月ゼロから積み上げが必要になる。<strong>構築（Clear/Prism）→ 維持（リテイナー）</strong>の自然な流れを設計します。</p>
+
+      <div class="insight">
+        <div class="insight-label">リテイナーへの転換フロー</div>
+        Clear / Prism 完了 &nbsp;→&nbsp; 「構築した仕組みを維持・進化させる」フェーズへの提案 &nbsp;→&nbsp; ブランドOS型リテイナー（月30〜80万）
+      </div>
+
+      <h3>リテイナー目標の逆算</h3>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>パターン</th><th>リテイナー数</th><th>単価</th><th>月合計</th><th>プロジェクト補完</th></tr>
+          </thead>
+          <tbody>
+            <tr class="scenario-row">
+              <td>A — 安定重視</td><td>4社</td><td>50万/月</td><td><strong>200万</strong></td><td>不要</td>
+            </tr>
+            <tr class="scenario-row">
+              <td>B — 現実解</td><td>2〜3社</td><td>60万/月</td><td><strong>120〜180万</strong></td><td>Clear 1件で補完</td>
+            </tr>
+            <tr class="scenario-row scenario-highlight">
+              <td>C — 過渡期（7月時点）</td><td>1社</td><td>60万/月</td><td><strong>60万</strong></td><td>Prism 1件で補完</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>デジタルによるリテイナー維持施策</h3>
+
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-num">01</div>
+          <h4>月次レポートの可視化</h4>
+          <p>「リテイナーで何が守られているか」を毎月1枚で届ける仕組みをデジタルで設計。離脱防止に直結する。</p>
+        </div>
+        <div class="card">
+          <div class="card-num">02</div>
+          <h4>継続価値コンテンツ</h4>
+          <p>「ブランドを持続させるとはどういうことか」という記事が、既存顧客の価値認識を高め解約を防ぐ。</p>
+        </div>
+        <div class="card">
+          <div class="card-num">03</div>
+          <h4>事例化のタイミング設計</h4>
+          <p>Crystaフェーズで実績記事を出すことで、既存顧客の満足度と次の紹介が同時に生まれる。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Timeline ── -->
+    <section class="section">
+      <div class="section-label">Roadmap</div>
+      <h2>実施タイムライン</h2>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="tl-label">June 2026 — 今月</div>
+          <div class="tl-body">
+            <ul>
+              <li>LP：ファーストビューとDL資料CTAの修正</li>
+              <li>LinkedIn：個人名義（Yuto）での投稿開始（週2本）</li>
+              <li>Googleリスティング：キーワード・広告文の準備</li>
+            </ul>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-label">July 2026 — 開始月</div>
+          <div class="tl-body">
+            <ul>
+              <li>Googleリスティング：出稿開始</li>
+              <li>Brandri：記事1本目公開</li>
+              <li>リテイナー：完了済み案件があれば提案開始</li>
+            </ul>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-label">Aug — Sep 2026</div>
+          <div class="tl-body">
+            <ul>
+              <li>LP流入が増え始め → 問い合わせ発生</li>
+              <li>コンテンツが積み上がり → 信頼が生まれる</li>
+              <li>リテイナー1〜2社確保 → 収益基盤ができる</li>
+            </ul>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-label">Oct 2026 → 以降</div>
+          <div class="tl-body">
+            <ul>
+              <li>リテイナー基盤（月100〜150万）＋プロジェクトで200万安定</li>
+              <li>コンテンツ実績の蓄積 → マルジェラKGIへの引き合いが生まれる</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Next Steps ── -->
+    <section class="section">
+      <div class="section-label">Next Steps</div>
+      <h2>確認・決定が必要なこと</h2>
+
+      <ul class="checklist">
+        <li>
+          <div class="check-box"></div>
+          <span>現在進行中・完了済みの案件はあるか（リテイナー提案・実績コンテンツ化の対象を確認）</span>
+        </li>
+        <li>
+          <div class="check-box"></div>
+          <span>LPへの修正はすぐ動けるか（ファーストビュー + DL資料CTAが最優先）</span>
+        </li>
+        <li>
+          <div class="check-box"></div>
+          <span>LinkedInの個人アカウント（Yuto名義）は既に活用しているか</span>
+        </li>
+        <li>
+          <div class="check-box"></div>
+          <span>Googleリスティング広告の月間予算感を決める</span>
+        </li>
+        <li>
+          <div class="check-box"></div>
+          <span>Brandri記事1本目のテーマを決める</span>
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+</body>
+</html>

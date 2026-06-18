@@ -1,0 +1,988 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Highlite — Quartz Setup</title>
+<link rel="stylesheet" href="deck.css" />
+<style>deck-stage:not(:defined){visibility:hidden}</style>
+</head>
+<body>
+
+<deck-stage width="1920" height="1080">
+
+  <!-- ============================================================
+       01 · COVER
+  ============================================================ -->
+  <section data-screen-label="01 Cover" class="slate cover">
+    <div class="cover__hero" aria-hidden="true"></div>
+    <div class="cover__veil" aria-hidden="true"></div>
+    <div class="cover__left">
+      <div class="cover__brand">
+        <img src="assets/quartz-setup-logo-white.png" alt="Quartz Setup by Highlite" />
+      </div>
+      <h1 class="cover__title">
+        AIとデザインが、<br/><em>チームの力に。</em>
+      </h1>
+      <p class="cover__sub">
+        デザイン制作を社内で回せる組織へ ── AI時代の<br/>
+        ブランド内製化を、Highliteが伴走して立ち上げます。
+      </p>
+      <div class="cover__en">
+        AI<span class="hl-spark">✦</span>DESIGN<span class="hl-spark">✦</span>TEAM
+      </div>
+    </div>
+    <div class="cover__foot">
+      <span>Highlite — AI Design Support Program</span>
+      <span class="dot"></span>
+      <span>2026</span>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       02 · INDEX / 目次
+  ============================================================ -->
+  <section data-screen-label="02 Index" class="canvas-warm index">
+    <div class="index__head">
+      <span class="eyebrow">Index</span>
+      <h1>目次</h1>
+      <div class="jp-sub">この資料に含まれる内容</div>
+      <div class="note">
+        各セクションは、Quartz Setupが<br/>
+        どんな状態を組織にもたらすかを<br/>
+        順を追って描いています。
+      </div>
+    </div>
+    <div class="index__list">
+      <div class="index__row">
+        <div class="index__num">01</div>
+        <div>
+          <h3>Highlite について</h3>
+          <div class="en">About Highlite</div>
+        </div>
+        <div class="pg">P. 03</div>
+      </div>
+      <div class="index__row">
+        <div class="index__num">02</div>
+        <div>
+          <h3>Quartz Setup ── 私たちが描く姿</h3>
+          <div class="en">Vision &amp; Context</div>
+        </div>
+        <div class="pg">P. 04</div>
+      </div>
+      <div class="index__row">
+        <div class="index__num">03</div>
+        <div>
+          <h3>3つのプログラム</h3>
+          <div class="en">Programs &amp; Outputs</div>
+        </div>
+        <div class="pg">P. 07</div>
+      </div>
+      <div class="index__row">
+        <div class="index__num">04</div>
+        <div>
+          <h3>導入で、変わること</h3>
+          <div class="en">What Shifts</div>
+        </div>
+        <div class="pg">P. 08</div>
+      </div>
+      <div class="index__row">
+        <div class="index__num">05</div>
+        <div>
+          <h3>あなたの会社のデザインは、機能している？</h3>
+          <div class="en">Self Check &amp; Column</div>
+        </div>
+        <div class="pg">P. 11</div>
+      </div>
+      <div class="index__row">
+        <div class="index__num">06</div>
+        <div>
+          <h3>はじめの一歩 / Appendix</h3>
+          <div class="en">Next Step</div>
+        </div>
+        <div class="pg">P. 13</div>
+      </div>
+    </div>
+    <div class="page-num">02 / 17</div>
+  </section>
+
+
+  <!-- ============================================================
+       03 · COMPANY PROFILE
+  ============================================================ -->
+  <section data-screen-label="03 Profile" class="canvas-warm profile">
+    <div class="profile__left">
+      <div class="profile__eyebrow"><span class="rule"></span>Company</div>
+      <h1 class="profile__brand">Highlite<span class="dot">.</span></h1>
+      <div class="profile__tag">
+        <p>事業に余白を。</p>
+        <p>本当に大切なものへ向き合うために。</p>
+      </div>
+      <dl class="profile__meta">
+        <div class="profile__metaRow">
+          <dt>CEO</dt>
+          <dd>早川 大貴</dd>
+        </div>
+        <div class="profile__metaRow">
+          <dt>Team</dt>
+          <dd>9 members</dd>
+        </div>
+        <div class="profile__metaRow">
+          <dt>Domain</dt>
+          <dd>Branding / Design System<br/>AI活用支援 / 業務設計</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="profile__divider" aria-hidden="true"></div>
+
+    <div class="profile__right">
+      <div class="profile__eyebrow"><span class="rule"></span>Works</div>
+
+      <div class="profile__works">
+        <article class="work">
+          <header class="work__head">
+            <h3 class="work__name">KURUBI</h3>
+            <span class="work__date">2026.03</span>
+          </header>
+          <div class="work__sub">久留米総合美容外科</div>
+          <p class="work__desc">院長交代を機にフルリブランディング。MVV策定・ロゴ・Web・院内看板4箇所・3D（WebGL）実装まで一気通貫で支援。</p>
+          <div class="work__tags">
+            <span class="tag">Branding</span>
+            <span class="tag">VI/CI</span>
+            <span class="tag">Web</span>
+          </div>
+        </article>
+
+        <article class="work">
+          <header class="work__head">
+            <h3 class="work__name">Touch Star</h3>
+            <span class="work__date">2025.10</span>
+          </header>
+          <div class="work__sub">次世代4D触覚映像体験</div>
+          <p class="work__desc">大学発スタートアップのCEATEC 2025出展を支援。Web・名刺・展示ボードを設計し、ネクストジェネレーション部門賞を受賞。</p>
+          <div class="work__tags">
+            <span class="tag">Web</span>
+            <span class="tag">Paper</span>
+          </div>
+        </article>
+
+        <article class="work">
+          <header class="work__head">
+            <h3 class="work__name">ReAlice</h3>
+            <span class="work__date">2025.06</span>
+          </header>
+          <div class="work__sub">AIスタートアップ / 株式会社リアリス</div>
+          <p class="work__desc">VICIフレームワークでVision・ブランドステートメントを策定。プロダクトのUI/UXデザインも定常支援。</p>
+          <div class="work__tags">
+            <span class="tag">Branding</span>
+            <span class="tag">UI/UX</span>
+          </div>
+        </article>
+
+        <article class="work">
+          <header class="work__head">
+            <h3 class="work__name">Spacemole</h3>
+            <span class="work__date">2025.06</span>
+          </header>
+          <div class="work__sub">遊休不動産レンタルサービス</div>
+          <p class="work__desc">ブランド定義・ロゴ設計・Web構築を一貫して担当。膨大な資産から迷わず探せる検索UXを設計。</p>
+          <div class="work__tags">
+            <span class="tag">Branding</span>
+            <span class="tag">VI/CI</span>
+            <span class="tag">Web</span>
+          </div>
+        </article>
+
+        <article class="work">
+          <header class="work__head">
+            <h3 class="work__name">Alchemy</h3>
+            <span class="work__date">2025.06</span>
+          </header>
+          <div class="work__sub">AIレガシーコードリファクタリング</div>
+          <p class="work__desc">新規事業立ち上げ時のブランド構築。VICIフレームワーク・ブランドブック・展示会ブース・チラシまで対応。</p>
+          <div class="work__tags">
+            <span class="tag">Branding</span>
+            <span class="tag">Event</span>
+          </div>
+        </article>
+
+        <article class="work">
+          <header class="work__head">
+            <h3 class="work__name">ムクイル</h3>
+            <span class="work__date">2025.06</span>
+          </header>
+          <div class="work__sub">製造業向けAIスタートアップ</div>
+          <p class="work__desc">創業期のブランディングを初期から支援。簡易ブランドブック・展示会ブース・チラシで事業の姿勢を可視化。</p>
+          <div class="work__tags">
+            <span class="tag">Branding</span>
+            <span class="tag">Event</span>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <div class="foot">Highlite ✦ Profile</div>
+    <div class="page-num">03 / 17</div>
+  </section>
+
+
+  <!-- ============================================================
+       04 · SECTION DIVIDER ── Quartz Setup
+  ============================================================ -->
+  <section data-screen-label="04 Quartz Setup Divider" class="slate section-divider section-divider--cover">
+    <div class="section-divider__left">
+      <div class="section-divider__num">Section · 01</div>
+      <div class="section-divider__en">Quartz<br/>Setup.</div>
+      <div class="section-divider__jp">私たちが、描く姿。</div>
+      <div class="section-divider__bar"></div>
+      <p class="section-divider__copy">
+        作ることに追われない組織へ。<br/>
+        Quartz Setupは、デザインが社内で<br/>
+        自然に回りはじめるための、土台づくりです。
+      </p>
+    </div>
+    <div class="section-divider__right">
+      <div class="section-divider__art" style="background-image:url('assets/quartz-art.png');"></div>
+    </div>
+    <div class="foot foot--light">Highlite ✦ Quartz Setup</div>
+    <div class="page-num page-num--light">04 / 17</div>
+  </section>
+
+
+  <!-- ============================================================
+       05 · VISION 01 ── AIが「作る」を代行する
+  ============================================================ -->
+  <section data-screen-label="05 Vision Structure" class="canvas-warm vision1">
+    <div class="vision1__head">
+      <span class="eyebrow">Context · 01</span>
+      <h2 class="vision1__title">
+        「作る」を、AIへ。<br/>
+        <em>余白を、人へ。</em>
+      </h2>
+    </div>
+    <div class="vision1__grid">
+      <div class="vision1__card">
+        <div class="vision1__step">Step 01</div>
+        <h3 class="vision1__cardTitle">AIが、<br/>「作る」を代行する。</h3>
+        <p class="vision1__cardBody">
+          バナー、資料、コード、ライティング。<br/>
+          かつて専門家が担っていた制作が、<br/>
+          AIで完結する時代に。
+        </p>
+      </div>
+      <div class="vision1__card">
+        <div class="vision1__step">Step 02</div>
+        <h3 class="vision1__cardTitle">人に、<br/>余白が生まれる。</h3>
+        <p class="vision1__cardBody">
+          作ることから解放された時間と余力 ──<br/>
+          それが組織にとっての「余白」。<br/>
+          次のステージへ進むための土壌に。
+        </p>
+      </div>
+      <div class="vision1__card">
+        <div class="vision1__step">Step 03</div>
+        <h3 class="vision1__cardTitle">対話と、<br/>価値創造に向き合う。</h3>
+        <p class="vision1__cardBody">
+          顧客との対話、ブランドの意図、<br/>
+          チームの判断 ── AIに代替されない、<br/>
+          組織本来の仕事に集中できる。
+        </p>
+      </div>
+    </div>
+    <div class="foot">Highlite ✦ Quartz Setup</div>
+    <div class="page-num">05 / 17</div>
+  </section>
+
+
+  <!-- ============================================================
+       06 · VISION 02 ── 作れる → 判断できる
+  ============================================================ -->
+  <section data-screen-label="06 Vision Shift" class="canvas-warm vision2">
+    <div class="vision1__head">
+      <span class="eyebrow">Context · 02</span>
+      <h2 class="vision2__title">
+        「作れる」から、<br/><em>「判断できる」へ。</em>
+      </h2>
+    </div>
+    <div class="vision2__compare">
+      <div class="vision2__col vision2__col--before">
+        <div class="vision2__label">Before · AI</div>
+        <div class="vision2__h">自分で<br/>作れること。</div>
+        <p class="vision2__quote">
+          ツールを使いこなし、<br/>
+          高品質な成果物を自ら生み出す力 ──<br/>
+          長らく、それがデザインの価値でした。
+        </p>
+      </div>
+      <div class="vision2__arrow">→</div>
+      <div class="vision2__col vision2__col--after">
+        <div class="vision2__label">In AI Age</div>
+        <div class="vision2__h">何が必要かを<br/>判断できること。</div>
+        <p class="vision2__quote">
+          何を・誰に・どう伝えるか。<br/>
+          AIに代替されない、人間固有の<br/>
+          判断力と体験設計の仕事へ。
+        </p>
+      </div>
+    </div>
+    <div class="foot">Highlite ✦ Quartz Setup</div>
+    <div class="page-num">06 / 17</div>
+  </section>
+
+
+  <!-- ============================================================
+       07 · 3 PROGRAMS
+  ============================================================ -->
+  <section data-screen-label="07 Programs" class="canvas-warm programs">
+    <div class="programs__head">
+      <span class="eyebrow">Programs</span>
+      <h2 class="title">
+        目的に合わせて選べる、<em>3つのプログラム</em>。
+      </h2>
+      <p class="lead">
+        どこから始めても、ゴールは「デザインが社内で回る状態」。
+        ブランドの状態と進めたい速さに合わせて、適切な深さを選んでください。
+      </p>
+    </div>
+    <div class="programs__grid">
+      <div class="program program--sharp">
+        <div class="program__top">
+          <div class="program__name">Sharp</div>
+          <div class="program__dur">2 WEEKS</div>
+        </div>
+        <h3 class="program__purpose">
+          ブランドのコアを、<br/>言葉に落とし込む。
+        </h3>
+        <div class="program__divider"></div>
+        <div class="program__out">
+          <div class="program__out-label">Expected Output</div>
+          <ul>
+            <li>コアバリュー／トーンの言語化ドキュメント</li>
+            <li>AI活用観点を含むサマリー資料</li>
+            <li>次の打ち手が見える、課題マップ</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="program program--clear">
+        <div class="program__top">
+          <div class="program__name">Clear</div>
+          <div class="program__dur">3 MONTHS</div>
+        </div>
+        <h3 class="program__purpose">
+          チームでAIを<br/>使える状態を整える。
+        </h3>
+        <div class="program__divider"></div>
+        <div class="program__out">
+          <div class="program__out-label">Expected Output</div>
+          <ul>
+            <li>ブランドガイドライン（AI再現可能な形式）</li>
+            <li>実務レベルのAI制作サンプル一式</li>
+            <li>業務に組み込めるプロンプトテンプレート集</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="program program--prism">
+        <div class="program__top">
+          <div class="program__name">Prism</div>
+          <div class="program__dur">4+ MONTHS</div>
+        </div>
+        <h3 class="program__purpose">
+          デザインが社内で<br/>自走する状態をつくる。
+        </h3>
+        <div class="program__divider"></div>
+        <div class="program__out">
+          <div class="program__out-label">Expected Output</div>
+          <ul>
+            <li>デザインシステム＋運用マニュアル</li>
+            <li>役割設計とOJTで定着した内製チーム</li>
+            <li>外注に依存しない、継続運用の体制</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="foot">Highlite ✦ Quartz Setup</div>
+    <div class="page-num">07 / 17</div>
+  </section>
+
+
+  <!-- ============================================================
+       08 · SHIFT / BEFORE → AFTER
+  ============================================================ -->
+  <section data-screen-label="08 Shift" class="canvas-warm shift">
+    <div class="shift__bg" aria-hidden="true">
+      <div class="shift__bgGlow shift__bgGlow--a"></div>
+      <div class="shift__bgGlow shift__bgGlow--b"></div>
+      <div class="shift__bgDia shift__bgDia--1"></div>
+      <div class="shift__bgDia shift__bgDia--2"></div>
+      <div class="shift__bgDia shift__bgDia--3"></div>
+    </div>
+
+    <div class="shift__head">
+      <div class="shift__headLeft">
+        <span class="eyebrow">What Shifts</span>
+        <h2 class="shift__title">
+          待つ、から。<br/>
+          <em>動ける、へ。</em>
+        </h2>
+      </div>
+      <div class="shift__headRight">
+        <div class="shift__badge">
+          <span class="diamond"></span>
+          <span>Quartz Effect</span>
+        </div>
+        <p class="shift__lead">
+          Quartz Setup導入によって、組織のデザイン業務は<br/>
+          「外に依存する状態」から「自分で動ける状態」へと変わります。
+        </p>
+      </div>
+    </div>
+
+    <!-- Featured hero shift — COST (the most concrete shift) -->
+    <div class="shift__hero">
+      <div class="shift__heroL">
+        <div class="shift__heroTag">
+          <span class="shift__heroTagN">01</span>
+          <span class="shift__heroTagL">Cost</span>
+        </div>
+        <div class="shift__heroBefore">
+          <span class="shift__heroBeforeL">Before · 現状</span>
+          <span class="shift__heroBeforeT">毎月20〜50万円が、外へ流れる。</span>
+        </div>
+      </div>
+      <div class="shift__heroR">
+        <div class="shift__heroAfterL">After · Quartz Setup</div>
+        <div class="shift__heroNumWrap">
+          <div class="shift__heroNum">¥0<span class="u">〜数万円</span></div>
+          <div class="shift__heroNumSub">月額維持費</div>
+        </div>
+        <p class="shift__heroAfterCopy">
+          初期投資のみで、<em>2年目以降は純粋なコスト削減</em>へ。
+        </p>
+      </div>
+    </div>
+
+    <!-- Three secondary shifts — Speed / Brand / Asset -->
+    <div class="shift__cards">
+      <div class="shift__card shift__card--speed">
+        <div class="shift__cardTop">
+          <span class="shift__cardN">02</span>
+          <span class="shift__cardL">Speed</span>
+        </div>
+        <div class="shift__cardBefore"><s>発注・見積もり、1〜2週間の待ち</s></div>
+        <div class="shift__cardAfter">
+          社内判断で、<em>その日に動ける</em>。
+        </div>
+      </div>
+      <div class="shift__card shift__card--brand">
+        <div class="shift__cardTop">
+          <span class="shift__cardN">03</span>
+          <span class="shift__cardL">Brand</span>
+        </div>
+        <div class="shift__cardBefore"><s>担当が変わるたび、トンマナがブレる</s></div>
+        <div class="shift__cardAfter">
+          デザインシステムで、<em>ブランドが整う</em>。
+        </div>
+      </div>
+      <div class="shift__card shift__card--asset">
+        <div class="shift__cardTop">
+          <span class="shift__cardN">04</span>
+          <span class="shift__cardL">Asset</span>
+        </div>
+        <div class="shift__cardBefore"><s>外注任せで、社内に何も残らない</s></div>
+        <div class="shift__cardAfter">
+          AIを使う「型」が、<em>資産として蓄積する</em>。
+        </div>
+      </div>
+    </div>
+
+    <div class="foot">Highlite ✦ Quartz Setup</div>
+    <div class="page-num">08 / 17</div>
+  </section>
+
+
+  <!-- ============================================================
+       09 · WHY DIFFERENT
+  ============================================================ -->
+  <section data-screen-label="09 Why Highlite" class="canvas-warm why">
+    <div class="why__head">
+      <span class="eyebrow">Why Highlite</span>
+      <h2 class="why__title">
+        Highliteのサポートが、<br/>他と違う理由。
+      </h2>
+      <div class="why__formula">
+        <span class="pill">Design</span>
+        <span class="op">×</span>
+        <span class="pill">AI</span>
+        <span class="op">×</span>
+        <span class="pill">伴走</span>
+        <span class="op">=</span>
+        <span class="eq">社内に余白を生む力</span>
+      </div>
+    </div>
+    <div class="why__grid">
+      <div class="why__card">
+        <div class="why__icon" style="background-image:url('assets/illust/target.png');"></div>
+        <h3 class="why__cardH">デザイン機能に、<br/>専門特化する。</h3>
+        <p class="why__cardB">
+          IT・業務効率化ではなく、デザインを社内で
+          回せる状態をつくることだけに、私たちは集中します。
+        </p>
+      </div>
+      <div class="why__card">
+        <div class="why__icon" style="background-image:url('assets/illust/parchment.png');"></div>
+        <h3 class="why__cardH">誰でも使える<br/>「型」を、設計する。</h3>
+        <p class="why__cardB">
+          デザインや技術の専門知識を必要としない、
+          既存スタッフが日常で使いこなせる仕組みをつくります。
+        </p>
+      </div>
+      <div class="why__card">
+        <div class="why__icon" style="background-image:url('assets/illust/good.png');"></div>
+        <h3 class="why__cardH">自走するまで、<br/>離れない。</h3>
+        <p class="why__cardB">
+          作って終わり、ではなく ── 外注依存が解消され、
+          組織が自分の足で立てるようになるまで伴走します。
+        </p>
+      </div>
+    </div>
+    <div class="foot">Highlite ✦ Quartz Setup</div>
+    <div class="page-num">09 / 17</div>
+  </section>
+
+
+  <!-- ============================================================
+       10 · MISCONCEPTION
+  ============================================================ -->
+  <section data-screen-label="10 Misconception" class="canvas-warm misc">
+    <div class="misc__bg" aria-hidden="true">
+      <div class="misc__bgGlow"></div>
+    </div>
+
+    <div class="misc__head">
+      <div class="misc__headL">
+        <span class="eyebrow">Common Mistake</span>
+        <h2 class="misc__title">
+          よくある<em>誤解</em>。
+        </h2>
+        <p class="misc__sub">
+          AI導入は、ツールを契約することではありません。<br/>
+          ── 使う文脈・型・フローが整って、はじめて機能します。
+        </p>
+      </div>
+      <div class="misc__quote">
+        <div class="misc__quoteMark">✦</div>
+        <div class="misc__quoteText">
+          <span class="misc__quoteBad">ツールを入れる</span>、ではなく<br/>
+          <span class="misc__quoteGood">使う型を作る</span>まで。
+        </div>
+      </div>
+    </div>
+
+    <div class="misc__grid">
+      <div class="misc__card">
+        <div class="misc__cardN">01</div>
+        <div class="misc__bad">
+          <span class="misc__badL">×　よくある誤解</span>
+          <span class="misc__badT">ツールを契約して、終わり。</span>
+        </div>
+        <div class="misc__div"><span class="diamond"></span></div>
+        <div class="misc__good">
+          <span class="misc__goodL">✦　Quartz Setup</span>
+          <span class="misc__goodT">使える型・フローを、<br/>社内に設計する。</span>
+        </div>
+      </div>
+
+      <div class="misc__card">
+        <div class="misc__cardN">02</div>
+        <div class="misc__bad">
+          <span class="misc__badL">×　よくある誤解</span>
+          <span class="misc__badT">一部の人しか、使わない。</span>
+        </div>
+        <div class="misc__div"><span class="diamond"></span></div>
+        <div class="misc__good">
+          <span class="misc__goodL">✦　Quartz Setup</span>
+          <span class="misc__goodT">既存スタッフが日常で<br/>使える体制を、整える。</span>
+        </div>
+      </div>
+
+      <div class="misc__card">
+        <div class="misc__cardN">03</div>
+        <div class="misc__bad">
+          <span class="misc__badL">×　よくある誤解</span>
+          <span class="misc__badT">品質が、バラバラになる。</span>
+        </div>
+        <div class="misc__div"><span class="diamond"></span></div>
+        <div class="misc__good">
+          <span class="misc__goodL">✦　Quartz Setup</span>
+          <span class="misc__goodT">ブランドルールをAIが<br/>再現できる形に、整備する。</span>
+        </div>
+      </div>
+
+      <div class="misc__card">
+        <div class="misc__cardN">04</div>
+        <div class="misc__bad">
+          <span class="misc__badL">×　よくある誤解</span>
+          <span class="misc__badT">導入後、誰もフォローしない。</span>
+        </div>
+        <div class="misc__div"><span class="diamond"></span></div>
+        <div class="misc__good">
+          <span class="misc__goodL">✦　Quartz Setup</span>
+          <span class="misc__goodT">自走するまで、<br/>離れずに伴走する。</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="foot">Highlite ✦ Quartz Setup</div>
+    <div class="page-num">10 / 17</div>
+  </section>
+
+
+  <!-- ============================================================
+       11 · SECTION DIVIDER ── Self Check
+  ============================================================ -->
+  <section data-screen-label="11 Self Check Divider" class="slate section-divider">
+    <div class="section-divider__left">
+      <div class="section-divider__num">Section · 02</div>
+      <div class="section-divider__en">Self<br/>Check.</div>
+      <div class="section-divider__jp">あなたの事業のデザインは、<br/>機能していますか？</div>
+      <div class="section-divider__bar"></div>
+      <p class="section-divider__copy">
+        いまの状態を、まず正直に見つめてみる。<br/>
+        ── そこから、はじまります。
+      </p>
+    </div>
+    <div class="section-divider__right">
+      <div class="section-divider__art" style="background-image:url('assets/illust/target.png'); width:64%; height:64%; transform: translateX(0); filter: drop-shadow(0 20px 60px rgba(155,140,200,0.5));"></div>
+    </div>
+    <div class="foot foot--light">Highlite ✦ Quartz Setup</div>
+    <div class="page-num page-num--light">11 / 17</div>
+  </section>
+
+
+  <!-- ============================================================
+       12 · SELF CHECK list
+  ============================================================ -->
+  <section data-screen-label="12 Self Check List" class="canvas-warm check">
+    <div class="check__head">
+      <span class="eyebrow">Self Check</span>
+      <h2 class="check__title">
+        3つ以上当てはまったら、<br/>
+        <em>動き出すタイミング。</em>
+      </h2>
+    </div>
+    <div class="check__grid">
+      <div class="check__item">
+        <div class="check__box"></div>
+        <div class="check__text">デザインはすべて外注。<br/>社内に判断軸が育っていない。</div>
+        <div class="check__sub">依存が深まるほど、切り替えコストは上がっていく。</div>
+      </div>
+      <div class="check__item">
+        <div class="check__box"></div>
+        <div class="check__text">制作のたびに費用と時間が<br/>かかり、スピードが止まる。</div>
+        <div class="check__sub">小さな修正でも都度見積もりが入る ── それが続いている。</div>
+      </div>
+      <div class="check__item">
+        <div class="check__box"></div>
+        <div class="check__text">納品物のトンマナが、<br/>都度バラバラになっていく。</div>
+        <div class="check__sub">担当が変わるたび、蓄積されるはずの資産が残らない。</div>
+      </div>
+      <div class="check__item">
+        <div class="check__box"></div>
+        <div class="check__text">「ちょっと直して」が、<br/>外注なしでは進まない。</div>
+        <div class="check__sub">即日対応ができない組織は、機会を逃しはじめる。</div>
+      </div>
+      <div class="check__item">
+        <div class="check__box"></div>
+        <div class="check__text">AIツールは入れた。<br/>でも、現場に定着していない。</div>
+        <div class="check__sub">ツールがあるだけでは、現場は変わらない。</div>
+      </div>
+      <div class="check__item">
+        <div class="check__box"></div>
+        <div class="check__text">興味のある人材はいる。<br/>でも、活かせていない。</div>
+        <div class="check__sub">仕組みがなければ、個人の熱量は続かない。</div>
+      </div>
+    </div>
+    <div class="check__score">
+      <div class="seg s1">
+        <div class="n">0 — 2</div>
+        <div class="l">現状維持は可能。ただし、競合の内製化が進めば相対リスクに。</div>
+      </div>
+      <div class="seg s2">
+        <div class="n">3 — 4</div>
+        <div class="l">外注依存・AI未定着の兆候。内製化を検討しはじめるタイミング。</div>
+      </div>
+      <div class="seg s3">
+        <div class="n">5 — 6</div>
+        <div class="l">いま、動く必要があります。放置するほど、機会損失が積み上がります。</div>
+      </div>
+    </div>
+    <div class="foot">Highlite ✦ Quartz Setup</div>
+    <div class="page-num">12 / 17</div>
+  </section>
+
+
+  <!-- ============================================================
+       13 · COLUMN ── 人間に求められるデザイン力
+  ============================================================ -->
+  <section data-screen-label="13 Column" class="canvas-warm column">
+    <div class="column__left">
+      <span class="eyebrow column__tag">Column</span>
+      <h2 class="column__title">
+        AIで変わる、<br/><em>人間に求められる<br/>デザイン力</em>とは？
+      </h2>
+      <div class="jp-sub">── AI時代を生き残る組織の、3つの軸</div>
+      <div class="column__art" style="background-image:url('assets/illust/book-open.png');"></div>
+    </div>
+    <div class="column__right">
+      <div class="column__point">
+        <div class="column__pNum">01</div>
+        <div class="column__pBody">
+          <h4>ユーザーのニーズを、<br/>言語化する力。</h4>
+          <p>
+            AIは「何を作るか」を判断しません。誰のための何か ── その輪郭を
+            言葉にできることが、これからのデザイン力の起点になります。
+          </p>
+        </div>
+      </div>
+      <div class="column__point">
+        <div class="column__pNum">02</div>
+        <div class="column__pBody">
+          <h4>ブランドのトーンを、<br/>判断する力。</h4>
+          <p>
+            出力された100案から「これだ」を選び抜く目。
+            ブランドの意図を守れる人だけが、AIを使いこなせる。
+          </p>
+        </div>
+      </div>
+      <div class="column__point">
+        <div class="column__pNum">03</div>
+        <div class="column__pBody">
+          <h4>AIに、<br/>適切に指示する力。</h4>
+          <p>
+            必要なのはデザインの才能ではなく、「このAIにこう指示すれば良い」
+            という型。それを社内に設計するのが、Quartz Setupの仕事です。
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="foot">Highlite ✦ Quartz Setup</div>
+    <div class="page-num">13 / 17</div>
+  </section>
+
+
+  <!-- ============================================================
+       14 · CTA ── まず、30分話しましょう
+  ============================================================ -->
+  <section data-screen-label="14 CTA" class="cta">
+    <div class="cta__left">
+      <div class="cta__eyebrow">Let's Talk · お問い合わせ</div>
+      <h2 class="cta__title">
+        まず、30分<br/>
+        <em>話しましょう。</em>
+      </h2>
+      <p class="cta__body">
+        現状のデザイン業務とAI活用の状況をお聞きし、<br/>
+        内製化の可能性と進め方を、その場でお伝えします。<br/>
+        費用・提案は後回し。「自社に合うか」を確認する場です。
+      </p>
+      <a href="#" class="cta__btn">
+        <span>無料ヒアリングを予約する</span>
+        <span class="arr">→</span>
+      </a>
+      <p class="cta__small">
+        © Highlite — AI Design Support Program <span class="hl-spark">✦</span> Quartz Setup
+      </p>
+    </div>
+    <div class="cta__right">
+      <div class="cta__letter"></div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       15 · APPENDIX DIVIDER
+  ============================================================ -->
+  <section data-screen-label="15 Appendix Divider" class="slate section-divider">
+    <div class="section-divider__left">
+      <div class="section-divider__num">Appendix</div>
+      <div class="section-divider__en">More.</div>
+      <div class="section-divider__jp">補足資料</div>
+      <div class="section-divider__bar"></div>
+      <p class="section-divider__copy">
+        以降は、より詳しく検討いただく際の<br/>
+        参考資料です。コスト比較と、過去の<br/>
+        「うまくいかなかった」パターン。
+      </p>
+    </div>
+    <div class="section-divider__right">
+      <div class="section-divider__art" style="background-image:url('assets/illust/parchment.png'); width:64%; height:64%; transform: translateX(0); filter: drop-shadow(0 20px 60px rgba(155,140,200,0.5));"></div>
+    </div>
+    <div class="foot foot--light">Highlite ✦ Appendix</div>
+    <div class="page-num page-num--light">15 / 17</div>
+  </section>
+
+
+  <!-- ============================================================
+       16 · APPENDIX · COST
+  ============================================================ -->
+  <section data-screen-label="16 Cost" class="canvas-warm cost">
+    <div class="cost__head">
+      <span class="eyebrow">Appendix · Cost</span>
+      <h2 class="cost__title">外注 vs AI内製化 ── コスト比較。</h2>
+    </div>
+    <div class="cost__hero">
+      <div class="cost__stat">
+        <div class="n">¥0〜</div>
+        <div class="u">内製化後・月額維持費</div>
+        <div class="d">ツール費用は数万円以内に収まるケースが大半です。</div>
+      </div>
+      <div class="cost__stat">
+        <div class="n">12M</div>
+        <div class="u">初期投資の回収目安</div>
+        <div class="d">多くの企業が1年以内に回収、2年目以降は純粋なコスト削減に。</div>
+      </div>
+      <div class="cost__stat">
+        <div class="n">即日</div>
+        <div class="u">対応スピード</div>
+        <div class="d">1〜2週間 → その日のうちに。小さな修正も逃さず動けます。</div>
+      </div>
+    </div>
+    <div class="cost__table">
+      <div></div>
+      <div>外注（現状）</div>
+      <div>AI内製化（Quartz Setup後）</div>
+
+      <div class="label">月額コスト</div>
+      <div class="v-bad">20〜50万円</div>
+      <div class="v-good">維持費ほぼ0〜数万円</div>
+
+      <div class="label">初期費用</div>
+      <div class="v-bad">なし</div>
+      <div class="v-good">Quartz Setupサポート費（応相談）</div>
+
+      <div class="label">1年後の累計コスト</div>
+      <div class="v-bad">240〜600万円</div>
+      <div class="v-good">初期費用のみ</div>
+
+      <div class="label">対応スピード</div>
+      <div class="v-bad">1〜2週間</div>
+      <div class="v-good">即日〜数時間</div>
+
+      <div class="label">社内ノウハウ蓄積</div>
+      <div class="v-bad">外注任せで残らない</div>
+      <div class="v-good">AIを使う「型」として資産化</div>
+
+      <div class="label">ブランド一貫性</div>
+      <div class="v-bad">担当ごとにバラつく</div>
+      <div class="v-good">デザインシステムで統一</div>
+
+      <div class="label">急な修正・小変更</div>
+      <div class="v-bad">都度発注、1〜2日待ち</div>
+      <div class="v-good">社内で即時対応</div>
+    </div>
+    <div class="foot">Highlite ✦ Appendix</div>
+    <div class="page-num">16 / 17</div>
+  </section>
+
+
+  <!-- ============================================================
+       17 · APPENDIX · FAILURE PATTERNS
+  ============================================================ -->
+  <section data-screen-label="17 Failure Patterns" class="canvas-warm fail">
+    <div class="fail__head">
+      <span class="eyebrow">Appendix · Lessons</span>
+      <h2 class="fail__title">「うまくいかなかった」<br/>会社の、共通パターン。</h2>
+    </div>
+    <div class="fail__grid">
+      <div class="fail__card">
+        <div class="fail__num">01</div>
+        <div>
+          <h4 class="fail__cardH">ツールだけ導入して、終わった。</h4>
+          <p class="fail__cardB">
+            FigmaやAIツールを契約しても、「どう使うか」の設計がなければ
+            現場は変わりません。導入の満足感で止まり、誰も日常的に
+            使わなくなる ── 最も多い失敗です。
+            <br/><strong>Highlite → 型・フロー・ルールをセットで設計し、現場定着まで伴走</strong>
+          </p>
+        </div>
+      </div>
+      <div class="fail__card">
+        <div class="fail__num">02</div>
+        <div>
+          <h4 class="fail__cardH">兼任体制で、機能しなかった。</h4>
+          <p class="fail__cardB">
+            「他の仕事をしながらデザインも」という兼任体制は機能しません。
+            新しい仕事の型を定着させるには、専用の時間と
+            明確な役割設計が不可欠です。
+            <br/><strong>Highlite → 役割・稼働設計とOJT設計をセットで提案</strong>
+          </p>
+        </div>
+      </div>
+      <div class="fail__card">
+        <div class="fail__num">03</div>
+        <div>
+          <h4 class="fail__cardH">外注との関係が、切れなかった。</h4>
+          <p class="fail__cardB">
+            移行計画なしに進めると、AIを使いはじめても外注も使い続ける
+            ── 二重コスト状態に陥ります。段階的な移行設計が必要です。
+            <br/><strong>Highlite → 外注移行を含む3ヶ月ロードマップで段階的に切り替え</strong>
+          </p>
+        </div>
+      </div>
+      <div class="fail__card">
+        <div class="fail__num">04</div>
+        <div>
+          <h4 class="fail__cardH">ルールを作ったが、誰も使わない。</h4>
+          <p class="fail__cardB">
+            ガイドラインを整備しても、運用の仕組みと現場への定着サポートが
+            なければ、机上の空論で終わります。「作って終わり」では機能しません。
+            <br/><strong>Highlite → 実務に組み込まれるルール設計と、自走までの継続伴走</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="foot">Highlite ✦ Appendix</div>
+    <div class="page-num">17 / 17</div>
+  </section>
+
+</deck-stage>
+
+<script src="deck-stage.js"></script>
+<script src="image-slot.js"></script>
+<script>
+(async () => {
+  try { await customElements.whenDefined('deck-stage'); } catch (e) {}
+  const ds = document.querySelector('deck-stage');
+  if (ds) {
+    // Weigh only slide children — same filter as deck-stage.length. Skipping
+    // slotted script/style/template keeps inline Babel/CSS from registering
+    // as stable "content" before the framework has mounted anything.
+    const weigh = () => {
+      let text = 0, media = 0;
+      for (const c of ds.children) {
+        const t = c.tagName;
+        if (t === 'SCRIPT' || t === 'STYLE' || t === 'TEMPLATE') continue;
+        text += (c.textContent || '').trim().length;
+        media += c.querySelectorAll('img,svg,canvas,video').length;
+      }
+      return text + media * 100;
+    };
+    const deadline = Date.now() + 15000;
+    let last = -1, stable = 0;
+    while (Date.now() < deadline) {
+      const n = weigh();
+      if (n > 0 && n === last) { if (++stable >= 2) break; } else { stable = 0; }
+      last = n;
+      await new Promise((r) => setTimeout(r, 250));
+    }
+  }
+  try { await document.fonts.ready; } catch (e) {}
+  setTimeout(() => { try { window.print(); } catch (e) {} }, 200);
+})();
+</script>
+</body>
+</html>

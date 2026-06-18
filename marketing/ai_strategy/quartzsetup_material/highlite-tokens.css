@@ -1,0 +1,267 @@
+/* =============================================================
+   Highlite Design System — Foundations
+   colors + typography + spacing + motion
+   Extracted from highlite.co.jp (musickappa/highlite-design-system)
+============================================================= */
+
+/* ─── Web fonts (substitute) ───
+   The brand's canonical English face is Optima (Optima Nova LT Pro).
+   Optima is not freely available, so we ship Marcellus from Google
+   Fonts as the closest open humanist roman with calligraphic stem
+   flare. Real Optima still takes priority on macOS / iOS.
+   ⚠ Replace this with the licensed Optima webfont when available.
+*/
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Marcellus&display=swap");
+
+:root {
+  /* =========================================================
+     COLOR — BASE PALETTE
+     ========================================================= */
+
+  /* Surfaces */
+  --hl-bg-page:        #F5F4F0;   /* Page background — warm off-white */
+  --hl-bg-primary:     #D9D9D9;   /* Hero / canvas — light gray */
+  --hl-bg-surface:     #FAF9F5;   /* Content surfaces — warm white */
+  --hl-bg-mid:         #DBDAD9;   /* Mid-gray for work cards */
+  --hl-bg-dark:        #1E2340;   /* Footer, hero, CTA — deep navy */
+
+  /* Text */
+  --hl-text-primary:   #141413;   /* Near-black — headings */
+  --hl-text-body:      #555555;   /* Body copy */
+  --hl-text-muted:     #888888;   /* Labels / captions */
+  --hl-text-white:     #FFFFFF;   /* On dark surfaces */
+
+  /* Brand */
+  --hl-brand-blue:     #3D5070;   /* Slate-blue — the logo wordmark color */
+  --hl-logo-diamond:   #61789E;   /* Diamond glyph color in the lockup */
+  --hl-logo-wordmark:  #4F4C51;   /* Wordmark charcoal in the lockup */
+
+  /* Crystal accent palette — pastel watercolor jewels */
+  --hl-crystal-purple: #9B8CC8;
+  --hl-crystal-blue:   #7BBAD4;
+  --hl-crystal-pink:   #C8A4C4;
+  --hl-crystal-teal:   #8CC4D0;
+
+  /* Borders + hairlines (Highlite borders are intentionally faint) */
+  --hl-border:         rgba(31, 30, 29, 0.40);
+  --hl-border-soft:    rgba(31, 30, 29, 0.12);
+  --hl-border-white:   rgba(255, 255, 255, 0.50);
+
+  /* =========================================================
+     COLOR — GRADIENTS
+     ========================================================= */
+  --hl-gradient-crystal:
+        linear-gradient(135deg, #B8A8D8 0%, #88B8D4 40%, #C4A8C8 100%);
+  --hl-gradient-dark:
+        linear-gradient(180deg, #1E2340 0%, #2D3560 60%, #3D4580 100%);
+  --hl-gradient-text:
+        linear-gradient(135deg, #2D3560 0%, #5D6080 100%);
+
+  /* =========================================================
+     COLOR — SEMANTIC (status, etc.)
+     ========================================================= */
+  --hl-status-won:     #6FB38A;
+  --hl-status-lost:    #D68898;
+  --hl-status-info:    var(--hl-crystal-blue);
+  --hl-status-warn:    var(--hl-crystal-pink);
+
+  /* Phase color tokens — Ore / Lite / Crysta (a Highlite-specific axis) */
+  --hl-phase-ore:      var(--hl-crystal-purple);
+  --hl-phase-lite:     var(--hl-crystal-blue);
+  --hl-phase-crysta:   var(--hl-crystal-teal);
+
+  /* =========================================================
+     TYPOGRAPHY — FAMILIES
+     ========================================================= */
+  /* English / display — Optima (with Marcellus as web fallback) */
+  --hl-font-en:
+        'Optima', 'Optima Nova LT Pro', 'Marcellus',
+        'Candara', 'Trebuchet MS', sans-serif;
+
+  /* Japanese / body — Noto Sans JP */
+  --hl-font-jp:
+        'Noto Sans JP', 'Hiragino Kaku Gothic ProN',
+        -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Mono — code, command channels, fs-prompt callouts */
+  --hl-font-mono:
+        'SF Mono', 'Menlo', 'Monaco', 'Consolas',
+        'Roboto Mono', monospace;
+
+  /* =========================================================
+     TYPOGRAPHY — SCALE
+     ========================================================= */
+  --hl-text-display: 42px;   /* H1 hero — JP heading */
+  --hl-text-h2:      32px;   /* Section EN label */
+  --hl-text-h3:      24px;   /* Sub-section heading */
+  --hl-text-h4:      18px;   /* Card / step heading */
+  --hl-text-body:    16px;   /* Body copy */
+  --hl-text-sm:      14px;   /* Small body / description */
+  --hl-text-xs:      12px;   /* Captions / JP sub-labels */
+  --hl-text-2xs:     10px;   /* Tags / micro labels */
+
+  /* Weight */
+  --hl-weight-light:   300;
+  --hl-weight-regular: 400;
+  --hl-weight-medium:  500;
+  --hl-weight-bold:    700;
+
+  /* Tracking — Highlite signature: wide, especially for EN */
+  --hl-tracking-display: 0.20em;
+  --hl-tracking-heading: 0.10em;
+  --hl-tracking-label:   0.10em;
+  --hl-tracking-tag:     0.20em;
+  --hl-tracking-body:    normal;
+
+  /* Leading */
+  --hl-leading-display: 1.48;
+  --hl-leading-heading: 1.0;
+  --hl-leading-body:    1.75;
+  --hl-leading-relaxed: 2.0;   /* JP sub-labels paired under EN headings */
+
+  /* =========================================================
+     SPACING — 8px base
+     ========================================================= */
+  --hl-space-1:  4px;
+  --hl-space-2:  8px;
+  --hl-space-3:  12px;
+  --hl-space-4:  16px;
+  --hl-space-5:  20px;
+  --hl-space-6:  24px;
+  --hl-space-8:  32px;
+  --hl-space-10: 40px;
+  --hl-space-12: 48px;
+  --hl-space-16: 64px;
+  --hl-space-20: 80px;
+  --hl-space-24: 96px;
+  --hl-space-32: 128px;
+
+  /* =========================================================
+     BORDERS + RADII
+     Highlite leans very square — corners default to 0–2 px.
+     ========================================================= */
+  --hl-border-hairline: 0.5px solid var(--hl-border);
+  --hl-border-white-h:  0.5px solid var(--hl-border-white);
+
+  --hl-radius-none: 0px;
+  --hl-radius-xs:   2px;     /* Default — cards, tables */
+  --hl-radius-sm:   4px;
+  --hl-radius-md:   8px;
+  --hl-radius-lg:   16px;    /* Use sparingly — only generic preview boxes */
+  --hl-radius-pill: 100px;   /* Pills / status dots */
+
+  /* =========================================================
+     SHADOW + ELEVATION
+     ========================================================= */
+  --hl-shadow-none:    none;
+  --hl-shadow-sm:      0 2px  8px rgba(0, 0, 0, 0.06);
+  --hl-shadow-md:      0 4px 24px rgba(0, 0, 0, 0.10);
+  --hl-shadow-crystal: 0 8px 40px rgba(155, 140, 200, 0.20);
+  --hl-glow-crystal:   drop-shadow(0 2px 12px rgba(155, 140, 200, 0.28));
+
+  /* =========================================================
+     MOTION
+     ========================================================= */
+  --hl-duration-fast:  150ms;
+  --hl-duration-base:  300ms;
+  --hl-duration-slow:  600ms;
+  --hl-duration-drift: 18s;
+
+  --hl-easing-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --hl-easing-entrance: cubic-bezier(0, 0, 0.2, 1);
+  --hl-easing-exit:     cubic-bezier(0.4, 0, 1, 1);
+}
+
+/* =============================================================
+   SEMANTIC TYPE STYLES
+   Plain selectors that any HTML can opt into directly.
+============================================================= */
+
+.hl-h1, h1.hl {
+  font-family: var(--hl-font-jp);
+  font-size: var(--hl-text-display);
+  font-weight: var(--hl-weight-light);
+  letter-spacing: var(--hl-tracking-display);
+  line-height: var(--hl-leading-display);
+  color: var(--hl-text-primary);
+}
+
+.hl-h1--gradient {
+  background: var(--hl-gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hl-h2, h2.hl {
+  font-family: var(--hl-font-en);
+  font-size: var(--hl-text-h2);
+  font-weight: var(--hl-weight-light);
+  letter-spacing: var(--hl-tracking-heading);
+  line-height: var(--hl-leading-heading);
+  color: var(--hl-text-primary);
+}
+
+.hl-h3, h3.hl {
+  font-family: var(--hl-font-en);
+  font-size: var(--hl-text-h3);
+  font-weight: var(--hl-weight-light);
+  letter-spacing: var(--hl-tracking-heading);
+  line-height: 1.2;
+  color: var(--hl-text-primary);
+}
+
+.hl-h4, h4.hl {
+  font-family: var(--hl-font-jp);
+  font-size: var(--hl-text-h4);
+  font-weight: var(--hl-weight-regular);
+  letter-spacing: 0.05em;
+  line-height: 1.6;
+  color: var(--hl-text-primary);
+}
+
+.hl-jp-sub {
+  /* The signature small JP label paired UNDER an EN heading */
+  font-family: var(--hl-font-jp);
+  font-size: var(--hl-text-xs);
+  font-weight: var(--hl-weight-regular);
+  letter-spacing: var(--hl-tracking-label);
+  line-height: var(--hl-leading-relaxed);
+  color: var(--hl-text-body);
+}
+
+.hl-body, p.hl {
+  font-family: var(--hl-font-jp);
+  font-size: var(--hl-text-sm);
+  font-weight: var(--hl-weight-regular);
+  line-height: var(--hl-leading-body);
+  color: var(--hl-text-body);
+}
+
+.hl-tag, .hl-label {
+  font-family: var(--hl-font-en);
+  font-size: var(--hl-text-2xs);
+  letter-spacing: var(--hl-tracking-tag);
+  text-transform: uppercase;
+  color: var(--hl-crystal-purple);
+}
+
+.hl-code, code.hl {
+  font-family: var(--hl-font-mono);
+  font-size: var(--hl-text-xs);
+  background: rgba(155, 140, 200, 0.12);
+  color: var(--hl-crystal-purple);
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+.hl-quote {
+  font-family: var(--hl-font-jp);
+  font-size: var(--hl-text-body);
+  font-style: italic;
+  line-height: var(--hl-leading-body);
+  color: var(--hl-text-primary);
+  padding: 10px 14px;
+  background: rgba(155, 140, 200, 0.08);
+  border-left: 2px solid var(--hl-crystal-purple);
+}
