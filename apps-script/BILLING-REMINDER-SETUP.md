@@ -35,6 +35,26 @@ GAS エディタで **プロジェクトの設定** を開き、タイムゾー�
 
 GAS エディタで `setupBillingReminderTrigger` 関数を選択して実行。
 
+
+### 実行テキスト
+投稿するテキストは以下をテンプレートにしてください
+MMは適切な月の数値、URLは"こちら"にリンクとしてつけて表示は省略してください。
+___
+:kotori:請求書送付のご案内　2026年MM月分:nushi:
+
+Highlite協力者、Lapidaristの皆さま、お疲れ様です！
+
+委託対象者の皆さまへ、MM月稼働分の請求書および経費申請についてのリマインドです
+Gフォームでの送付をお願いいたします:love:
+
+以下フォームにて請求書をお送りください。
+不明点あったらSlackで返信いただいて！
+お手数ですが、よろしくお願いします。
+
+:engineko-tsurime:【請求書送付フォームは→こちら（https://docs.google.com/forms/d/e/1FAIpQLSd-j1SlKcpjell6kJH2B-N9SWOBciGgIBG-GnRpN58Pjxu-8w/viewform）】
+締切：MM/27まで
+
+
 ## トラブルシューティング
 
 | 症状 | 確認事項 |
