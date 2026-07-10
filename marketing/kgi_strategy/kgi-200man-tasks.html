@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>200万/月 戦略タスク | Highlite</title>
+  <title>月+100万 戦略タスク | Highlite</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -308,6 +308,14 @@
 
     .task-body { flex: 1; min-width: 0; }
     .task-title { font-size: 14px; color: var(--text); line-height: 1.5; margin-bottom: 6px; }
+    .task-note {
+      font-size: 12px; line-height: 1.6; color: #4A6B63;
+      background: rgba(74,154,138,0.08);
+      border-left: 2px solid var(--teal);
+      padding: 6px 10px; border-radius: 4px;
+      margin-bottom: 8px;
+    }
+    .task-note::before { content: '💡 分析より　'; font-weight: 600; color: var(--teal); }
     .task-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 
     /* Status Badge */
@@ -388,6 +396,63 @@
       color: var(--muted);
       font-size: 14px;
     }
+
+    /* ── Task Memo (Markdown) ── */
+    .task-memo-wrap { margin-top: 10px; }
+    .memo-toggle {
+      background: none; border: none; cursor: pointer;
+      font-family: var(--font-ja); font-size: 12px; color: var(--muted);
+      display: inline-flex; align-items: center; gap: 6px; padding: 2px 0;
+    }
+    .memo-toggle:hover { color: var(--slate); }
+    .memo-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); }
+    .memo-has { font-size: 11px; color: var(--teal); }
+
+    .memo-panel {
+      margin-top: 8px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px;
+    }
+
+    .memo-view { font-size: 13px; line-height: 1.7; color: var(--text); }
+    .memo-view .md-h { margin: 10px 0 4px; color: var(--slate-dark); font-weight: 500; }
+    .memo-view h3.md-h { font-size: 15px; }
+    .memo-view h4.md-h { font-size: 13px; }
+    .memo-view h5.md-h { font-size: 12px; }
+    .memo-view .md-p { margin: 4px 0; }
+    .memo-view .md-ul, .memo-view .md-ol { margin: 4px 0 4px 18px; }
+    .memo-view li .md-ul, .memo-view li + .md-ul,
+    .memo-view .md-ul .md-ul, .memo-view .md-ul .md-ol,
+    .memo-view .md-ol .md-ul, .memo-view .md-ol .md-ol { margin-top: 2px; margin-bottom: 2px; }
+    .memo-view li { margin: 2px 0; }
+    .memo-view .md-check { list-style: none; margin-left: -18px; display: flex; gap: 7px; align-items: flex-start; }
+    .memo-view .cb {
+      width: 15px; height: 15px; border: 1.5px solid var(--border); border-radius: 3px;
+      flex-shrink: 0; margin-top: 2px; font-size: 11px; line-height: 13px; text-align: center; color: var(--teal);
+    }
+    .memo-view .cb.on { background: var(--teal-pale); border-color: var(--teal); }
+    .memo-view code { background: rgba(0,0,0,0.06); padding: 1px 5px; border-radius: 3px; font-size: 12px; }
+    .memo-view a { color: var(--blue); }
+    .memo-view .md-empty { color: var(--muted); font-style: italic; }
+
+    .memo-input {
+      width: 100%; min-height: 130px;
+      border: 1px solid var(--border); border-radius: 5px;
+      padding: 10px; font-family: var(--font-ja); font-size: 13px; line-height: 1.6;
+      resize: vertical; color: var(--text); background: white;
+    }
+    .memo-input:focus { outline: none; border-color: var(--teal); }
+    .memo-hint { font-size: 11px; color: var(--muted); margin-top: 6px; line-height: 1.6; }
+    .memo-actions { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+    .memo-btn {
+      padding: 4px 14px; border-radius: 5px; border: 1px solid var(--border);
+      background: white; font-size: 12px; font-family: var(--font-ja); cursor: pointer; color: var(--slate);
+    }
+    .memo-btn:hover { border-color: var(--slate-light); }
+    .memo-btn.primary { background: var(--teal); border-color: var(--teal); color: white; }
+    .memo-updated { font-size: 11px; color: var(--muted); margin-left: auto; }
   </style>
 </head>
 <body>
@@ -398,12 +463,12 @@
   <aside class="sidebar">
     <div class="sidebar-logo">
       <div class="sidebar-logo-label">Highlite</div>
-      <div class="sidebar-logo-title">200万/月<br>戦略タスク管理</div>
+      <div class="sidebar-logo-title">月+100万<br>戦略タスク管理</div>
     </div>
 
     <div class="sidebar-kgi">
       <div class="sidebar-kgi-label">KGI</div>
-      <div class="sidebar-kgi-text">7月以降、毎月200万円の売上をデジタルマーケティング手法で継続達成する</div>
+      <div class="sidebar-kgi-text">2026年7月以降、月+100万円の売上を継続達成する（デジタル＋オフラインの併用）</div>
     </div>
 
     <nav class="sidebar-nav">
@@ -468,6 +533,9 @@
 
     <div class="topbar">
       <div class="topbar-title" id="view-title">すべてのタスク</div>
+      <div class="topbar-filters">
+        <button class="filter-btn" onclick="exportMemos()">メモをMarkdownで書き出す</button>
+      </div>
     </div>
 
     <!-- Stats -->
@@ -517,39 +585,44 @@
   // ── Task Data ──
   const TASKS = [
     // 6月
-    { id:'t00', phase:'june', title:'【ヒアリング】メンバーに既存案件の実態を確認する（業種・規模・金額感・受注経路・現在の進行状況）', layer:'現状把握 — 施策設計の前提', priority:'highest' },
+    { id:'t00', phase:'june', title:'【ヒアリング】メンバーに既存案件の実態を確認する（業種・規模・金額感・受注経路・現在の進行状況）', layer:'現状把握 — 施策設計の前提', priority:'highest', defaultStatus:'done', note:'「リード獲得の成り立ちと示唆」スライド（2026.07 / 全29案件）で実態整理済み。業種・規模・経路が可視化された。' },
     { id:'t01', phase:'june', title:'LP：ファーストビューのコピー・構成を見直す',          layer:'Layer 01 — インバウンド設計', priority:'highest' },
-    { id:'t02', phase:'june', title:'LP：「まず資料を見てみる」DL資料CTAを追加する',       layer:'Layer 01 — インバウンド設計', priority:'highest' },
-    { id:'t03', phase:'june', title:'LP：SaaS文脈のメッセージを追加する',                  layer:'Layer 01 — インバウンド設計', priority:'high' },
-    { id:'t04', phase:'june', title:'LinkedIn：個人名義（Yuto）での投稿を開始する（週2本）', layer:'Layer 01 — インバウンド設計', priority:'high' },
-    { id:'t05', phase:'june', title:'Google リスティング：ターゲットキーワードリストを作成する', layer:'Layer 01 — インバウンド設計', priority:'high' },
-    { id:'t06', phase:'june', title:'Google リスティング：RSA広告文（見出し・説明文）を作成する', layer:'Layer 01 — インバウンド設計', priority:'high' },
+    { id:'t02a', phase:'june', title:'Highlite実績集を作成し、LPに掲載する（DL CTAも整備）', layer:'Layer 01 — インバウンド設計', priority:'highest', note:'構造課題「紹介の外からの導線ゼロ」への直接処方。Touchstar型の「見て依頼」の受け皿がまだ存在しない。' },
+    { id:'t03', phase:'june', title:'ターゲットセグメントを再定義する（SaaSから変更／絞り先は要検討）', layer:'Layer 01 — インバウンド設計', priority:'highest', note:'実績の重心＝美容医療・介護・留学・調達後スタートアップ。入口は「上流WS（MVV/ブランド診断）」が有力候補。' },
+    { id:'t02b', phase:'june', title:'イベント向け資料を作成する（参加者の課題が主役・実績は証拠として埋め込む）', layer:'Layer 04 — オフライン連携', priority:'high' },
+    { id:'t04',  phase:'june', title:'LinkedIn：個人名義（Yuto）での投稿を開始する（週2本）', layer:'Layer 01 — インバウンド設計', priority:'high' },
+    { id:'t05', phase:'july', title:'Google リスティング：ターゲットキーワードリストを作成する（前提：t03完了）', layer:'Layer 01 — インバウンド設計', priority:'high' },
+    { id:'t06', phase:'july', title:'Google リスティング：RSA広告文（見出し・説明文）を作成する（前提：t03完了）', layer:'Layer 01 — インバウンド設計', priority:'high' },
     { id:'t07', phase:'june', title:'Brandri：記事1本目のテーマを決定する',               layer:'Layer 02 — コンテンツ連動', priority:'high' },
     { id:'t08', phase:'june', title:'現在進行中・完了済み案件をリストアップし、リテイナー提案対象を確認する', layer:'Layer 03 — リテイナー', priority:'high' },
+    { id:'t24', phase:'june', title:'応援表明型DMテンプレートを整備する（調達企業向け／人対人・クローズ志向NG）', layer:'Layer 05 — 能動アプローチ', priority:'high' },
+    { id:'t27', phase:'june', title:'隣接専門家（税理士・弁護士・HRコンサル・銀行法人担当）向け「1枚説明資料」を作成する', layer:'Layer 06 — 紹介設計', priority:'high' },
     // 7月
-    { id:'t09', phase:'july', title:'Google リスティング：広告出稿を開始する',            layer:'Layer 01 — インバウンド設計', priority:'high' },
+    { id:'t09', phase:'aug', title:'Google 広告：出稿を開始する（前提：t05/t06完了・予算決定・運用担当者決定）', layer:'Layer 01 — インバウンド設計', priority:'high' },
     { id:'t10', phase:'july', title:'Brandri：記事1本目を公開する',                       layer:'Layer 02 — コンテンツ連動', priority:'mid' },
     { id:'t11', phase:'july', title:'LinkedIn：ラグジュアリー × AI テーマの投稿を開始する', layer:'Layer 02 — コンテンツ連動', priority:'mid' },
-    { id:'t12', phase:'july', title:'リテイナー：完了済み案件への提案を実施する',           layer:'Layer 03 — リテイナー', priority:'mid' },
-    { id:'t13', phase:'july', title:'Google 広告：週次でCTR・CPCを確認し改善する',         layer:'Layer 01 — インバウンド設計', priority:'mid' },
+    { id:'t12', phase:'july', title:'リテイナー：完了済み案件への提案を実施する',           layer:'Layer 03 — リテイナー', priority:'high', note:'リアリス関連が入金の約4割・縮小傾向。リテイナー多角化は「成長」ではなく集中リスクへの「防衛」施策。' },
+    { id:'t13', phase:'aug', title:'Google 広告：週次でCTR・CPCを確認し改善する（運用担当者要決定）', layer:'Layer 01 — インバウンド設計', priority:'mid' },
+    { id:'t26', phase:'july', title:'ナーチャリング1〜2ヶ月シーケンスを設計する（タッチポイントの時系列・能動接触は2回まで）', layer:'Layer 05 — 能動アプローチ', priority:'high' },
+    { id:'t25', phase:'july', title:'ターゲット該当企業のリスト作成プロセスを整備する（t03再定義の結果を反映）', layer:'Layer 05 — 能動アプローチ', priority:'mid' },
     // 8〜9月
     { id:'t14', phase:'aug',  title:'LP流入データをもとにA/Bテストを実施する',             layer:'Layer 01 — インバウンド設計', priority:'mid' },
     { id:'t15', phase:'aug',  title:'リターゲティング広告を設定する（LP流入が月100以上になったら）', layer:'Layer 01 — インバウンド設計', priority:'low' },
-    { id:'t16', phase:'aug',  title:'リテイナー：2社目への提案を実施する',                 layer:'Layer 03 — リテイナー', priority:'mid' },
-    { id:'t17', phase:'aug',  title:'完了案件の事例記事化（Crystaフェーズ）を開始する',    layer:'Layer 03 — リテイナー', priority:'mid' },
+    { id:'t16', phase:'aug',  title:'リテイナー：2社目への提案を実施する',                 layer:'Layer 03 — リテイナー', priority:'high', note:'ハブ依存の分散を継続。1社への依存度を下げるほど売上変動リスクが減る。' },
+    { id:'t17', phase:'aug',  title:'完了案件の事例記事化（Crystaフェーズ）を開始する',    layer:'Layer 03 — リテイナー', priority:'highest', note:'「品質＝営業装置」なのに公開導線がゼロ。事例の資産化が最も費用対効果の高い一手。' },
     { id:'t18', phase:'aug',  title:'月次レポート可視化の仕組みを設計する',               layer:'Layer 03 — リテイナー', priority:'mid' },
     // 継続タスク
     { id:'t19', phase:'ongoing', title:'LinkedIn投稿を週2本のペースで継続する',           layer:'Layer 01・02 — 共通', priority:'high' },
     { id:'t20', phase:'ongoing', title:'Brandri記事を月1本のペースで公開する',            layer:'Layer 02 — コンテンツ連動', priority:'mid' },
-    { id:'t21', phase:'ongoing', title:'Google広告のキーワード・入札を月次で最適化する',   layer:'Layer 01 — インバウンド設計', priority:'mid' },
+    { id:'t21', phase:'ongoing', title:'Google広告のキーワード・入札を月次で最適化する（運用担当者要決定）', layer:'Layer 01 — インバウンド設計', priority:'mid' },
     { id:'t22', phase:'ongoing', title:'マルジェラKGI向けのLinkedIn投稿を月1本出す',      layer:'Layer 02 — コンテンツ連動', priority:'mid' },
     { id:'t23', phase:'ongoing', title:'リテイナー顧客に月次レポートを届ける',            layer:'Layer 03 — リテイナー', priority:'mid' },
   ];
 
   const PHASES = [
-    { key:'june',    label:'6月 — 今月',   color:'#C47A8A', desc:'LP整備・広告準備・LinkedIn開始' },
-    { key:'july',    label:'7月 — 開始月', color:'#4A7CAC', desc:'広告出稿・記事公開・リテイナー提案' },
-    { key:'aug',     label:'8〜9月',       color:'#7B6FA0', desc:'流入増加・リテイナー2社目・事例化' },
+    { key:'june',    label:'6月 — 今月',   color:'#C47A8A', desc:'基盤整備（LP・資料・LinkedIn）・能動アプローチ準備' },
+    { key:'july',    label:'7月 — 開始月', color:'#4A7CAC', desc:'記事公開・リテイナー提案・ナーチャリング設計' },
+    { key:'aug',     label:'8〜9月',       color:'#7B6FA0', desc:'広告出稿開始・流入増加・リテイナー2社目・事例化' },
     { key:'ongoing', label:'継続タスク',   color:'#4A9A8A', desc:'月次・週次の定常アクション' },
   ];
 
@@ -560,16 +633,257 @@
 
   // ── State ──
   let statuses = {};
+  let memos = {};              // { taskId: { md: string, updated: 'YYYY-MM-DD HH:mm' } }
+  let openMemos = new Set();   // 現在展開中のメモパネル
   let currentFilter = 'all';
   let menuTargetId = null;
 
+  // defaultStatus を持つタスクは、この版数を上げると一度だけ再適用される
+  const SEED_VERSION = 2;
+
   function loadStatuses() {
     try { statuses = JSON.parse(localStorage.getItem('hl-task-statuses') || '{}'); } catch(e) { statuses = {}; }
-    TASKS.forEach(t => { if (!statuses[t.id]) statuses[t.id] = 'todo'; });
+    const seededVer = parseInt(localStorage.getItem('hl-task-seed-ver') || '0', 10);
+    const applySeed = seededVer < SEED_VERSION;
+    TASKS.forEach(t => {
+      if (!statuses[t.id]) statuses[t.id] = t.defaultStatus || 'todo';
+      // 版数更新時は defaultStatus を一度だけ反映（分析結果の反映など）
+      else if (applySeed && t.defaultStatus) statuses[t.id] = t.defaultStatus;
+    });
+    if (applySeed) {
+      localStorage.setItem('hl-task-seed-ver', String(SEED_VERSION));
+      saveStatuses();
+    }
   }
 
   function saveStatuses() {
     localStorage.setItem('hl-task-statuses', JSON.stringify(statuses));
+  }
+
+  // ── Memo (Markdown) ──
+  function loadMemos() {
+    try { memos = JSON.parse(localStorage.getItem('hl-task-memos') || '{}'); } catch(e) { memos = {}; }
+  }
+  function saveMemos() {
+    localStorage.setItem('hl-task-memos', JSON.stringify(memos));
+  }
+  // メモパネルの開閉状態も保存する（リロードしても開いていたメモは開いたまま＝消えたように見えないため）
+  function saveOpenMemos() {
+    localStorage.setItem('hl-task-memos-open', JSON.stringify([...openMemos]));
+  }
+  function loadOpenMemos() {
+    try { (JSON.parse(localStorage.getItem('hl-task-memos-open') || '[]')).forEach(id => openMemos.add(id)); } catch (e) {}
+  }
+
+  function nowStamp() {
+    const d = new Date();
+    const p = n => String(n).padStart(2, '0');
+    return d.getFullYear() + '-' + p(d.getMonth()+1) + '-' + p(d.getDate()) + ' ' + p(d.getHours()) + ':' + p(d.getMinutes());
+  }
+
+  // 最小Markdownレンダラ（見出し・太字・斜体・コード・リンク・箇条書き・番号・チェックボックス）
+  function mdEscape(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+  function mdInline(s) {
+    s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+    s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    s = s.replace(/(^|[^*])\*([^*\s][^*]*)\*/g, '$1<em>$2</em>');
+    s = s.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+    return s;
+  }
+  // 行頭の空白からインデント階層を算出（半角2個＝1段、タブ＝2扱い）
+  function mdIndentLevel(ws) {
+    let w = 0;
+    for (const ch of ws) w += (ch === '\t' ? 2 : 1);
+    return Math.floor(w / 2);
+  }
+  function mdToHtml(md) {
+    const lines = mdEscape(md).split('\n');
+    let html = '';
+    const stack = [];  // 開いているリスト種別 'ul'|'ol' を階層順に保持
+    const closeTo = (depth) => { while (stack.length > depth) html += '</' + stack.pop() + '>'; };
+    for (const raw of lines) {
+      const line = raw.replace(/\s+$/, '');
+      if (line.trim() === '') { closeTo(0); continue; }
+      const h = line.match(/^(#{1,3})\s+(.*)$/);
+      if (h) { closeTo(0); const lv = h[1].length + 2; html += '<h' + lv + ' class="md-h">' + mdInline(h[2]) + '</h' + lv + '>'; continue; }
+
+      const mBul = line.match(/^([ \t]*)([*+\-])[ \t]+(\[([ xX])\][ \t]+)?(.*)$/);
+      const mOrd = line.match(/^([ \t]*)(\d+)[.)][ \t]+(.*)$/);
+      if (mBul || mOrd) {
+        const ws = mBul ? mBul[1] : mOrd[1];
+        const type = mBul ? 'ul' : 'ol';
+        const want = mdIndentLevel(ws) + 1;                       // 開くべきリスト階層数
+        while (stack.length < want) { html += '<' + type + ' class="md-' + type + '">'; stack.push(type); }
+        if (stack.length > want) closeTo(want);
+        if (stack[stack.length - 1] !== type) {                   // 同階層で種別が変わったら開き直す
+          html += '</' + stack.pop() + '>';
+          html += '<' + type + ' class="md-' + type + '">'; stack.push(type);
+        }
+        if (mBul) {
+          const check = mBul[3], content = mBul[5];
+          if (check) {
+            const on = mBul[4].toLowerCase() === 'x';
+            html += '<li class="md-check"><span class="cb' + (on ? ' on' : '') + '">' + (on ? '✓' : '') + '</span><span>' + mdInline(content) + '</span></li>';
+          } else {
+            html += '<li>' + mdInline(content) + '</li>';
+          }
+        } else {
+          html += '<li>' + mdInline(mOrd[3]) + '</li>';
+        }
+        continue;
+      }
+
+      closeTo(0);
+      html += '<p class="md-p">' + mdInline(line) + '</p>';
+    }
+    closeTo(0);
+    return html;
+  }
+
+  function renderMemoPanel(id, mode) {
+    const el = document.getElementById('memopanel-' + id);
+    if (!el) return;
+    const m = memos[id] || {};
+    if (mode === 'edit') {
+      const raw = (m.md || '').replace(/&/g, '&amp;').replace(/</g, '&lt;');
+      el.innerHTML =
+        '<textarea class="memo-input" id="memoinput-' + id + '" onkeydown="memoKeydown(event, this)" placeholder="進捗・気づき・次アクションなどを記録（Markdown対応）">' + raw + '</textarea>' +
+        '<div class="memo-hint">Markdown対応：# 見出し ・ **太字** ・ *斜体* ・ * / - 箇条書き ・ - [ ] / - [x] チェック ・ 1. 番号 ・ `コード` ・ [リンク](https://…)<br>Enter で箇条書きを自動継続 ・ <b>Tab で字下げ（ネスト）／ Shift+Tab で戻す</b></div>' +
+        '<div class="memo-actions">' +
+          '<button class="memo-btn primary" onclick="saveMemo(event,\'' + id + '\')">保存</button>' +
+          '<button class="memo-btn" onclick="cancelMemo(event,\'' + id + '\')">キャンセル</button>' +
+        '</div>';
+      const ta = document.getElementById('memoinput-' + id);
+      ta.focus(); ta.setSelectionRange(ta.value.length, ta.value.length);
+    } else {
+      el.innerHTML =
+        '<div class="memo-view">' + (m.md ? mdToHtml(m.md) : '<p class="md-empty">（メモはまだありません）</p>') + '</div>' +
+        '<div class="memo-actions">' +
+          '<button class="memo-btn" onclick="startEditMemo(event,\'' + id + '\')">' + (m.md ? '編集' : 'メモを追加') + '</button>' +
+          (m.updated ? '<span class="memo-updated">最終更新 ' + m.updated + '</span>' : '') +
+        '</div>';
+    }
+  }
+
+  // Backlog風：リスト記号（* - + / 番号 / チェックボックス）を改行時に自動継続する
+  const MEMO_INDENT = '  ';  // インデント1段＝半角スペース2個
+  function memoKeydown(e, ta) {
+    // Tab / Shift+Tab：行のインデントを一段下げ／上げ（Backlog風のリスト字下げ）
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      const val = ta.value;
+      const s = ta.selectionStart, en = ta.selectionEnd;
+      const firstLineStart = val.lastIndexOf('\n', s - 1) + 1;   // 選択の先頭行の行頭
+      const before = val.slice(0, firstLineStart);
+      const region = val.slice(firstLineStart, en);
+      const after = val.slice(en);
+      let delta0 = 0, deltaAll = 0;                              // 先頭行/全体の増減
+      const outLines = region.split('\n').map((ln, i) => {
+        if (e.shiftKey) {                                        // 一段上げ：先頭のインデントを1段ぶん削る
+          const m = ln.match(/^(\t| {1,2})/);
+          const cut = m ? m[0].length : 0;
+          if (i === 0) delta0 = -cut;
+          deltaAll -= cut;
+          return ln.slice(cut);
+        }
+        if (i === 0) delta0 = MEMO_INDENT.length;                // 一段下げ：行頭にインデントを足す
+        deltaAll += MEMO_INDENT.length;
+        return MEMO_INDENT + ln;
+      });
+      ta.value = before + outLines.join('\n') + after;
+      if (s === en) {
+        ta.selectionStart = ta.selectionEnd = Math.max(firstLineStart, s + delta0);
+      } else {
+        ta.selectionStart = firstLineStart;
+        ta.selectionEnd = en + deltaAll;
+      }
+      return;
+    }
+
+    if (e.key !== 'Enter' || e.shiftKey) return;
+    if (e.isComposing || e.keyCode === 229) return;          // IME変換確定のEnterは無視（日本語入力対策）
+    if (ta.selectionStart !== ta.selectionEnd) return;        // 範囲選択中は通常動作
+
+    const val = ta.value;
+    const pos = ta.selectionStart;
+    const lineStart = val.lastIndexOf('\n', pos - 1) + 1;
+    const lineText = val.slice(lineStart, pos);
+
+    const replaceAt = (start, end, insert, caret) => {
+      ta.value = val.slice(0, start) + insert + val.slice(end);
+      ta.selectionStart = ta.selectionEnd = caret;
+    };
+
+    // 箇条書き（* - +）＋任意でチェックボックス [ ]
+    const bullet = lineText.match(/^(\s*)([*+\-])[ \t]+(\[[ xX]\][ \t]+)?(.*)$/);
+    if (bullet) {
+      const indent = bullet[1], mark = bullet[2], check = bullet[3], content = bullet[4];
+      if (content.trim() === '') {                            // 空項目でEnter → リストを抜ける
+        e.preventDefault();
+        replaceAt(lineStart, pos, '', lineStart);
+        return;
+      }
+      e.preventDefault();
+      const insert = '\n' + indent + mark + ' ' + (check ? '[ ] ' : '');
+      replaceAt(pos, pos, insert, pos + insert.length);
+      return;
+    }
+
+    // 番号リスト（1. / 1)）
+    const ordered = lineText.match(/^(\s*)(\d+)([.)])[ \t]+(.*)$/);
+    if (ordered) {
+      const indent = ordered[1], num = parseInt(ordered[2], 10), sep = ordered[3], content = ordered[4];
+      if (content.trim() === '') {                            // 空項目でEnter → リストを抜ける
+        e.preventDefault();
+        replaceAt(lineStart, pos, '', lineStart);
+        return;
+      }
+      e.preventDefault();
+      const insert = '\n' + indent + (num + 1) + sep + ' ';
+      replaceAt(pos, pos, insert, pos + insert.length);
+      return;
+    }
+  }
+
+  function toggleMemo(e, id) {
+    e.stopPropagation();
+    const el = document.getElementById('memopanel-' + id);
+    if (openMemos.has(id)) { openMemos.delete(id); el.style.display = 'none'; el.innerHTML = ''; }
+    else { openMemos.add(id); el.style.display = 'block'; renderMemoPanel(id, 'view'); }
+    saveOpenMemos();
+  }
+  function startEditMemo(e, id) { e.stopPropagation(); renderMemoPanel(id, 'edit'); }
+  function cancelMemo(e, id) { e.stopPropagation(); renderMemoPanel(id, 'view'); }
+  function saveMemo(e, id) {
+    e.stopPropagation();
+    const ta = document.getElementById('memoinput-' + id);
+    const val = ta.value;
+    if (val.trim() === '') delete memos[id];
+    else memos[id] = { md: val, updated: nowStamp() };
+    saveMemos();
+    render();  // ドット表示を更新。openMemos により展開状態は維持される
+  }
+
+  function exportMemos() {
+    let out = '# 月+100万 戦略タスク 進捗メモ\n\n';
+    out += '> 書き出し日時: ' + nowStamp() + '\n\n';
+    PHASES.forEach(phase => {
+      const list = TASKS.filter(t => t.phase === phase.key);
+      out += '## ' + phase.label + '\n\n';
+      list.forEach(t => {
+        out += '### [' + STATUS_LABEL[statuses[t.id]] + '] ' + t.title + '\n\n';
+        const m = memos[t.id];
+        out += (m && m.md && m.md.trim() ? m.md.trim() : '_（メモなし）_') + '\n\n';
+      });
+    });
+    const blob = new Blob([out], { type: 'text/markdown;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'highlite-task-memos.md';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   }
 
   // ── Render ──
@@ -623,16 +937,23 @@
           </div>
           <div class="task-body">
             <div class="task-title">${task.title}</div>
+            ${task.note ? `<div class="task-note">${task.note}</div>` : ''}
             <div class="task-meta">
               <span class="status-badge ${STATUS_CLASS[st]}" onclick="openMenu(event,'${task.id}')">${STATUS_LABEL[st]}</span>
               <span class="priority-badge ${PRIORITY_CLASS[task.priority]}">${PRIORITY_LABEL[task.priority]}</span>
               <span class="layer-tag">${task.layer}</span>
+            </div>
+            <div class="task-memo-wrap">
+              <button class="memo-toggle" onclick="toggleMemo(event,'${task.id}')">📝 進捗メモ${memos[task.id] && memos[task.id].md ? ' <span class="memo-dot"></span><span class="memo-has">記録あり</span>' : ''}</button>
+              <div class="memo-panel" id="memopanel-${task.id}" style="display:${openMemos.has(task.id) ? 'block' : 'none'}"></div>
             </div>
           </div>
         `;
         list.appendChild(card);
       });
     });
+
+    openMemos.forEach(id => { if (document.getElementById('memopanel-' + id)) renderMemoPanel(id, 'view'); });
 
     updateStats();
     updateCounts();
@@ -713,6 +1034,8 @@
 
   // ── Init ──
   loadStatuses();
+  loadMemos();
+  loadOpenMemos();
   render();
 </script>
 </body>

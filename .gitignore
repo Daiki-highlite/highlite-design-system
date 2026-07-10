@@ -9,3 +9,10 @@ highlite-ops
 
 # Local working files
 *.pptx
+
+# Cloudflare Pages deploy directory (auto-generated)
+deploy/
+
+# Vendored tooling / caches (not project content)
+spec-kit/
+.wrangler/
