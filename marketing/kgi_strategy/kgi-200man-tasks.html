@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>月+100万 戦略タスク | Highlite</title>
+  <!-- 最終更新: 2026-07-10（フェーズ月次更新・3段KGI・ブロッカータスク反映） -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -467,8 +468,8 @@
     </div>
 
     <div class="sidebar-kgi">
-      <div class="sidebar-kgi-label">KGI</div>
-      <div class="sidebar-kgi-text">2026年7月以降、月+100万円の売上を継続達成する（デジタル＋オフラインの併用）</div>
+      <div class="sidebar-kgi-label">KGI（3段構成）</div>
+      <div class="sidebar-kgi-text">①月+100万円の売上を継続達成（2026年7月〜／デジタル＋オフライン併用）<br>②ADAのブランディングに携われる会社になる<br>③マルジェラ級ブランドから1年以内に案件獲得</div>
     </div>
 
     <nav class="sidebar-nav">
@@ -497,17 +498,17 @@
       <div class="nav-section-label" style="margin-top:24px;">フェーズ</div>
       <div class="nav-item" onclick="filterPhase('june')">
         <span class="nav-dot" style="background:#C47A8A"></span>
-        6月 — 今月
+        7月 — 今月
         <span class="nav-count" id="count-june">0</span>
       </div>
       <div class="nav-item" onclick="filterPhase('july')">
         <span class="nav-dot" style="background:#4A7CAC"></span>
-        7月 — 開始月
+        8月
         <span class="nav-count" id="count-july">0</span>
       </div>
       <div class="nav-item" onclick="filterPhase('aug')">
         <span class="nav-dot" style="background:#7B6FA0"></span>
-        8〜9月
+        9〜10月
         <span class="nav-count" id="count-aug">0</span>
       </div>
       <div class="nav-item" onclick="filterPhase('ongoing')">
@@ -584,6 +585,9 @@
 <script>
   // ── Task Data ──
   const TASKS = [
+    // ブロッカー（Layer 00）
+    { id:'t29', phase:'june', title:'【ブロッカー】highlite.co.jp / brandri.jp の robots.txt を是正する（AI・検索クローラーへのアクセス許可）', layer:'Layer 00 — 前提条件', priority:'highest', defaultStatus:'done', note:'【2026-07-17 監査で完了確認】本番を実データ調査した結果、両サイトともrobots.txtは開放済み・llms.txt・構造化データ(schema)・sitemapも実装済みで、AEO基盤は高水準。前提だった「全クローラー拒否」は既に解消していた。詳細＝t29-crawler-aeo-audit-20260717.md。下流のコンテンツ系タスクはブロック解除済み。' },
+    { id:'t30', phase:'june', title:'【ブロッカー】実績開示の許可を取得する（Crysta 01 — 事例化・実績集の前提）', layer:'Layer 00 — 前提条件', priority:'highest', note:'t02a（実績集→LP掲載）、t17（事例記事化）、営業側Layer 2（実績資料）は全てこの許可が前提。上位5〜8件を候補に連絡を開始する。' },
     // 6月
     { id:'t00', phase:'june', title:'【ヒアリング】メンバーに既存案件の実態を確認する（業種・規模・金額感・受注経路・現在の進行状況）', layer:'現状把握 — 施策設計の前提', priority:'highest', defaultStatus:'done', note:'「リード獲得の成り立ちと示唆」スライド（2026.07 / 全29案件）で実態整理済み。業種・規模・経路が可視化された。' },
     { id:'t01', phase:'june', title:'LP：ファーストビューのコピー・構成を見直す',          layer:'Layer 01 — インバウンド設計', priority:'highest' },
@@ -605,7 +609,7 @@
     { id:'t13', phase:'aug', title:'Google 広告：週次でCTR・CPCを確認し改善する（運用担当者要決定）', layer:'Layer 01 — インバウンド設計', priority:'mid' },
     { id:'t26', phase:'july', title:'ナーチャリング1〜2ヶ月シーケンスを設計する（タッチポイントの時系列・能動接触は2回まで）', layer:'Layer 05 — 能動アプローチ', priority:'high' },
     { id:'t25', phase:'july', title:'ターゲット該当企業のリスト作成プロセスを整備する（t03再定義の結果を反映）', layer:'Layer 05 — 能動アプローチ', priority:'mid' },
-    // 8〜9月
+    { id:'t31', phase:'july', title:'【計測基盤】Google Search Console に両サイトを登録し、計測を開始する（sitemap送信・検索クエリ/表示回数の可視化）', layer:'Layer 01 — インバウンド設計', priority:'high', note:'SEO/AEOの効果を測る土台。highlite.co.jp / brandri.jp の所有権確認 → sitemap送信 → 表示回数・クリック・流入キーワードの定点観測を開始する。設定にはGoogleアカウントと各サイトの管理権限が必要（リモートからは代行不可・ユーザー作業）。基盤構築(robots.txt/schema等)は完了済みのため、次は「今どれだけ見えているか」を数値化する段階。' },
     { id:'t14', phase:'aug',  title:'LP流入データをもとにA/Bテストを実施する',             layer:'Layer 01 — インバウンド設計', priority:'mid' },
     { id:'t15', phase:'aug',  title:'リターゲティング広告を設定する（LP流入が月100以上になったら）', layer:'Layer 01 — インバウンド設計', priority:'low' },
     { id:'t16', phase:'aug',  title:'リテイナー：2社目への提案を実施する',                 layer:'Layer 03 — リテイナー', priority:'high', note:'ハブ依存の分散を継続。1社への依存度を下げるほど売上変動リスクが減る。' },
@@ -616,14 +620,16 @@
     { id:'t20', phase:'ongoing', title:'Brandri記事を月1本のペースで公開する',            layer:'Layer 02 — コンテンツ連動', priority:'mid' },
     { id:'t21', phase:'ongoing', title:'Google広告のキーワード・入札を月次で最適化する（運用担当者要決定）', layer:'Layer 01 — インバウンド設計', priority:'mid' },
     { id:'t22', phase:'ongoing', title:'マルジェラKGI向けのLinkedIn投稿を月1本出す',      layer:'Layer 02 — コンテンツ連動', priority:'mid' },
+    { id:'t28', phase:'ongoing', title:'ADA・ネイチャーアクアリウム文脈のコンテンツを四半期1本以上出す（中段KGI②）', layer:'Layer 02 — コンテンツ連動', priority:'mid' },
     { id:'t23', phase:'ongoing', title:'リテイナー顧客に月次レポートを届ける',            layer:'Layer 03 — リテイナー', priority:'mid' },
+    { id:'t32', phase:'ongoing', title:'【計測基盤】AIでの見え方（AEO可視性）を月次で定点観測する', layer:'Layer 02 — コンテンツ連動', priority:'high', note:'ChatGPT / Claude / Perplexity / Gemini に主要クエリ（例「AI時代のブランディングとは」「ブランディング会社 おすすめ」「スタートアップ ブランディング 支援会社」）を投げ、Highlite/brandriが引用・言及されるかを毎月記録。ベースライン(2026-07-17)＝主要カテゴリ/トピッククエリでは未出現・競合が占有、露出は指名検索のみ。記録テンプレ＝aeo-visibility-tracking.md。基盤は完成済みのため、ここからはコンテンツ(狙ったテーマの記事)と権威性(第三者言及)で押し上げる運用フェーズ。' },
   ];
 
   const PHASES = [
-    { key:'june',    label:'6月 — 今月',   color:'#C47A8A', desc:'基盤整備（LP・資料・LinkedIn）・能動アプローチ準備' },
-    { key:'july',    label:'7月 — 開始月', color:'#4A7CAC', desc:'記事公開・リテイナー提案・ナーチャリング設計' },
-    { key:'aug',     label:'8〜9月',       color:'#7B6FA0', desc:'広告出稿開始・流入増加・リテイナー2社目・事例化' },
-    { key:'ongoing', label:'継続タスク',   color:'#4A9A8A', desc:'月次・週次の定常アクション' },
+    { key:'june',    label:'7月 — 今月', color:'#C47A8A', desc:'ブロッカー除去・基盤整備（LP・資料・LinkedIn）・能動アプローチ準備（6月からの積み残し含む）' },
+    { key:'july',    label:'8月',        color:'#4A7CAC', desc:'記事公開・リテイナー提案・ナーチャリング設計' },
+    { key:'aug',     label:'9〜10月',    color:'#7B6FA0', desc:'広告出稿開始・流入増加・リテイナー2社目・事例化' },
+    { key:'ongoing', label:'継続タスク', color:'#4A9A8A', desc:'月次・週次の定常アクション' },
   ];
 
   const PRIORITY_LABEL = { highest:'最高', high:'高', mid:'中', low:'低' };
@@ -997,7 +1003,7 @@
 
     const titles = {
       all:'すべてのタスク', todo:'未着手のタスク', doing:'進行中のタスク', done:'完了したタスク',
-      june:'6月 — 今月のタスク', july:'7月 — 開始月のタスク', aug:'8〜9月のタスク', ongoing:'継続タスク'
+      june:'7月 — 今月のタスク', july:'8月のタスク', aug:'9〜10月のタスク', ongoing:'継続タスク'
     };
     document.getElementById('view-title').textContent = titles[f] || 'タスク一覧';
     render();
