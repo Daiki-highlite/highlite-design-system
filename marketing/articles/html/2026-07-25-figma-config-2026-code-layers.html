@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Figmaが「デザインツール」を卒業 ― Config 2026でCursorに正面対決、現場に広がる「置いてきぼり」の不安</title>
+<style>
+  :root {
+    --text: #1f2430;
+    --muted: #6b7280;
+    --accent: #0f6b5c;
+    --bg: #fafaf8;
+    --card: #ffffff;
+    --border: #e5e3dc;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic UI", Meiryo, sans-serif;
+    font-size: 16px;
+    line-height: 1.8;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 64px;
+  }
+  h1 {
+    font-size: 1.7rem;
+    line-height: 1.5;
+    margin: 0 0 8px;
+    letter-spacing: 0.01em;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 20px;
+    margin-bottom: 32px;
+  }
+  h2 {
+    font-size: 1.25rem;
+    margin: 44px 0 12px;
+    padding-left: 12px;
+    border-left: 4px solid var(--accent);
+    line-height: 1.5;
+  }
+  .summary {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 24px 0;
+  }
+  .summary h2 {
+    margin: 0 0 8px;
+    padding-left: 0;
+    border-left: none;
+    font-size: 1.05rem;
+    color: var(--accent);
+  }
+  .summary ol { margin: 0; padding-left: 1.3em; }
+  .summary li { margin-bottom: 6px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+    margin: 16px 0;
+    background: var(--card);
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th { background: #f1efe8; font-weight: 600; }
+  blockquote {
+    margin: 20px 0;
+    padding: 14px 20px;
+    background: var(--card);
+    border-left: 4px solid #c9c5b8;
+    border-radius: 0 8px 8px 0;
+    color: #3d4351;
+  }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  strong { font-weight: 700; }
+  ul, ol { padding-left: 1.4em; }
+  li { margin-bottom: 6px; }
+  .aside {
+    font-size: 0.9rem;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    margin-top: 44px;
+    padding-top: 20px;
+  }
+  footer {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 24px 40px;
+    color: var(--muted);
+    font-size: 0.8rem;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>Figmaが「デザインツール」を卒業 ― Config 2026でCursorに正面対決、現場に広がる「置いてきぼり」の不安</h1>
+  <p class="meta">
+    Highliteトレンド記事 #009 | 2026-07-25 | テーマ: AIデザイン・AIサイト制作ツール<br>
+    ソース: Figma公式ブログ / Figmaフォーラム / NRIネットコム参加レポート / Tech Times / Martin Cid Magazine + Web横断調査(直近30日)
+  </p>
+
+  <div class="summary">
+    <h2>結論サマリー(3行)</h2>
+    <ol>
+      <li>Figmaは6月のConfig 2026で「Code Layers」「Shader Effects」「AI Design Agent」を投入し、デザインツールから設計・実装・公開までを一気通貫で担う"フルスタック制作基盤"へ舵を切った。時価総額600億ドル規模のCursorと正面から競合する構図になった。</li>
+      <li>7月9日にはFigma MakeにOpenAIの最新モデルGPT-5.6を搭載し、プロンプトからの初回ビルド品質・速度がさらに向上。「作る」ハードルは月単位で下がり続けている。</li>
+      <li>一方で現場には「AIはPM・エンジニア優先でデザイナー軽視」「置いてきぼりの危機感」という本音も。ツールが民主化するほど、人間の価値は"実装"から"判断"へ移動している。</li>
+    </ol>
+  </div>
+
+  <h2>1. Config 2026で何が起きたか ― 「デザイン→コード→サイト」を一枚のキャンバスに</h2>
+  <p>6月24〜26日、サンフランシスコのモスコーニセンターで開催された<a href="https://www.figma.com/blog/config-2026-recap/" target="_blank" rel="noopener">Figma年次カンファレンス「Config 2026」</a>。目玉は<a href="https://www.figma.com/blog/code-on-the-figma-canvas/" target="_blank" rel="noopener">「Code Layers」</a>だ。GitHub連携リポジトリをキャンバス上に直接クローンし、デザインレイヤーをワンクリックまたはプロンプトで"インタラクティブなコードレイヤー"に変換、実装後はコードベースへ同期し直せる。コードを画像やベクターと並ぶ"デザイン素材の一つ"として扱う発想だ。現在はクローズドベータで数週間以内に展開予定という。</p>
+  <p>同時に「Shader Effects」も有料プラン向けにオープンベータ開始。WebGPUによるGPUアクセラレーションのシェーダーをAIエージェントがテキストや画像から自動生成する機能で、Education・Government・Starterプランは対象外となっている。</p>
+
+  <h2>2. Cursorへの宣戦布告</h2>
+  <p>Figmaの動きはAIコーディング環境Cursor・Replitへの直接対抗と見られている。<a href="https://www.martincid.com/technology-sv/figma-config-2026-code-design-merge-2/" target="_blank" rel="noopener">Martin Cid Magazine</a>は「Figmaはデザインとコードがひとつのキャンバスでマージする未来に賭けた。Cursorには600億ドルの評価額という武器がある」と評した。<a href="https://www.techtimes.com/articles/319041/20260625/figma-config-2026-code-layers-challenge-cursor-gpu-shaders-hit-paid-plans.htm" target="_blank" rel="noopener">Tech Times</a>によれば、Figma AI Design Agent(5月20日ネイティブローンチ)は既存デザインシステムを尊重しながら自然言語でデザインを生成・反復でき、Figma Sitesの背後ではCode LayersがプロンプトをReact/Tailwind CSSへ変換するCMS機能も開発中だ。「作る」から「公開する」までがFigma一社で完結しつつある。</p>
+
+  <h2>3. 「AIが作るほどデザインの価値が上がる」という逆説</h2>
+  <p><a href="https://productzine.jp/article/detail/4393" target="_blank" rel="noopener">Figma自身の開発者向けAIレポート</a>では、「デザインの重要性が増した」と答えた開発者が2025年の44%から2026年は65%へ急増。PMの77%が業務の半分以上をキャンバス上で行うと回答した。実装のコモディティ化が進むほど、「何を作るべきか」を決める設計判断の価値が相対的に上がっている構図がうかがえる。</p>
+  <p>Figmaの<a href="https://www.figma.com/blog/state-of-the-designer-2026/" target="_blank" rel="noopener">「State of the Designer 2026」調査</a>(デザイナー906名対象)では、91%が「AIツールでデザインが改善した」、89%が「作業が速くなった」、80%が「コラボレーションが向上した」と回答。一方で45%が「直近で職市場が悪化した」と感じており、過去1年の変化については「改善」36%対「悪化」35%とほぼ真っ二つに割れた。恩恵と不安が同居しているのが実態だ。</p>
+
+  <h2>4. 現場の本音:「置いてきぼり」の危機感</h2>
+  <p><a href="https://forum.figma.com/chat-and-connect-27/figma-s-choice-ai-to-replace-us-not-to-upskill-us-48932" target="_blank" rel="noopener">Figmaフォーラム</a>には「Figma's choice: AI to replace us, not to upskill us(Figmaの選択は、私たちを育てることではなく置き換えることだ)」という投稿が立ち、AI機能がPM・エンジニア優先でデザイナーの意見が後回しにされていること、「見た目は整っているが意味を持たないプロトタイプ」が量産される懸念が語られた。日本語圏でも、<a href="https://tech.nri-net.com/entry/figma_config_2026_report_02" target="_blank" rel="noopener">NRIネットコムの参加レポート</a>では非デザイナーのWebディレクターが「置いてきぼりになっていないか」という危機感と、クライアントと制作現場をつなぐ存在としての意義を保ち続ける必要性を綴っている。立場を問わず、進化のスピードに追いつく不安は共通のようだ。</p>
+
+  <h2>5. Highliteへの示唆</h2>
+  <ol>
+    <li><strong>「作る」の価値低下を前提にした提案設計</strong> - Figma一社でデザイン〜実装〜公開が完結に近づく以上、Highliteの価値は制作作業そのものより「要件定義・ブランド判断・運用設計」という上流・伴走側に明確にシフトさせる必要がある。</li>
+    <li><strong>"デザインの重要性が上がる"データを商談の武器に</strong> - 開発者の65%が「デザインがより重要になった」と回答した事実は、AI時代でも人間の設計判断に予算をかける根拠として顧客への説明に使える。</li>
+    <li><strong>顧客の「置いてきぼり」不安に寄り添うポジショニング</strong> - デザイナー・ディレクターが感じる危機感は、中小企業の経営者がAIツールの奔流を前に抱く感覚と同じ。「一緒にキャッチアップする伴走者」という立ち位置をコンテンツや提案資料で明示する好機。</li>
+  </ol>
+</main>
+<footer>Highlite内部資料・非公開</footer>
+</body>
+</html>
