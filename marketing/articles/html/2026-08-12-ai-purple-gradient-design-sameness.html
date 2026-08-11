@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>「bg-indigo-500、謝罪します」― Tailwind創業者のポスト150万表示が暴いた、AIサイトが"全部同じ顔"になる構造的な理由</title>
+<style>
+  :root {
+    --text: #1f2430;
+    --muted: #6b7280;
+    --accent: #0f6b5c;
+    --bg: #fafaf8;
+    --card: #ffffff;
+    --border: #e5e3dc;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic UI", Meiryo, sans-serif;
+    font-size: 16px;
+    line-height: 1.8;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 64px;
+  }
+  h1 {
+    font-size: 1.6rem;
+    line-height: 1.5;
+    margin: 0 0 8px;
+    letter-spacing: 0.01em;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 20px;
+    margin-bottom: 32px;
+    word-break: break-word;
+  }
+  .meta a { color: var(--muted); }
+  h2 {
+    font-size: 1.25rem;
+    margin: 44px 0 12px;
+    padding-left: 12px;
+    border-left: 4px solid var(--accent);
+    line-height: 1.5;
+  }
+  .summary {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 24px 0;
+  }
+  .summary h2 {
+    margin: 0 0 8px;
+    padding-left: 0;
+    border-left: none;
+    font-size: 1.05rem;
+    color: var(--accent);
+  }
+  .summary ol { margin: 0; padding-left: 1.3em; }
+  .summary li { margin-bottom: 6px; }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
+  strong { font-weight: 700; }
+  ul, ol { padding-left: 1.4em; }
+  li { margin-bottom: 6px; }
+  p { margin: 16px 0; }
+  code {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 0.9em;
+  }
+  footer {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 24px 40px;
+    color: var(--muted);
+    font-size: 0.8rem;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>「bg-indigo-500、謝罪します」― Tailwind創業者のポスト150万表示が暴いた、AIサイトが"全部同じ顔"になる構造的な理由</h1>
+  <p class="meta">
+    Highliteトレンド記事 #027 | 2026-08-12 | テーマ: Webデザイン最新手法・UI/UXトレンド<br>
+    ソース:
+    <a href="https://news.ycombinator.com/item?id=46532362" target="_blank" rel="noopener">Hacker News「AI Keeps Building the Same Purple Gradient Website」</a> /
+    <a href="https://x.com/adamwathan/status/1953510802159219096" target="_blank" rel="noopener">Adam Wathan(Tailwind CSS共同創業者)Xポスト</a> /
+    <a href="https://x.com/Manixh02/status/2012387306683146646" target="_blank" rel="noopener">Manish Kumar氏Xポスト</a> /
+    <a href="https://prg.sh/ramblings/Why-Your-AI-Keeps-Building-the-Same-Purple-Gradient-Website" target="_blank" rel="noopener">prg.sh「Why Your AI Keeps Building the Same Purple Gradient Website」</a> /
+    <a href="https://dev.to/alanwest/why-every-ai-built-website-looks-the-same-blame-tailwinds-indigo-500-3h2p" target="_blank" rel="noopener">DEV Community「Why Every AI-Built Website Looks the Same (Blame Tailwind's Indigo-500)」</a> /
+    <a href="https://blockchain.news/news/ai-website-builders-market-professionalism-gap-2026" target="_blank" rel="noopener">blockchain.news「AI Website Builders Hit $6.3B Market but Professionalism Gap Persists」</a> /
+    <a href="https://euronews.com/next/2025/12/28/2025-was-the-year-ai-slop-went-mainstream-is-the-internet-ready-to-grow-up-now" target="_blank" rel="noopener">Euronews「2025 was the year AI slop went mainstream」</a>
+    + Web横断調査(直近30日中心)
+  </p>
+
+  <div class="summary">
+    <h2>結論サマリー(3行)</h2>
+    <ol>
+      <li>AIが作るサイトが「パープルグラデーション+Interフォント+3カード」に収束する現象が、Tailwind CSS創業者Adam Wathan氏の"謝罪"ポスト(150万表示)をきっかけに一気に可視化された。</li>
+      <li>原因はAIの好みではなく学習データの偏り。Tailwind UIの初期デフォルト色<code>bg-indigo-500</code>が大量のチュートリアル・OSS・ブログに拡散し、AIが「Web上で最も多い色=正解」と学習してしまった。</li>
+      <li>抜け出す鍵は「禁止リスト型プロンプト」。GitHub2.5万スター超のtaste-skillのような"何を使わないか"を指定する手法が急速に支持を集めており、プロと素人を分ける新しい技術になりつつある。</li>
+    </ol>
+  </div>
+
+  <h2>1. 「これ、全部同じサイトじゃない?」から始まった議論</h2>
+  <p>きっかけはHacker Newsのスレッド「AI Keeps Building the Same Purple Gradient Website」だった。CursorやClaude Code、v0にランディングページを作らせると、判で押したように同じ画面が出てくる ― パープルのグラデーションがかかったヒーローセクション、太字のInterフォントで中央に置かれた見出し、その下に等幅で並ぶ3つのカード(細いラインアイコン+4語のタイトル+一文の説明+「Get Started」ボタン)。</p>
+  <p>X(旧Twitter)でもManish Kumar氏の投稿が話題になった。「なぜAIが作るサイトは全部同じに見えるのか? パープルグラデーション。Interフォント。3つの箱。角丸。これは"悪いデザイン"じゃない。統計的平均のデザインだ。LLMにセンスはない。学習データのパターンを再現しているだけだ」。この投稿は多くの共感を集め、"AIスロップ(AI slop)"という言葉が2026年のデザイン業界の共通語になった。</p>
+
+  <h2>2. 犯人は「bg-indigo-500」― Tailwind創業者の謝罪ポスト</h2>
+  <p>なぜ「パープル」に収束するのか。その答えを本人が明かして話題になったのが、Tailwind CSS共同創業者Adam Wathan氏のポストだ。「5年前、Tailwind UIのすべてのボタンを<code>bg-indigo-500</code>にしたことを正式に謝罪します。それが地球上のすべてのAI生成UIをインディゴ色にした原因です」。このポストは150万表示を記録し、開発者コミュニティで大きな反響を呼んだ。</p>
+  <p>背景はこうだ。Tailwind CSSはユーティリティCSSフレームワークとして世界的に普及し、無数のチュートリアル・スターターテンプレート・OSSリポジトリがTailwind UIのコンポーネントをそのままコピーして使ってきた。その結果、<code>bg-indigo-500</code>のボタンや<code>from-indigo-500 to-purple-600</code>のグラデーションが学習データ上で圧倒的多数派になった。生成AIは「Web上で最も頻出するパターン=最も"良い"デザイン」と学習し、指示さえすれば同じ色を返し続ける。しかもAIが生成したサイトが増えるほど、そのサイト自体が次のAIの学習データになり、パープルへの収束がさらに強化される ― という再帰的なループが懸念されている。</p>
+
+  <h2>3. 数字で見る「AIスロップ疲れ」</h2>
+  <p>この現象は単なるネタでは済まない規模になっている。</p>
+  <ul>
+    <li>AI搭載のウェブサイトビルダー市場は2026年に約63億ドル規模に到達し、前年比26%増と急成長中。一方で調査は「スピードは出せても、素人サイトとプロサイトを分ける戦略的な思考が一貫して欠けている」という"プロフェッショナリズムギャップ"を指摘する。</li>
+    <li>ネット上での「AIスロップ」という言葉への言及は2024年から2025年にかけて9倍に増加し、ネガティブな感情を示す投稿の割合は最大54%に達したと報じられている。</li>
+  </ul>
+  <p>日本国内のデザイントレンド解説でも同様の"揺り戻し"が語られている。生成AIで誰でも「それっぽい」ビジュアルを一瞬で作れるようになったからこそ、逆に手描きの揺らぎやアナログなノイズ、物理的な質感を感じさせるデザインに惹かれる層が増えている、という指摘だ。「完璧すぎる」ことが、もはや強みではなく既視感の合図になりつつある。</p>
+
+  <h2>4. 抜け出し方:「禁止リスト」プロンプトとtaste-skill</h2>
+  <p>この問題への実践的な処方箋として注目を集めているのが、"制約を与えるプロンプト"という考え方だ。AIに「いい感じにして」と丸投げするのではなく、「Interは使わない。パープルは使わない。3カードレイアウトは禁止」のように、使わないもの・避けるものを明示的に指定する。AIは実行力は高いがセンス(taste)は持たないため、選択肢を人間側が絞り込んでやる必要がある、という理屈だ。</p>
+  <p>この考え方を実装したオープンソースツール「taste-skill」(開発者Leon Lin氏、2026年2月公開、MITライセンス)はGitHubで2.5万スターを超える支持を集めている。長期的には、W3Cが2026年1月に「Generative UI Community Group」の設立を提案するなど、AIが実行時にUIを再構成する"生成UI"の標準化に向けた動きも始まっており、業界全体が「AIにどう指示するか」を設計課題として本格的に扱い始めている。</p>
+
+  <h2>Highliteへの示唆</h2>
+  <ol>
+    <li><strong>「禁止リスト」プロンプトの型化とサービス化</strong> ― taste-skillのような制約ベースの指示は、Highliteが提案時に「なぜAI任せの制作会社と違うのか」を具体的に説明できる技術的な差別化ポイントになる。</li>
+    <li><strong>「AIスロップ度診断」のようなリード獲得コンテンツ</strong> ― 自社サイトが「パープル+Inter+3カード」の量産型テンプレートに陥っていないかを無料診断するコンテンツは、AI導入済み中小企業(87%)にとって刺さりやすい入口になる。</li>
+    <li><strong>数字を使った説得材料が増えた</strong> ― 市場63億ドル・前年比26%増でもなお「プロフェッショナリズムギャップ」が指摘されている事実は、「早く作れること」と「選ばれるサイトであること」が別問題だと経営者に伝える際の裏付けとして使える。</li>
+  </ol>
+</main>
+<footer>Highlite内部資料・非公開</footer>
+</body>
+</html>
