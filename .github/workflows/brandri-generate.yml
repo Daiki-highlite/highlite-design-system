@@ -1,0 +1,39 @@
+name: brandri-generate
+# 水曜 09:00 JST = 00:00 UTC。1本を選定・執筆してSlackに投稿する
+on:
+  schedule:
+    - cron: "0 0 * * 3"   # Wed 00:00 UTC
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "曜日ガードを無視して実行"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: branch_yuto
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Generate & post
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          python -m scripts.brandri.generate ${{ inputs.force && '--force' || '' }}
+      - name: Commit changes
+        run: |
+          git config user.name  "brandri-bot"
+          git config user.email "bot@highlite.local"
+          git add marketing/articles/brandri
+          git commit -m "brandri: generate weekly draft" || echo "no changes"
+          git push
