@@ -3,7 +3,7 @@
 # confidentiality: internal
 # update_triggers: チャンネル変更 / カデンス変更 / 公開手段の変更
 # spec: docs/brandri-article-pipeline.md
-# rev: 2026-08-10 (r4)
+# rev: 2026-08-13 (r5 / 案B: Pro執筆・Slack投稿のみ自動化)
 # ---------------------------------------------------------------
 
 repo:
@@ -81,11 +81,8 @@ content:
     - saas         # レガシーSaaSのデザイン内製化
     - luxury       # KGI②③向け（ADA / 高感度ブランド文脈）
 
-llm:
-  # 執筆・改稿に使うモデル（品質重視）
-  writing_model: "claude-opus-4-8"
-  # 選定スコアリングに使うモデル（判断が軽いので高速モデル）
-  selection_model: "claude-sonnet-5"
+# 案B（Pro環境で執筆）ではAnthropic APIを使わないため llm 設定は不要。
+# APIで自動執筆する案Cに切り替える場合は legacy/ を参照。
 
 publish:
   # A: repo_pr | B: cms_api | C: manual  ← 未決。現状はmanual

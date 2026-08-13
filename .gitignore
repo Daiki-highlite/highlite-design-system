@@ -1,18 +1,4 @@
+.env
+__pycache__/
+*.pyc
 .DS_Store
-*.skill
-highlite-ops
-highlite-ops
-highlite-ops
-
-# Claude Code internals
-.claude/
-
-# Local working files
-*.pptx
-
-# Cloudflare Pages deploy directory (auto-generated)
-deploy/
-
-# Vendored tooling / caches (not project content)
-spec-kit/
-.wrangler/
