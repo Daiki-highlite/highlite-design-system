@@ -38,8 +38,12 @@ def main() -> None:
     for path, post in articles.iter_active(cfg):
         if post.get("status") != "scheduled":
             continue
-        if (post.get("schedule") or {}).get("scheduled_date") == today:
+        sd = (post.get("schedule") or {}).get("scheduled_date")
+        if sd == today:
             targets.append((path, post))
+        elif sd and sd < today:
+            # 予定日を過ぎた予約（案3: 自動ボツ）。sync漏れの保険。
+            _drop_missed(cfg, slack, channel, post, path)
 
     if not targets:
         print("本日の公開対象はありません。")
@@ -72,6 +76,34 @@ def main() -> None:
             raise SystemExit("publish.mode=cms_api は未実装です")
         else:
             raise SystemExit(f"未知の publish.mode: {mode}")
+
+
+def _drop_missed(cfg, slack, channel, post, path):
+    """予定日を過ぎた予約記事を自動ボツにする（sync と同じ扱い）。"""
+    ts = (post.get("slack") or {}).get("ts")
+    sd = (post.get("schedule") or {}).get("scheduled_date", "")
+    try:
+        label = util.jp_date(datetime.fromisoformat(sd).replace(tzinfo=util.JST))
+    except Exception:
+        label = sd
+    R = cfg["reactions"]
+    if ts:
+        slack.add_reaction(channel, ts, R["dropped"])
+        slack.post(channel,
+                   f"公開予定日（{label}）を過ぎたため、今回は見送り（自動ボツ）としました。\n"
+                   f"内容は dropped/ に記録として残しています。", thread_ts=ts)
+    post["status"] = "missed"
+    post["drop_reason"] = "missed_publish_window"
+    post["dropped_at"] = util.now_jst().isoformat()
+    articles.save(post, path)
+    # dropログに追記
+    log = cfg.path("dropped_log")
+    log.parent.mkdir(parents=True, exist_ok=True)
+    with open(log, "a", encoding="utf-8") as f:
+        f.write(f"- {util.now_jst():%Y-%m-%d} | {post.get('id','')} "
+                f"「{post.get('title','')}」 | 理由: 公開予定日を過ぎた（自動ボツ） | 公開予定だった日: {sd}\n")
+    articles.move(path, cfg.path("dropped"))
+    print(f"自動ボツ（予定日超過）: {post.get('id')}")
 
 
 def _publish_manual(cfg, slack, channel, post, ts):

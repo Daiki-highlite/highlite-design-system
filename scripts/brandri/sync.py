@@ -32,6 +32,7 @@ def main() -> None:
     R = cfg["reactions"]
     report: list[str] = []
     pending_revisions: list[str] = []
+    missed_notes: list[str] = []
 
     for path, post in articles.iter_active(cfg):
         ts = (post.get("slack") or {}).get("ts")
@@ -40,16 +41,21 @@ def main() -> None:
         posted_at = _posted_at(post)
         reactions = slack.get_reactions(channel, ts)
         thread = slack.thread(channel, ts)
-        d = state.decide(reactions, thread, cfg, bot_id, posted_at)
+        sched_date = (post.get("schedule") or {}).get("scheduled_date")
+        d = state.decide(reactions, thread, cfg, bot_id, posted_at, scheduled_date=sched_date)
         before = post.get("status")
 
         if d.status == "dropped":
-            _save_status(post, "dropped"); articles.save(post, path)
-            articles.move(path, cfg.path("dropped"))
+            _drop(cfg, post, path, reason="manual")
+            path = articles.move(path, cfg.path("dropped"))
         elif d.status == "expired":
             slack.post(channel, f"投稿から{cfg.get('cadence.ttl_days',28)}日経過したため、鮮度切れとして取り下げます。", thread_ts=ts)
-            _save_status(post, "expired"); articles.save(post, path)
-            articles.move(path, cfg.path("dropped"))
+            _drop(cfg, post, path, reason="expired")
+            path = articles.move(path, cfg.path("dropped"))
+        elif d.status == "missed":
+            _handle_missed(cfg, slack, channel, post, path, ts)
+            path = articles.move(path, cfg.path("dropped"))
+            missed_notes.append(f"- {post.get('id')} 「{post.get('title','')[:24]}」 予定日 {sched_date} を過ぎたため自動ボツ")
         elif d.status == "revision_requested":
             _save_status(post, "revision_requested"); articles.save(post, path)
             n = len(d.unprocessed_comments)
@@ -67,7 +73,7 @@ def main() -> None:
         if before != after:
             report.append(f"| {post.get('id')} | {post.get('title','')[:24]} | {after} | {before}->{after} |")
 
-    _print_report(cfg, report, pending_revisions)
+    _print_report(cfg, report, pending_revisions, missed_notes)
 
 
 def _posted_at(post) -> datetime:
@@ -80,6 +86,46 @@ def _posted_at(post) -> datetime:
 
 def _save_status(post, status):
     post["status"] = status
+
+
+def _drop(cfg, post, path, reason: str):
+    """ボツ確定時の共通処理：status/理由を記録し、dropログに追記する。"""
+    _save_status(post, "missed" if reason == "missed_publish_window" else "dropped")
+    post["drop_reason"] = reason
+    post["dropped_at"] = util.now_jst().isoformat()
+    articles.save(post, path)
+    _append_dropped_log(cfg, post, reason)
+
+
+def _handle_missed(cfg, slack, channel, post, path, ts):
+    """公開予定日を過ぎた記事を自動ボツにする（案3）。事実を残して溜める。"""
+    sd = (post.get("schedule") or {}).get("scheduled_date", "")
+    try:
+        label = util.jp_date(datetime.fromisoformat(sd).replace(tzinfo=util.JST))
+    except Exception:
+        label = sd
+    R = cfg["reactions"]
+    slack.add_reaction(channel, ts, R["dropped"])  # 🗑️ でひと目で分かるように
+    slack.post(channel,
+               f"公開予定日（{label}）を過ぎたため、今回は見送り（自動ボツ）としました。\n"
+               f"内容は dropped/ に記録として残しています。",
+               thread_ts=ts)
+    _drop(cfg, post, path, reason="missed_publish_window")
+
+
+def _append_dropped_log(cfg, post, reason):
+    log = cfg.path("dropped_log")
+    log.parent.mkdir(parents=True, exist_ok=True)
+    reason_ja = {
+        "missed_publish_window": "公開予定日を過ぎた（自動ボツ）",
+        "expired": "鮮度切れ（28日超）",
+        "manual": "手動ボツ（🗑️）",
+    }.get(reason, reason)
+    sd = (post.get("schedule") or {}).get("scheduled_date", "-")
+    line = (f"- {util.now_jst():%Y-%m-%d} | {post.get('id','')} "
+            f"「{post.get('title','')}」 | 理由: {reason_ja} | 公開予定だった日: {sd}")
+    with open(log, "a", encoding="utf-8") as f:
+        f.write(line + "\n")
 
 
 def _remind_if_stale(cfg, slack, channel, post, ts):
@@ -137,7 +183,7 @@ def _finalize(cfg, slack, channel, path, post, ts, url):
     return articles.move(path, cfg.path("published"))
 
 
-def _print_report(cfg, rows, pending_revisions):
+def _print_report(cfg, rows, pending_revisions, missed_notes=None):
     print(f"## Brandri レビュー同期 {util.jp_date(util.now_jst())}\n")
     if rows:
         print("| ID | タイトル | 状態 | 変化 |")
@@ -145,6 +191,9 @@ def _print_report(cfg, rows, pending_revisions):
         print("\n".join(rows))
     else:
         print("状態変化なし。")
+    if missed_notes:
+        print("\n### 公開予定日を過ぎて自動ボツにした記事（dropped/ に記録）")
+        print("\n".join(missed_notes))
     if pending_revisions:
         print("\n### 修正待ち（本文を直して resolve を実行してください）")
         print("\n".join(pending_revisions))

@@ -41,16 +41,23 @@ Claude Code で：
 → 直近サマリから1本選び、Highlite視点の記事を書いて
    `marketing/articles/brandri/drafts/` に md を保存する（Claude Code自身が執筆。API不要）。
 
-保存されたら投稿：
+**⚠️ 投稿の前に、必ずコミット & push すること。**
+Slackの投稿には「GitHubで本文を読む」リンク（branch_yuto を指す）が入る。
+push していないと、そのリンクが 404 になって本文を開けない。順序を守る：
+
 ```
+# 1. まず push（これを先にやる）
+git add marketing/articles/brandri && git commit -m "brandri: draft" && git push
+
+# 2. その後で Slack へ投稿
 python -m scripts.brandri.post marketing/articles/brandri/drafts/<file>.md
 ```
-→ botが #int-brandri に投稿。公開予定日（翌週木曜）も自動計算される。
 
-コミットも忘れずに：
-```
-git add marketing/articles/brandri && git commit -m "brandri: draft" && git push
-```
+→ botが #int-brandri に投稿。公開予定日（翌週木曜）も自動計算される。
+「本文を読む」リンクは push 済みなので正しく開ける。
+
+**修正のたびにも同じ。** `resolve` で本文を直したら、Slackのリンクは常に
+最新の main/branch_yuto を指すため、直した md も push しておくこと。
 
 ### 随時：レビューを同期
 
@@ -94,3 +101,15 @@ Anthropic APIに少額チャージして `legacy/` を戻せば、水曜生成�
 月あたりの目安は数百円。
 EOF
 echo ok
+
+### 公開予定日を過ぎた記事の扱い（自動ボツ / missed）
+
+レビューが間に合わず公開予定日（木曜）を過ぎた記事は、次の sync / publish で
+**自動的にボツ（missed）**になる。案3（鮮度重視）の仕様。
+- 予定日**当日**は生存（その日の publish で公開可能）。翌日以降は missed
+- 落ちた記事は消えず `marketing/articles/brandri/dropped/` に残り、
+  front matter に `drop_reason: missed_publish_window` が付く
+- `marketing/articles/brandri/_dropped-log.md` に日付・ID・理由・予定だった日が追記される
+- Slack投稿には 🗑️ が付き、スレッドに見送りコメントが残る
+
+「落ちすぎる」と感じたらレビュー体制を見直す。レビュー期間（publish_lead_days=8）は固定運用。

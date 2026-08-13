@@ -27,7 +27,8 @@ def decide(parent_reactions: dict[str, set[str]],
            cfg,
            bot_user_id: str,
            posted_at: datetime,
-           now: datetime | None = None) -> Decision:
+           now: datetime | None = None,
+           scheduled_date: str | None = None) -> Decision:
     now = now or util.now_jst()
     R = cfg["reactions"]
 
@@ -65,17 +66,25 @@ def decide(parent_reactions: dict[str, set[str]],
     # 3. 鮮度切れ
     if age_days > cfg.get("cadence.ttl_days", 28):
         return Decision("expired", approvers=approvers)
-    # 4. 未処理コメント
+    # 4. 公開機会を逃した（案A: 予定日当日は生かす → 予定日を過ぎたら missed）
+    if scheduled_date:
+        try:
+            sd = datetime.fromisoformat(scheduled_date).date()
+            if now.date() > sd:
+                return Decision("missed", approvers=approvers)
+        except ValueError:
+            pass
+    # 5. 未処理コメント
     if unprocessed:
         return Decision("revision_requested", unprocessed_comments=unprocessed,
                         approvers=approvers)
-    # 5/6. 承認あり
+    # 6/7. 承認あり
     if approvers:
         if reacted(R["scheduled"]):
             return Decision("scheduled", approvers=approvers, published_url=published_url)
         return Decision("approved", approvers=approvers, published_url=published_url)
-    # 7. レビュー中
+    # 8. レビュー中
     if reacted(R["reviewing"]):
         return Decision("reviewing")
-    # 8. 未着手
+    # 9. 未着手
     return Decision("draft")

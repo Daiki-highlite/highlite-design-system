@@ -114,6 +114,7 @@ Slackでのレビューを経て brandri.jp に公開するまでを定義する
 | `scheduled` | 👍 ＋ 🗓️ | 予定日まで待機。同期のたびに👍存続を確認 |
 | `published` | ✅ | 完了。同期対象外 |
 | `dropped` | 🗑️ あり | `dropped/` へ移動 |
+| `missed` | 公開予定日を過ぎた（当日は生存） | 自動ボツ。🗑️付与・スレッド通知・dropped/へ・_dropped-log.mdに記録 |
 | `expired` | `ttl_days` 超過かつ未公開 | 鮮度切れをコメント → `dropped/` へ |
 
 ### 3.2 リアクション定義

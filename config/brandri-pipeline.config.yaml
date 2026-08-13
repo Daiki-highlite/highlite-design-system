@@ -66,6 +66,7 @@ paths:
   published: "marketing/articles/brandri/published"
   dropped: "marketing/articles/brandri/dropped"
   selection_log: "marketing/articles/brandri/_selection-log.md"
+  dropped_log: "marketing/articles/brandri/_dropped-log.md"
   state: "marketing/articles/brandri/_state.json"
 
 content:

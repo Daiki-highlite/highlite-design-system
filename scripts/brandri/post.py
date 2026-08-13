@@ -39,10 +39,14 @@ def main() -> None:
     # --- front matter の既定値を補完 ---
     now = util.now_jst()
     post["status"] = "draft"
-    post.setdefault("version", 1)
-    post.setdefault("target_cluster", "startup")
-    post.setdefault("keywords", [])
-    post.setdefault("review", {"approved_by": [], "revision_rounds": 0})
+    if "version" not in post.metadata:
+        post["version"] = 1
+    if "target_cluster" not in post.metadata:
+        post["target_cluster"] = "startup"
+    if "keywords" not in post.metadata:
+        post["keywords"] = []
+    if "review" not in post.metadata:
+        post["review"] = {"approved_by": [], "revision_rounds": 0}
 
     scheduled = util.compute_scheduled_date(
         now, cfg.get("cadence.publish_lead_days", 8), cfg.get("cadence.publish_day", "Thu"))

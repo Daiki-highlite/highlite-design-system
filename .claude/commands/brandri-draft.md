@@ -20,10 +20,13 @@ description: 直近サマリから1本選び、Highlite視点の記事を執筆�
 5. `marketing/articles/brandri/drafts/YYYY-MM-DD-{slug}.md` に保存。
    front matter に title / target_cluster / keywords / source_summaries /
    selection（score, breakdown, rationale, candidates_considered, rejected）を入れる
-6. 保存後、次のコマンドでSlackへ投稿するよう促す：
+6. 保存後、**まず push してから** Slackへ投稿する（順序厳守）：
    ```
+   git add marketing/articles/brandri && git commit -m "brandri: draft" && git push
    python -m scripts.brandri.post marketing/articles/brandri/drafts/YYYY-MM-DD-{slug}.md
    ```
+   Slackの「本文を読む」リンクは branch_yuto を指すため、push 前に post すると
+   リンクが404になる。必ず push → post の順。
    （SLACK_BOT_TOKEN は .env かシェルの export で設定済みであること）
 
 ## 注意
