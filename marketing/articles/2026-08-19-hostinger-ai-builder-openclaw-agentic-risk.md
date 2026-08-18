@@ -1,0 +1,40 @@
+# 「ホームページを30秒で作る」はもう主戦場じゃない ― Hostinger新「AI Builder」の目玉"1クリックOpenClaw"が映す、エージェント時代の光と影
+
+*Highliteトレンド記事 #032 | 2026-08-19 | テーマ: AIデザイン・AIサイト制作ツール*
+*ソース: [TechRadar「'It's not about who can generate a homepage in 30 seconds': Hostinger launches a new agentic AI Builder」](https://www.techradar.com/pro/its-not-about-who-can-generate-a-homepage-in-30-seconds-hostinger-launches-a-new-agentic-ai-builder-helping-businesses-do-more-with-ai) / [GlobeNewswire(The Manila Times転載)「Hostinger brings the full online journey into the agentic era with AI Builder」](https://www.manilatimes.net/2026/08/18/tmt-newswire/globenewswire/hostinger-brings-the-full-online-journey-into-the-agentic-era-with-ai-builder/2407879) / [TechRadar「Hostinger launches one-click OpenClaw AI agent deployment」](https://www.techradar.com/pro/our-favourite-web-hosting-company-is-giving-you-access-to-ais-latest-superstar-for-free-one-click-gets-you-openclaw-on-hostingers-shared-hosting) / [Precedence Research「AI Powered Website Builder Market Size to Hit USD 17.43 Billion by 2035」](https://www.precedenceresearch.com/ai-powered-website-builder-market) / [Hostinger Blog「AI website builder statistics: growth, adoption, and trends」](https://www.hostinger.com/blog/ai-website-builder-statistics/) / [TechCrunch「OpenClaw creator Peter Steinberger joins OpenAI」](https://techcrunch.com/2026/02/15/openclaw-creator-peter-steinberger-joins-openai/) / [dev.to(waxell)「The OpenClaw Security Crisis: 135,000 Exposed AI Agents and the Runtime Governance Gap」](https://dev.to/waxell/the-openclaw-security-crisis-135000-exposed-ai-agents-and-the-runtime-governance-gap-e26) + Web横断調査(直近30日中心)*
+
+---
+
+## 結論サマリー(3行)
+
+1. Hostingerが8月18日、単なるAIサイト生成を超え「作った後の運営まで自動化するエージェント型プラットフォーム」新AI Builderを発表。ホームページ制作の"速さ競争"は終わり、主戦場は"作った後の運用自動化"に移った。
+2. 目玉機能「1クリックOpenClaw」の裏には、史上最速でGitHubスターを集めた一方、数カ月で100件超のCVEと13万台超の露出インスタンスを生んだ"最も成功したのに最も危険"なOSSプロジェクトの存在がある。
+3. AIサイト制作市場は2026年の約3,240億円から2035年に約1.7兆円規模へ拡大予測。中小企業が市場収益の半分近くを牽引しており、Highliteの顧客層にとって「AIエージェント導入」は数年先ではなく"今の選択"になりつつある。
+
+---
+
+## 1. 「30秒でホームページ」はもう差別化にならない
+
+Hostingerが8月18日に発表した新プラットフォーム「AI Builder」は、AIによるサイト生成・ビジュアル編集・バックエンド基盤・EC・組み込みAI・マーケティングまでを一つに統合したものだ。同社プロダクト担当VPのAuksė Žirgulė氏はこう語る。
+
+> 「オンラインプレゼンスをめぐる次の戦いは、誰が30秒でホームページを生成できるかではない。問題はその"後"に何が起きるかだ。AIは店舗を開設し、ユーザー管理システムを作り、集客を助け、プロジェクトを改善し続けられるか」
+
+背景には、Hostinger上で「SaaS・アプリ・社内ツールといった非定型的な構築」がこの12カ月で5倍に増えたという実績がある。WordPress向けAIビルダーの刷新(会話形式でブランド名・ロゴ・カラーを聞き取り自動反映)や、AIエージェント向けの「Agentic Mail」(Webhook・連携済みで問い合わせ対応や予約調整エージェントを構築可能)も同時発表された。「サイトを作る」から「サイトを運用し続ける」への主戦場シフトは、AI制作ツール業界全体の方向性を象徴している。
+
+## 2. 目玉は"1クリックOpenClaw" ― しかしOpenClawとは何者か
+
+今回最も注目されたのが、Hostingerの共有ホスティングでAIエージェントフレームワーク「OpenClaw」をワンクリック導入できる機能だ。OpenClawは2025年11月にオーストリアの開発者Peter Steinberger氏が「Clawdbot」として公開したOSSで、2026年1月に改名後、わずか約60日でGitHubスターが数十万規模に達し「史上最も急成長したOSSプロジェクト」と呼ばれた。あまりの勢いに2026年2月、OpenAIがSteinberger氏を採用し、OpenClaw自体は財団運営の独立OSSとして存続する形になった。Sam Altman氏はXで同氏を「マルチエージェントの未来について膨大なアイデアを持つ天才」と評している。
+
+## 3. 「最も成功した」と「最も危険な」は紙一重だった
+
+OpenClawの急拡大には深刻な代償も伴った。本来「信頼できるローカル環境」向けに設計されていたところ、人気爆発とともに多くのユーザーがインターネット公開サーバーに導入。結果、公表からわずか数カ月で100件超のCVEと280件超のセキュリティアドバイザリーが積み上がり、SecurityScorecardの調査では82カ国で13万台超が外部から到達可能な状態で放置されていることが判明した。中でもCVSSスコア8.8のCVE-2026-25253は、悪意あるWebページを開くだけで遠隔コード実行を許す脆弱性。公式プラグイン市場「ClawHub」でも、スキャン対象約2,857件中341件(約12%)が悪意あるコードを含むと指摘された。Gartnerは企業に即時利用禁止を勧告し、中国工業情報化省も注意喚起を出している。Hostingerが「1クリック」の裏で認証・バックアップ・サンドボックスを標準搭載した"マネージド版"として提供する背景には、この自己ホスティング特有のリスクへの対応がある。
+
+## 4. 市場規模とSMEの立ち位置
+
+Precedence Researchによれば、AIサイト制作ツール市場は2025年の約2,690億円から2026年に約3,240億円へ拡大し、2035年には約1.7兆円規模(CAGR20.55%)に達する見通し。Hostingerの調査でも、生成AIを利用する中小企業は2023年の23%から2026年には58%へと倍増した。中小企業は市場収益の半分近くを占める中核的な購買層であり、「AIサイト制作+運用エージェント」の導入判断はもはや大企業だけの話ではなくなっている。
+
+## Highliteへの示唆
+
+1. **「安全な入り口」を提供する価値** ― 顧客が自前でOpenClaw等を導入するのは高リスク。認証・権限管理・バックアップを標準装備した"マネージド提案"は、Highliteの専門性を差別化する具体的な訴求点になる。
+2. **「作る」から「作った後の運用」への提案シフト** ― AI Builderのポジショニング変化と同様、納品後の自動化・改善運用をサブスクリプション型で組み込むメニュー化を検討する好機。
+3. **"スモールスタート"を顧客教育コンテンツに** ― 「まず読み取り専用の権限から始め、効果を検証してから権限を広げる」という導入ステップは、AIエージェント導入に慎重な中小企業経営者向けの提案書にそのまま使える説得材料になる。
