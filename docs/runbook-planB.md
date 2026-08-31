@@ -34,30 +34,24 @@ botトークンで動かす。** Anthropic APIの従量課金は発生しない�
 
 ### 水曜：執筆して投稿
 
+**現在の運用：キーワード記事（経営者トラック）を週1本。**
+
 Claude Code で：
 ```
 /brandri-draft
 ```
-→ 直近サマリから1本選び、Highlite視点の記事を書いて
-   `marketing/articles/brandri/drafts/` に md を保存する（Claude Code自身が執筆。API不要）。
+→ `marketing/keyword-progress.md` の上から未着手のキーワードを1つ選び、
+   経営者トラックの規範で執筆して `drafts/` に保存する。
 
-**⚠️ 投稿の前に、必ずコミット & push すること。**
-Slackの投稿には「GitHubで本文を読む」リンク（branch_yuto を指す）が入る。
-push していないと、そのリンクが 404 になって本文を開けない。順序を守る：
+**⚠ 投稿の前に、必ずコミット & push すること。**
+Slackの「本文を読む」リンクが branch_yuto を指すため、push前だと404になる。
 
 ```
-# 1. まず push（これを先にやる）
-git add marketing/articles/brandri && git commit -m "brandri: draft" && git push
-
-# 2. その後で Slack へ投稿
+git add marketing && git commit -m "brandri: draft" && git push
 python -m scripts.brandri.post marketing/articles/brandri/drafts/<file>.md
 ```
 
-→ botが #int-brandri に投稿。公開予定日（翌週木曜）も自動計算される。
-「本文を読む」リンクは push 済みなので正しく開ける。
-
-**修正のたびにも同じ。** `resolve` で本文を直したら、Slackのリンクは常に
-最新の main/branch_yuto を指すため、直した md も push しておくこと。
+書いたら `keyword-progress.md` の status を更新する。
 
 ### 随時：レビューを同期
 
@@ -82,11 +76,26 @@ python -m scripts.brandri.sync
 
 ### 木曜：公開
 
-```
-python -m scripts.brandri.publish
-```
-→ 最終確認（その場で👍を再取得）→ 問題なければ公開用原稿をスレッドに出力。
-brandri.jp に入稿し、スレッドに公開URLを返信 → 次の `sync` で ✅ が付いて完了。
+1. 公開対象と👍の最終確認
+   ```
+   python -m scripts.brandri.publish
+   ```
+2. Brandri形式に変換
+   ```
+   python -m scripts.brandri.to_brandri marketing/articles/brandri/scheduled/<file>.md
+   ```
+3. Brandri に投入（別リポジトリ）
+   ```
+   cd /Users/toto/Documents/vscode/Brandri
+   node scripts/write-knowledge.mjs <出力された.brandri.json> --next-num
+   node scripts/build-data.mjs
+   git add -A && git commit -m "brandri: add article" && git push
+   ```
+4. 公開URL（`https://brandri.jp/articles/<slug>.html`）をSlackスレッドに返信
+   → 次の `sync` で ✅ が付いて完了
+
+**取り下げる場合の片付け：** articles.json を戻す → 再ビルド →
+`project/assets/thumbs/j-<slug>.svg` を手動削除（再ビルドでは消えない）。
 
 ## GitHub Secrets について
 
@@ -113,3 +122,27 @@ echo ok
 - Slack投稿には 🗑️ が付き、スレッドに見送りコメントが残る
 
 「落ちすぎる」と感じたらレビュー体制を見直す。レビュー期間（publish_lead_days=8）は固定運用。
+
+## 2つのトラック
+
+書く記事によって規範が違う。**禁止語が逆転しているので混同しないこと。**
+
+| | 経営者トラック | デザイナートラック |
+|---|---|---|
+| ネタ源 | `marketing/branding_seo_keywords_50.md` | `marketing/articles/` の日次サマリ |
+| 規範 | `brandri-writer-executive.md` | `brandri-writer-designer.md` |
+| 字数 | 1,800〜2,400字 | 2,000〜2,600字 |
+| 構成 | 症状→構造→解の名前→明日の一歩 | 制作の型→分かれ目→ブランド逆算→AIとの分業 |
+| 最重要 | **03章まで「ブランディング」を出さない** | 03章でブランドに接続 |
+| target_reader | `["executive"]` | `["designer"]` |
+
+`write-knowledge.mjs` は `target_reader` を見て、字数・related本数の
+しきい値を自動で切り替える。front matter に必ず指定すること。
+
+### キーワード記事の進め方
+
+早川さんの推奨順：
+1. Tier 1「インナーブランディング」「リブランディング」クラスタ（準ビッグ×競合低）
+2. 急伸中の「ブランディング 会社」「採用ブランディング」「webブランディング」「広報ブランディング」
+3. Tier 4 の業種特化で商談導線
+
