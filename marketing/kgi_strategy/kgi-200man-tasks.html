@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>月+100万 戦略タスク | Highlite</title>
+  <!-- 最終更新: 2026-07-10（フェーズ月次更新・3段KGI・ブロッカータスク反映） -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --slate:       #3D5070;
+      --slate-dark:  #2a3a52;
+      --slate-light: #5a6f8a;
+      --slate-pale:  #e8edf4;
+      --teal:        #4A9A8A;
+      --teal-pale:   #e6f4f2;
+      --purple:      #7B6FA0;
+      --blue:        #4A7CAC;
+      --pink:        #C47A8A;
+      --bg:          #F4F3F0;
+      --card:        #FFFFFF;
+      --text:        #1a1a2e;
+      --muted:       #7a8499;
+      --border:      #E0DDD8;
+      --font-en:     'Optima', 'Gill Sans', 'Trebuchet MS', sans-serif;
+      --font-ja:     'Noto Sans JP', 'Hiragino Kaku Gothic ProN', sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-ja);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Sidebar ── */
+    .layout { display: flex; min-height: 100vh; }
+
+    .sidebar {
+      width: 240px;
+      background: var(--slate-dark);
+      color: white;
+      padding: 32px 0;
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+    }
+
+    .sidebar-logo {
+      padding: 0 24px 32px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .sidebar-logo-label {
+      font-family: var(--font-en);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 6px;
+    }
+    .sidebar-logo-title {
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .sidebar-kgi {
+      padding: 20px 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .sidebar-kgi-label {
+      font-family: var(--font-en);
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 6px;
+    }
+    .sidebar-kgi-text {
+      font-size: 12px;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.6;
+    }
+
+    .sidebar-nav { padding: 20px 0; flex: 1; }
+    .nav-section-label {
+      font-family: var(--font-en);
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      padding: 0 24px;
+      margin-bottom: 6px;
+      margin-top: 16px;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 24px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      border-left: 2px solid transparent;
+    }
+    .nav-item:hover { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.9); }
+    .nav-item.active {
+      background: rgba(255,255,255,0.08);
+      color: white;
+      border-left-color: var(--teal);
+    }
+    .nav-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .nav-count {
+      margin-left: auto;
+      font-size: 11px;
+      background: rgba(255,255,255,0.12);
+      padding: 1px 7px;
+      border-radius: 10px;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .sidebar-progress { padding: 20px 24px; border-top: 1px solid rgba(255,255,255,0.08); }
+    .sidebar-progress-label {
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .progress-bar-wrap {
+      background: rgba(255,255,255,0.1);
+      border-radius: 4px;
+      height: 5px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--teal);
+      border-radius: 4px;
+      transition: width 0.4s ease;
+    }
+
+    /* ── Main ── */
+    .main {
+      margin-left: 240px;
+      flex: 1;
+      padding: 40px 48px 80px;
+      max-width: calc(100vw - 240px);
+    }
+
+    /* ── Top Bar ── */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 36px;
+    }
+    .topbar-title {
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--slate-dark);
+    }
+    .topbar-filters {
+      display: flex;
+      gap: 8px;
+    }
+    .filter-btn {
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: white;
+      font-size: 12px;
+      font-family: var(--font-ja);
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .filter-btn:hover { border-color: var(--slate-light); color: var(--slate); }
+    .filter-btn.active {
+      background: var(--slate);
+      border-color: var(--slate);
+      color: white;
+    }
+
+    /* ── Stats Row ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px 24px;
+    }
+    .stat-label {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 6px;
+      font-family: var(--font-en);
+      letter-spacing: 0.06em;
+    }
+    .stat-value {
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--slate-dark);
+      line-height: 1;
+    }
+    .stat-sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* ── Phase Section ── */
+    .phase-section { margin-bottom: 48px; }
+    .phase-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .phase-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .phase-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--slate-dark);
+    }
+    .phase-meta {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .phase-progress-wrap {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .phase-prog-bar {
+      width: 80px;
+      height: 4px;
+      background: var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .phase-prog-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.4s;
+    }
+
+    /* ── Task Card ── */
+    .task-list { display: flex; flex-direction: column; gap: 8px; }
+
+    .task-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      transition: opacity 0.2s, border-color 0.2s;
+      cursor: pointer;
+    }
+    .task-card:hover { border-color: var(--slate-light); }
+    .task-card.done { opacity: 0.5; }
+    .task-card.done .task-title { text-decoration: line-through; color: var(--muted); }
+    .task-card.hidden { display: none; }
+
+    /* Checkbox */
+    .task-check {
+      width: 20px; height: 20px;
+      border: 1.5px solid var(--border);
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s, border-color 0.15s;
+      cursor: pointer;
+    }
+    .task-check:hover { border-color: var(--teal); }
+    .task-card.done .task-check {
+      background: var(--teal);
+      border-color: var(--teal);
+    }
+    .task-check svg { display: none; }
+    .task-card.done .task-check svg { display: block; }
+
+    .task-body { flex: 1; min-width: 0; }
+    .task-title { font-size: 14px; color: var(--text); line-height: 1.5; margin-bottom: 6px; }
+    .task-note {
+      font-size: 12px; line-height: 1.6; color: #4A6B63;
+      background: rgba(74,154,138,0.08);
+      border-left: 2px solid var(--teal);
+      padding: 6px 10px; border-radius: 4px;
+      margin-bottom: 8px;
+    }
+    .task-note::before { content: '💡 分析より　'; font-weight: 600; color: var(--teal); }
+    .task-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+    /* Status Badge */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .status-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+    }
+    .status-todo   { background: #F3F4F6; color: #6B7280; }
+    .status-todo::before   { background: #9CA3AF; }
+    .status-doing  { background: #DBEAFE; color: #1E40AF; }
+    .status-doing::before  { background: #3B82F6; }
+    .status-done   { background: #D1FAE5; color: #065F46; }
+    .status-done::before   { background: var(--teal); }
+
+    /* Priority */
+    .priority-badge {
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 11px;
+      font-family: var(--font-en);
+    }
+    .p-highest { background: #FEF3C7; color: #92400E; }
+    .p-high    { background: #FEE2E2; color: #991B1B; }
+    .p-mid     { background: #DBEAFE; color: #1E40AF; }
+    .p-low     { background: #F3F4F6; color: #6B7280; }
+
+    /* Layer tag */
+    .layer-tag {
+      font-size: 11px;
+      color: var(--muted);
+      font-family: var(--font-en);
+    }
+
+    /* ── Status menu ── */
+    .status-menu {
+      position: fixed;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      padding: 6px;
+      z-index: 1000;
+      min-width: 140px;
+      display: none;
+    }
+    .status-menu.visible { display: block; }
+    .status-menu-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 5px;
+      font-size: 13px;
+      cursor: pointer;
+      color: var(--text);
+    }
+    .status-menu-item:hover { background: var(--bg); }
+    .status-menu-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+    }
+
+    /* ── Empty State ── */
+    .empty-state {
+      text-align: center;
+      padding: 48px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* ── Task Memo (Markdown) ── */
+    .task-memo-wrap { margin-top: 10px; }
+    .memo-toggle {
+      background: none; border: none; cursor: pointer;
+      font-family: var(--font-ja); font-size: 12px; color: var(--muted);
+      display: inline-flex; align-items: center; gap: 6px; padding: 2px 0;
+    }
+    .memo-toggle:hover { color: var(--slate); }
+    .memo-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); }
+    .memo-has { font-size: 11px; color: var(--teal); }
+
+    .memo-panel {
+      margin-top: 8px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px;
+    }
+
+    .memo-view { font-size: 13px; line-height: 1.7; color: var(--text); }
+    .memo-view .md-h { margin: 10px 0 4px; color: var(--slate-dark); font-weight: 500; }
+    .memo-view h3.md-h { font-size: 15px; }
+    .memo-view h4.md-h { font-size: 13px; }
+    .memo-view h5.md-h { font-size: 12px; }
+    .memo-view .md-p { margin: 4px 0; }
+    .memo-view .md-ul, .memo-view .md-ol { margin: 4px 0 4px 18px; }
+    .memo-view li .md-ul, .memo-view li + .md-ul,
+    .memo-view .md-ul .md-ul, .memo-view .md-ul .md-ol,
+    .memo-view .md-ol .md-ul, .memo-view .md-ol .md-ol { margin-top: 2px; margin-bottom: 2px; }
+    .memo-view li { margin: 2px 0; }
+    .memo-view .md-check { list-style: none; margin-left: -18px; display: flex; gap: 7px; align-items: flex-start; }
+    .memo-view .cb {
+      width: 15px; height: 15px; border: 1.5px solid var(--border); border-radius: 3px;
+      flex-shrink: 0; margin-top: 2px; font-size: 11px; line-height: 13px; text-align: center; color: var(--teal);
+    }
+    .memo-view .cb.on { background: var(--teal-pale); border-color: var(--teal); }
+    .memo-view code { background: rgba(0,0,0,0.06); padding: 1px 5px; border-radius: 3px; font-size: 12px; }
+    .memo-view a { color: var(--blue); }
+    .memo-view .md-empty { color: var(--muted); font-style: italic; }
+
+    .memo-input {
+      width: 100%; min-height: 130px;
+      border: 1px solid var(--border); border-radius: 5px;
+      padding: 10px; font-family: var(--font-ja); font-size: 13px; line-height: 1.6;
+      resize: vertical; color: var(--text); background: white;
+    }
+    .memo-input:focus { outline: none; border-color: var(--teal); }
+    .memo-hint { font-size: 11px; color: var(--muted); margin-top: 6px; line-height: 1.6; }
+    .memo-actions { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+    .memo-btn {
+      padding: 4px 14px; border-radius: 5px; border: 1px solid var(--border);
+      background: white; font-size: 12px; font-family: var(--font-ja); cursor: pointer; color: var(--slate);
+    }
+    .memo-btn:hover { border-color: var(--slate-light); }
+    .memo-btn.primary { background: var(--teal); border-color: var(--teal); color: white; }
+    .memo-updated { font-size: 11px; color: var(--muted); margin-left: auto; }
+  </style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-label">Highlite</div>
+      <div class="sidebar-logo-title">月+100万<br>戦略タスク管理</div>
+    </div>
+
+    <div class="sidebar-kgi">
+      <div class="sidebar-kgi-label">KGI（3段構成）</div>
+      <div class="sidebar-kgi-text">①月+100万円の売上を継続達成（2026年7月〜／デジタル＋オフライン併用）<br>②ADAのブランディングに携われる会社になる<br>③マルジェラ級ブランドから1年以内に案件獲得</div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">フィルター</div>
+      <div class="nav-item active" onclick="filterPhase('all')">
+        <span class="nav-dot" style="background:#9CA3AF"></span>
+        すべて
+        <span class="nav-count" id="count-all">0</span>
+      </div>
+      <div class="nav-item" onclick="filterPhase('todo')">
+        <span class="nav-dot" style="background:#9CA3AF"></span>
+        未着手
+        <span class="nav-count" id="count-todo">0</span>
+      </div>
+      <div class="nav-item" onclick="filterPhase('doing')">
+        <span class="nav-dot" style="background:#3B82F6"></span>
+        進行中
+        <span class="nav-count" id="count-doing">0</span>
+      </div>
+      <div class="nav-item" onclick="filterPhase('done')">
+        <span class="nav-dot" style="background:#4A9A8A"></span>
+        完了
+        <span class="nav-count" id="count-done">0</span>
+      </div>
+
+      <div class="nav-section-label" style="margin-top:24px;">フェーズ</div>
+      <div class="nav-item" onclick="filterPhase('june')">
+        <span class="nav-dot" style="background:#C47A8A"></span>
+        7月 — 今月
+        <span class="nav-count" id="count-june">0</span>
+      </div>
+      <div class="nav-item" onclick="filterPhase('july')">
+        <span class="nav-dot" style="background:#4A7CAC"></span>
+        8月
+        <span class="nav-count" id="count-july">0</span>
+      </div>
+      <div class="nav-item" onclick="filterPhase('aug')">
+        <span class="nav-dot" style="background:#7B6FA0"></span>
+        9〜10月
+        <span class="nav-count" id="count-aug">0</span>
+      </div>
+      <div class="nav-item" onclick="filterPhase('ongoing')">
+        <span class="nav-dot" style="background:#4A9A8A"></span>
+        継続タスク
+        <span class="nav-count" id="count-ongoing">0</span>
+      </div>
+    </nav>
+
+    <div class="sidebar-progress">
+      <div class="sidebar-progress-label">
+        <span>全体進捗</span>
+        <span id="progress-pct">0%</span>
+      </div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="progress-bar" style="width:0%"></div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── Main ── -->
+  <main class="main">
+
+    <div class="topbar">
+      <div class="topbar-title" id="view-title">すべてのタスク</div>
+      <div class="topbar-filters">
+        <button class="filter-btn" onclick="exportMemos()">メモをMarkdownで書き出す</button>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-label">Total Tasks</div>
+        <div class="stat-value" id="stat-total">0</div>
+        <div class="stat-sub">全タスク</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">In Progress</div>
+        <div class="stat-value" style="color:var(--blue)" id="stat-doing">0</div>
+        <div class="stat-sub">進行中</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Completed</div>
+        <div class="stat-value" style="color:var(--teal)" id="stat-done">0</div>
+        <div class="stat-sub">完了</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">High Priority</div>
+        <div class="stat-value" style="color:var(--pink)" id="stat-high">0</div>
+        <div class="stat-sub">最高・高優先度</div>
+      </div>
+    </div>
+
+    <!-- Task Sections (dynamically rendered) -->
+    <div id="task-container"></div>
+
+  </main>
+</div>
+
+<!-- Status Menu -->
+<div class="status-menu" id="status-menu">
+  <div class="status-menu-item" onclick="setStatus('todo')">
+    <div class="status-menu-dot" style="background:#9CA3AF"></div> 未着手
+  </div>
+  <div class="status-menu-item" onclick="setStatus('doing')">
+    <div class="status-menu-dot" style="background:#3B82F6"></div> 進行中
+  </div>
+  <div class="status-menu-item" onclick="setStatus('done')">
+    <div class="status-menu-dot" style="background:#4A9A8A"></div> 完了
+  </div>
+</div>
+
+<script>
+  // ── Task Data ──
+  const TASKS = [
+    // ブロッカー（Layer 00）
+    { id:'t29', phase:'june', title:'【ブロッカー】highlite.co.jp / brandri.jp の robots.txt を是正する（AI・検索クローラーへのアクセス許可）', layer:'Layer 00 — 前提条件', priority:'highest', defaultStatus:'done', note:'【2026-07-17 監査で完了確認】本番を実データ調査した結果、両サイトともrobots.txtは開放済み・llms.txt・構造化データ(schema)・sitemapも実装済みで、AEO基盤は高水準。前提だった「全クローラー拒否」は既に解消していた。詳細＝t29-crawler-aeo-audit-20260717.md。下流のコンテンツ系タスクはブロック解除済み。' },
+    { id:'t30', phase:'june', title:'【ブロッカー】実績開示の許可を取得する（Crysta 01 — 事例化・実績集の前提）', layer:'Layer 00 — 前提条件', priority:'highest', note:'t02a（実績集→LP掲載）、t17（事例記事化）、営業側Layer 2（実績資料）は全てこの許可が前提。上位5〜8件を候補に連絡を開始する。' },
+    // 6月
+    { id:'t00', phase:'june', title:'【ヒアリング】メンバーに既存案件の実態を確認する（業種・規模・金額感・受注経路・現在の進行状況）', layer:'現状把握 — 施策設計の前提', priority:'highest', defaultStatus:'done', note:'「リード獲得の成り立ちと示唆」スライド（2026.07 / 全29案件）で実態整理済み。業種・規模・経路が可視化された。' },
+    { id:'t01', phase:'june', title:'LP：ファーストビューのコピー・構成を見直す',          layer:'Layer 01 — インバウンド設計', priority:'highest' },
+    { id:'t02a', phase:'june', title:'Highlite実績集を作成し、LPに掲載する（DL CTAも整備）', layer:'Layer 01 — インバウンド設計', priority:'highest', note:'構造課題「紹介の外からの導線ゼロ」への直接処方。Touchstar型の「見て依頼」の受け皿がまだ存在しない。' },
+    { id:'t03', phase:'june', title:'ターゲットセグメントを再定義する（SaaSから変更／絞り先は要検討）', layer:'Layer 01 — インバウンド設計', priority:'highest', note:'実績の重心＝美容医療・介護・留学・調達後スタートアップ。入口は「上流WS（MVV/ブランド診断）」が有力候補。' },
+    { id:'t02b', phase:'june', title:'イベント向け資料を作成する（参加者の課題が主役・実績は証拠として埋め込む）', layer:'Layer 04 — オフライン連携', priority:'high' },
+    { id:'t04',  phase:'june', title:'LinkedIn：個人名義（Yuto）での投稿を開始する（週2本）', layer:'Layer 01 — インバウンド設計', priority:'high' },
+    { id:'t05', phase:'july', title:'Google リスティング：ターゲットキーワードリストを作成する（前提：t03完了）', layer:'Layer 01 — インバウンド設計', priority:'high' },
+    { id:'t06', phase:'july', title:'Google リスティング：RSA広告文（見出し・説明文）を作成する（前提：t03完了）', layer:'Layer 01 — インバウンド設計', priority:'high' },
+    { id:'t07', phase:'june', title:'Brandri：記事1本目のテーマを決定する',               layer:'Layer 02 — コンテンツ連動', priority:'high' },
+    { id:'t08', phase:'june', title:'現在進行中・完了済み案件をリストアップし、リテイナー提案対象を確認する', layer:'Layer 03 — リテイナー', priority:'high' },
+    { id:'t24', phase:'june', title:'応援表明型DMテンプレートを整備する（調達企業向け／人対人・クローズ志向NG）', layer:'Layer 05 — 能動アプローチ', priority:'high' },
+    { id:'t27', phase:'june', title:'隣接専門家（税理士・弁護士・HRコンサル・銀行法人担当）向け「1枚説明資料」を作成する', layer:'Layer 06 — 紹介設計', priority:'high' },
+    // 7月
+    { id:'t09', phase:'aug', title:'Google 広告：出稿を開始する（前提：t05/t06完了・予算決定・運用担当者決定）', layer:'Layer 01 — インバウンド設計', priority:'high' },
+    { id:'t10', phase:'july', title:'Brandri：記事1本目を公開する',                       layer:'Layer 02 — コンテンツ連動', priority:'mid' },
+    { id:'t11', phase:'july', title:'LinkedIn：ラグジュアリー × AI テーマの投稿を開始する', layer:'Layer 02 — コンテンツ連動', priority:'mid' },
+    { id:'t12', phase:'july', title:'リテイナー：完了済み案件への提案を実施する',           layer:'Layer 03 — リテイナー', priority:'high', note:'リアリス関連が入金の約4割・縮小傾向。リテイナー多角化は「成長」ではなく集中リスクへの「防衛」施策。' },
+    { id:'t13', phase:'aug', title:'Google 広告：週次でCTR・CPCを確認し改善する（運用担当者要決定）', layer:'Layer 01 — インバウンド設計', priority:'mid' },
+    { id:'t26', phase:'july', title:'ナーチャリング1〜2ヶ月シーケンスを設計する（タッチポイントの時系列・能動接触は2回まで）', layer:'Layer 05 — 能動アプローチ', priority:'high' },
+    { id:'t25', phase:'july', title:'ターゲット該当企業のリスト作成プロセスを整備する（t03再定義の結果を反映）', layer:'Layer 05 — 能動アプローチ', priority:'mid' },
+    { id:'t31', phase:'july', title:'【計測基盤】Google Search Console に両サイトを登録し、計測を開始する（sitemap送信・検索クエリ/表示回数の可視化）', layer:'Layer 01 — インバウンド設計', priority:'high', note:'SEO/AEOの効果を測る土台。highlite.co.jp / brandri.jp の所有権確認 → sitemap送信 → 表示回数・クリック・流入キーワードの定点観測を開始する。設定にはGoogleアカウントと各サイトの管理権限が必要（リモートからは代行不可・ユーザー作業）。基盤構築(robots.txt/schema等)は完了済みのため、次は「今どれだけ見えているか」を数値化する段階。' },
+    { id:'t14', phase:'aug',  title:'LP流入データをもとにA/Bテストを実施する',             layer:'Layer 01 — インバウンド設計', priority:'mid' },
+    { id:'t15', phase:'aug',  title:'リターゲティング広告を設定する（LP流入が月100以上になったら）', layer:'Layer 01 — インバウンド設計', priority:'low' },
+    { id:'t16', phase:'aug',  title:'リテイナー：2社目への提案を実施する',                 layer:'Layer 03 — リテイナー', priority:'high', note:'ハブ依存の分散を継続。1社への依存度を下げるほど売上変動リスクが減る。' },
+    { id:'t17', phase:'aug',  title:'完了案件の事例記事化（Crystaフェーズ）を開始する',    layer:'Layer 03 — リテイナー', priority:'highest', note:'「品質＝営業装置」なのに公開導線がゼロ。事例の資産化が最も費用対効果の高い一手。' },
+    { id:'t18', phase:'aug',  title:'月次レポート可視化の仕組みを設計する',               layer:'Layer 03 — リテイナー', priority:'mid' },
+    // 継続タスク
+    { id:'t19', phase:'ongoing', title:'LinkedIn投稿を週2本のペースで継続する',           layer:'Layer 01・02 — 共通', priority:'high' },
+    { id:'t20', phase:'ongoing', title:'Brandri記事を月1本のペースで公開する',            layer:'Layer 02 — コンテンツ連動', priority:'mid' },
+    { id:'t21', phase:'ongoing', title:'Google広告のキーワード・入札を月次で最適化する（運用担当者要決定）', layer:'Layer 01 — インバウンド設計', priority:'mid' },
+    { id:'t22', phase:'ongoing', title:'マルジェラKGI向けのLinkedIn投稿を月1本出す',      layer:'Layer 02 — コンテンツ連動', priority:'mid' },
+    { id:'t28', phase:'ongoing', title:'ADA・ネイチャーアクアリウム文脈のコンテンツを四半期1本以上出す（中段KGI②）', layer:'Layer 02 — コンテンツ連動', priority:'mid' },
+    { id:'t23', phase:'ongoing', title:'リテイナー顧客に月次レポートを届ける',            layer:'Layer 03 — リテイナー', priority:'mid' },
+    { id:'t32', phase:'ongoing', title:'【計測基盤】AIでの見え方（AEO可視性）を月次で定点観測する', layer:'Layer 02 — コンテンツ連動', priority:'high', note:'ChatGPT / Claude / Perplexity / Gemini に主要クエリ（例「AI時代のブランディングとは」「ブランディング会社 おすすめ」「スタートアップ ブランディング 支援会社」）を投げ、Highlite/brandriが引用・言及されるかを毎月記録。ベースライン(2026-07-17)＝主要カテゴリ/トピッククエリでは未出現・競合が占有、露出は指名検索のみ。記録テンプレ＝aeo-visibility-tracking.md。基盤は完成済みのため、ここからはコンテンツ(狙ったテーマの記事)と権威性(第三者言及)で押し上げる運用フェーズ。' },
+  ];
+
+  const PHASES = [
+    { key:'june',    label:'7月 — 今月', color:'#C47A8A', desc:'ブロッカー除去・基盤整備（LP・資料・LinkedIn）・能動アプローチ準備（6月からの積み残し含む）' },
+    { key:'july',    label:'8月',        color:'#4A7CAC', desc:'記事公開・リテイナー提案・ナーチャリング設計' },
+    { key:'aug',     label:'9〜10月',    color:'#7B6FA0', desc:'広告出稿開始・流入増加・リテイナー2社目・事例化' },
+    { key:'ongoing', label:'継続タスク', color:'#4A9A8A', desc:'月次・週次の定常アクション' },
+  ];
+
+  const PRIORITY_LABEL = { highest:'最高', high:'高', mid:'中', low:'低' };
+  const PRIORITY_CLASS = { highest:'p-highest', high:'p-high', mid:'p-mid', low:'p-low' };
+  const STATUS_LABEL   = { todo:'未着手', doing:'進行中', done:'完了' };
+  const STATUS_CLASS   = { todo:'status-todo', doing:'status-doing', done:'status-done' };
+
+  // ── State ──
+  let statuses = {};
+  let memos = {};              // { taskId: { md: string, updated: 'YYYY-MM-DD HH:mm' } }
+  let openMemos = new Set();   // 現在展開中のメモパネル
+  let currentFilter = 'all';
+  let menuTargetId = null;
+
+  // defaultStatus を持つタスクは、この版数を上げると一度だけ再適用される
+  const SEED_VERSION = 2;
+
+  function loadStatuses() {
+    try { statuses = JSON.parse(localStorage.getItem('hl-task-statuses') || '{}'); } catch(e) { statuses = {}; }
+    const seededVer = parseInt(localStorage.getItem('hl-task-seed-ver') || '0', 10);
+    const applySeed = seededVer < SEED_VERSION;
+    TASKS.forEach(t => {
+      if (!statuses[t.id]) statuses[t.id] = t.defaultStatus || 'todo';
+      // 版数更新時は defaultStatus を一度だけ反映（分析結果の反映など）
+      else if (applySeed && t.defaultStatus) statuses[t.id] = t.defaultStatus;
+    });
+    if (applySeed) {
+      localStorage.setItem('hl-task-seed-ver', String(SEED_VERSION));
+      saveStatuses();
+    }
+  }
+
+  function saveStatuses() {
+    localStorage.setItem('hl-task-statuses', JSON.stringify(statuses));
+  }
+
+  // ── Memo (Markdown) ──
+  function loadMemos() {
+    try { memos = JSON.parse(localStorage.getItem('hl-task-memos') || '{}'); } catch(e) { memos = {}; }
+  }
+  function saveMemos() {
+    localStorage.setItem('hl-task-memos', JSON.stringify(memos));
+  }
+  // メモパネルの開閉状態も保存する（リロードしても開いていたメモは開いたまま＝消えたように見えないため）
+  function saveOpenMemos() {
+    localStorage.setItem('hl-task-memos-open', JSON.stringify([...openMemos]));
+  }
+  function loadOpenMemos() {
+    try { (JSON.parse(localStorage.getItem('hl-task-memos-open') || '[]')).forEach(id => openMemos.add(id)); } catch (e) {}
+  }
+
+  function nowStamp() {
+    const d = new Date();
+    const p = n => String(n).padStart(2, '0');
+    return d.getFullYear() + '-' + p(d.getMonth()+1) + '-' + p(d.getDate()) + ' ' + p(d.getHours()) + ':' + p(d.getMinutes());
+  }
+
+  // 最小Markdownレンダラ（見出し・太字・斜体・コード・リンク・箇条書き・番号・チェックボックス）
+  function mdEscape(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+  function mdInline(s) {
+    s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+    s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    s = s.replace(/(^|[^*])\*([^*\s][^*]*)\*/g, '$1<em>$2</em>');
+    s = s.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+    return s;
+  }
+  // 行頭の空白からインデント階層を算出（半角2個＝1段、タブ＝2扱い）
+  function mdIndentLevel(ws) {
+    let w = 0;
+    for (const ch of ws) w += (ch === '\t' ? 2 : 1);
+    return Math.floor(w / 2);
+  }
+  function mdToHtml(md) {
+    const lines = mdEscape(md).split('\n');
+    let html = '';
+    const stack = [];  // 開いているリスト種別 'ul'|'ol' を階層順に保持
+    const closeTo = (depth) => { while (stack.length > depth) html += '</' + stack.pop() + '>'; };
+    for (const raw of lines) {
+      const line = raw.replace(/\s+$/, '');
+      if (line.trim() === '') { closeTo(0); continue; }
+      const h = line.match(/^(#{1,3})\s+(.*)$/);
+      if (h) { closeTo(0); const lv = h[1].length + 2; html += '<h' + lv + ' class="md-h">' + mdInline(h[2]) + '</h' + lv + '>'; continue; }
+
+      const mBul = line.match(/^([ \t]*)([*+\-])[ \t]+(\[([ xX])\][ \t]+)?(.*)$/);
+      const mOrd = line.match(/^([ \t]*)(\d+)[.)][ \t]+(.*)$/);
+      if (mBul || mOrd) {
+        const ws = mBul ? mBul[1] : mOrd[1];
+        const type = mBul ? 'ul' : 'ol';
+        const want = mdIndentLevel(ws) + 1;                       // 開くべきリスト階層数
+        while (stack.length < want) { html += '<' + type + ' class="md-' + type + '">'; stack.push(type); }
+        if (stack.length > want) closeTo(want);
+        if (stack[stack.length - 1] !== type) {                   // 同階層で種別が変わったら開き直す
+          html += '</' + stack.pop() + '>';
+          html += '<' + type + ' class="md-' + type + '">'; stack.push(type);
+        }
+        if (mBul) {
+          const check = mBul[3], content = mBul[5];
+          if (check) {
+            const on = mBul[4].toLowerCase() === 'x';
+            html += '<li class="md-check"><span class="cb' + (on ? ' on' : '') + '">' + (on ? '✓' : '') + '</span><span>' + mdInline(content) + '</span></li>';
+          } else {
+            html += '<li>' + mdInline(content) + '</li>';
+          }
+        } else {
+          html += '<li>' + mdInline(mOrd[3]) + '</li>';
+        }
+        continue;
+      }
+
+      closeTo(0);
+      html += '<p class="md-p">' + mdInline(line) + '</p>';
+    }
+    closeTo(0);
+    return html;
+  }
+
+  function renderMemoPanel(id, mode) {
+    const el = document.getElementById('memopanel-' + id);
+    if (!el) return;
+    const m = memos[id] || {};
+    if (mode === 'edit') {
+      const raw = (m.md || '').replace(/&/g, '&amp;').replace(/</g, '&lt;');
+      el.innerHTML =
+        '<textarea class="memo-input" id="memoinput-' + id + '" onkeydown="memoKeydown(event, this)" placeholder="進捗・気づき・次アクションなどを記録（Markdown対応）">' + raw + '</textarea>' +
+        '<div class="memo-hint">Markdown対応：# 見出し ・ **太字** ・ *斜体* ・ * / - 箇条書き ・ - [ ] / - [x] チェック ・ 1. 番号 ・ `コード` ・ [リンク](https://…)<br>Enter で箇条書きを自動継続 ・ <b>Tab で字下げ（ネスト）／ Shift+Tab で戻す</b></div>' +
+        '<div class="memo-actions">' +
+          '<button class="memo-btn primary" onclick="saveMemo(event,\'' + id + '\')">保存</button>' +
+          '<button class="memo-btn" onclick="cancelMemo(event,\'' + id + '\')">キャンセル</button>' +
+        '</div>';
+      const ta = document.getElementById('memoinput-' + id);
+      ta.focus(); ta.setSelectionRange(ta.value.length, ta.value.length);
+    } else {
+      el.innerHTML =
+        '<div class="memo-view">' + (m.md ? mdToHtml(m.md) : '<p class="md-empty">（メモはまだありません）</p>') + '</div>' +
+        '<div class="memo-actions">' +
+          '<button class="memo-btn" onclick="startEditMemo(event,\'' + id + '\')">' + (m.md ? '編集' : 'メモを追加') + '</button>' +
+          (m.updated ? '<span class="memo-updated">最終更新 ' + m.updated + '</span>' : '') +
+        '</div>';
+    }
+  }
+
+  // Backlog風：リスト記号（* - + / 番号 / チェックボックス）を改行時に自動継続する
+  const MEMO_INDENT = '  ';  // インデント1段＝半角スペース2個
+  function memoKeydown(e, ta) {
+    // Tab / Shift+Tab：行のインデントを一段下げ／上げ（Backlog風のリスト字下げ）
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      const val = ta.value;
+      const s = ta.selectionStart, en = ta.selectionEnd;
+      const firstLineStart = val.lastIndexOf('\n', s - 1) + 1;   // 選択の先頭行の行頭
+      const before = val.slice(0, firstLineStart);
+      const region = val.slice(firstLineStart, en);
+      const after = val.slice(en);
+      let delta0 = 0, deltaAll = 0;                              // 先頭行/全体の増減
+      const outLines = region.split('\n').map((ln, i) => {
+        if (e.shiftKey) {                                        // 一段上げ：先頭のインデントを1段ぶん削る
+          const m = ln.match(/^(\t| {1,2})/);
+          const cut = m ? m[0].length : 0;
+          if (i === 0) delta0 = -cut;
+          deltaAll -= cut;
+          return ln.slice(cut);
+        }
+        if (i === 0) delta0 = MEMO_INDENT.length;                // 一段下げ：行頭にインデントを足す
+        deltaAll += MEMO_INDENT.length;
+        return MEMO_INDENT + ln;
+      });
+      ta.value = before + outLines.join('\n') + after;
+      if (s === en) {
+        ta.selectionStart = ta.selectionEnd = Math.max(firstLineStart, s + delta0);
+      } else {
+        ta.selectionStart = firstLineStart;
+        ta.selectionEnd = en + deltaAll;
+      }
+      return;
+    }
+
+    if (e.key !== 'Enter' || e.shiftKey) return;
+    if (e.isComposing || e.keyCode === 229) return;          // IME変換確定のEnterは無視（日本語入力対策）
+    if (ta.selectionStart !== ta.selectionEnd) return;        // 範囲選択中は通常動作
+
+    const val = ta.value;
+    const pos = ta.selectionStart;
+    const lineStart = val.lastIndexOf('\n', pos - 1) + 1;
+    const lineText = val.slice(lineStart, pos);
+
+    const replaceAt = (start, end, insert, caret) => {
+      ta.value = val.slice(0, start) + insert + val.slice(end);
+      ta.selectionStart = ta.selectionEnd = caret;
+    };
+
+    // 箇条書き（* - +）＋任意でチェックボックス [ ]
+    const bullet = lineText.match(/^(\s*)([*+\-])[ \t]+(\[[ xX]\][ \t]+)?(.*)$/);
+    if (bullet) {
+      const indent = bullet[1], mark = bullet[2], check = bullet[3], content = bullet[4];
+      if (content.trim() === '') {                            // 空項目でEnter → リストを抜ける
+        e.preventDefault();
+        replaceAt(lineStart, pos, '', lineStart);
+        return;
+      }
+      e.preventDefault();
+      const insert = '\n' + indent + mark + ' ' + (check ? '[ ] ' : '');
+      replaceAt(pos, pos, insert, pos + insert.length);
+      return;
+    }
+
+    // 番号リスト（1. / 1)）
+    const ordered = lineText.match(/^(\s*)(\d+)([.)])[ \t]+(.*)$/);
+    if (ordered) {
+      const indent = ordered[1], num = parseInt(ordered[2], 10), sep = ordered[3], content = ordered[4];
+      if (content.trim() === '') {                            // 空項目でEnter → リストを抜ける
+        e.preventDefault();
+        replaceAt(lineStart, pos, '', lineStart);
+        return;
+      }
+      e.preventDefault();
+      const insert = '\n' + indent + (num + 1) + sep + ' ';
+      replaceAt(pos, pos, insert, pos + insert.length);
+      return;
+    }
+  }
+
+  function toggleMemo(e, id) {
+    e.stopPropagation();
+    const el = document.getElementById('memopanel-' + id);
+    if (openMemos.has(id)) { openMemos.delete(id); el.style.display = 'none'; el.innerHTML = ''; }
+    else { openMemos.add(id); el.style.display = 'block'; renderMemoPanel(id, 'view'); }
+    saveOpenMemos();
+  }
+  function startEditMemo(e, id) { e.stopPropagation(); renderMemoPanel(id, 'edit'); }
+  function cancelMemo(e, id) { e.stopPropagation(); renderMemoPanel(id, 'view'); }
+  function saveMemo(e, id) {
+    e.stopPropagation();
+    const ta = document.getElementById('memoinput-' + id);
+    const val = ta.value;
+    if (val.trim() === '') delete memos[id];
+    else memos[id] = { md: val, updated: nowStamp() };
+    saveMemos();
+    render();  // ドット表示を更新。openMemos により展開状態は維持される
+  }
+
+  function exportMemos() {
+    let out = '# 月+100万 戦略タスク 進捗メモ\n\n';
+    out += '> 書き出し日時: ' + nowStamp() + '\n\n';
+    PHASES.forEach(phase => {
+      const list = TASKS.filter(t => t.phase === phase.key);
+      out += '## ' + phase.label + '\n\n';
+      list.forEach(t => {
+        out += '### [' + STATUS_LABEL[statuses[t.id]] + '] ' + t.title + '\n\n';
+        const m = memos[t.id];
+        out += (m && m.md && m.md.trim() ? m.md.trim() : '_（メモなし）_') + '\n\n';
+      });
+    });
+    const blob = new Blob([out], { type: 'text/markdown;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'highlite-task-memos.md';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  // ── Render ──
+  function render() {
+    const container = document.getElementById('task-container');
+    container.innerHTML = '';
+
+    const phases = currentFilter === 'all' || ['todo','doing','done'].includes(currentFilter)
+      ? PHASES
+      : PHASES.filter(p => p.key === currentFilter);
+
+    phases.forEach(phase => {
+      let tasks = TASKS.filter(t => t.phase === phase.key);
+      if (['todo','doing','done'].includes(currentFilter)) {
+        tasks = tasks.filter(t => statuses[t.id] === currentFilter);
+      }
+      if (tasks.length === 0) return;
+
+      const doneCount = tasks.filter(t => statuses[t.id] === 'done').length;
+      const pct = tasks.length ? Math.round(doneCount / tasks.length * 100) : 0;
+
+      const section = document.createElement('div');
+      section.className = 'phase-section';
+      section.innerHTML = `
+        <div class="phase-header">
+          <div class="phase-dot" style="background:${phase.color}"></div>
+          <div class="phase-title">${phase.label}</div>
+          <div class="phase-meta">${phase.desc}</div>
+          <div class="phase-progress-wrap">
+            <span>${doneCount}/${tasks.length}</span>
+            <div class="phase-prog-bar">
+              <div class="phase-prog-fill" style="background:${phase.color};width:${pct}%"></div>
+            </div>
+          </div>
+        </div>
+        <div class="task-list" id="list-${phase.key}"></div>
+      `;
+      container.appendChild(section);
+
+      const list = section.querySelector(`#list-${phase.key}`);
+      tasks.forEach(task => {
+        const st = statuses[task.id];
+        const card = document.createElement('div');
+        card.className = `task-card ${st === 'done' ? 'done' : ''}`;
+        card.dataset.id = task.id;
+        card.innerHTML = `
+          <div class="task-check" onclick="toggleDone(event,'${task.id}')">
+            <svg width="12" height="9" viewBox="0 0 12 9" fill="none">
+              <path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="task-body">
+            <div class="task-title">${task.title}</div>
+            ${task.note ? `<div class="task-note">${task.note}</div>` : ''}
+            <div class="task-meta">
+              <span class="status-badge ${STATUS_CLASS[st]}" onclick="openMenu(event,'${task.id}')">${STATUS_LABEL[st]}</span>
+              <span class="priority-badge ${PRIORITY_CLASS[task.priority]}">${PRIORITY_LABEL[task.priority]}</span>
+              <span class="layer-tag">${task.layer}</span>
+            </div>
+            <div class="task-memo-wrap">
+              <button class="memo-toggle" onclick="toggleMemo(event,'${task.id}')">📝 進捗メモ${memos[task.id] && memos[task.id].md ? ' <span class="memo-dot"></span><span class="memo-has">記録あり</span>' : ''}</button>
+              <div class="memo-panel" id="memopanel-${task.id}" style="display:${openMemos.has(task.id) ? 'block' : 'none'}"></div>
+            </div>
+          </div>
+        `;
+        list.appendChild(card);
+      });
+    });
+
+    openMemos.forEach(id => { if (document.getElementById('memopanel-' + id)) renderMemoPanel(id, 'view'); });
+
+    updateStats();
+    updateCounts();
+  }
+
+  function toggleDone(e, id) {
+    e.stopPropagation();
+    statuses[id] = statuses[id] === 'done' ? 'todo' : 'done';
+    saveStatuses();
+    render();
+  }
+
+  function openMenu(e, id) {
+    e.stopPropagation();
+    menuTargetId = id;
+    const menu = document.getElementById('status-menu');
+    menu.style.left = (e.clientX) + 'px';
+    menu.style.top  = (e.clientY + 8) + 'px';
+    menu.classList.add('visible');
+  }
+
+  function setStatus(st) {
+    if (menuTargetId) {
+      statuses[menuTargetId] = st;
+      saveStatuses();
+      render();
+    }
+    document.getElementById('status-menu').classList.remove('visible');
+    menuTargetId = null;
+  }
+
+  document.addEventListener('click', () => {
+    document.getElementById('status-menu').classList.remove('visible');
+    menuTargetId = null;
+  });
+
+  function filterPhase(f) {
+    currentFilter = f;
+    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+
+    const titles = {
+      all:'すべてのタスク', todo:'未着手のタスク', doing:'進行中のタスク', done:'完了したタスク',
+      june:'7月 — 今月のタスク', july:'8月のタスク', aug:'9〜10月のタスク', ongoing:'継続タスク'
+    };
+    document.getElementById('view-title').textContent = titles[f] || 'タスク一覧';
+    render();
+  }
+
+  function updateStats() {
+    const all   = TASKS.length;
+    const doing = TASKS.filter(t => statuses[t.id] === 'doing').length;
+    const done  = TASKS.filter(t => statuses[t.id] === 'done').length;
+    const high  = TASKS.filter(t => ['highest','high'].includes(t.priority) && statuses[t.id] !== 'done').length;
+    const pct   = all ? Math.round(done / all * 100) : 0;
+
+    document.getElementById('stat-total').textContent = all;
+    document.getElementById('stat-doing').textContent = doing;
+    document.getElementById('stat-done').textContent  = done;
+    document.getElementById('stat-high').textContent  = high;
+    document.getElementById('progress-pct').textContent = pct + '%';
+    document.getElementById('progress-bar').style.width  = pct + '%';
+  }
+
+  function updateCounts() {
+    const counts = { all:0, todo:0, doing:0, done:0, june:0, july:0, aug:0, ongoing:0 };
+    TASKS.forEach(t => {
+      const st = statuses[t.id];
+      counts.all++;
+      counts[st]++;
+      counts[t.phase]++;
+    });
+    Object.entries(counts).forEach(([k,v]) => {
+      const el = document.getElementById('count-' + k);
+      if (el) el.textContent = v;
+    });
+  }
+
+  // ── Init ──
+  loadStatuses();
+  loadMemos();
+  loadOpenMemos();
+  render();
+</script>
+</body>
+</html>

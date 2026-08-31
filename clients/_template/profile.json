@@ -1,0 +1,104 @@
+{
+  "_meta": {
+    "schema_version": "1.0",
+    "phase": "poc",
+    "template": "corporate",
+    "created_at": "",
+    "created_by": "",
+    "client_slug": ""
+  },
+
+  "company": {
+    "name": "",
+    "name_en": "",
+    "tagline": "",
+    "industry": "",
+    "description": "",
+    "logo_path": ""
+  },
+
+  "brand": {
+    "color_primary": "#3D5070",
+    "color_secondary": "#FAF9F5",
+    "color_accent": "#9B8CC8",
+    "color_text": "#141413",
+    "color_bg": "#F5F4F0",
+    "color_dark": "#1E2340",
+    "font_heading": "Optima, 'Optima Nova LT Pro', Candara, sans-serif",
+    "font_body": "'Noto Sans JP', 'Hiragino Kaku Gothic ProN', sans-serif"
+  },
+
+  "website_goal": {
+    "primary_purpose": "",
+    "target_audience": "",
+    "key_message": "",
+    "success_metrics": []
+  },
+
+  "content": {
+    "nav": {
+      "logo_text": "",
+      "links": [
+        { "label": "About", "href": "#about" },
+        { "label": "Services", "href": "#services" },
+        { "label": "Contact", "href": "#contact" }
+      ],
+      "cta": { "text": "お問い合わせ", "href": "#contact" }
+    },
+
+    "hero": {
+      "label": "",
+      "headline": "",
+      "subheadline": "",
+      "description": "",
+      "cta_primary": { "text": "", "href": "#services" },
+      "cta_secondary": { "text": "", "href": "#about" }
+    },
+
+    "about": {
+      "label": "About",
+      "title": "",
+      "body": "",
+      "stats": [
+        { "value": "", "label": "" },
+        { "value": "", "label": "" },
+        { "value": "", "label": "" }
+      ]
+    },
+
+    "services": {
+      "label": "Services",
+      "title": "",
+      "description": "",
+      "items": [
+        { "icon": "◆", "title": "", "description": "" },
+        { "icon": "◇", "title": "", "description": "" },
+        { "icon": "◈", "title": "", "description": "" }
+      ]
+    },
+
+    "contact": {
+      "label": "Contact",
+      "headline": "",
+      "description": "",
+      "cta_text": "",
+      "cta_href": "#",
+      "email": "",
+      "address": ""
+    },
+
+    "footer": {
+      "copyright": "",
+      "links": [
+        { "label": "Privacy Policy", "href": "#" }
+      ]
+    }
+  },
+
+  "poc_notes": {
+    "sales_context": "",
+    "client_pain_points": [],
+    "proposed_solution": "",
+    "next_steps": []
+  }
+}

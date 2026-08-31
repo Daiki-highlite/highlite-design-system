@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>AIを「使っている」だけでは稼げない ― McKinsey最新調査、高収益化に成功したのはわずか6%。勝敗を分けたのは投資額ではなく「業務の再設計」</title>
+<style>
+  :root {
+    --text: #1f2430;
+    --muted: #6b7280;
+    --accent: #0f6b5c;
+    --bg: #fafaf8;
+    --card: #ffffff;
+    --border: #e5e3dc;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic UI", Meiryo, sans-serif;
+    font-size: 16px;
+    line-height: 1.8;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 64px;
+  }
+  h1 {
+    font-size: 1.6rem;
+    line-height: 1.5;
+    margin: 0 0 8px;
+    letter-spacing: 0.01em;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 20px;
+    margin-bottom: 32px;
+    word-break: break-word;
+  }
+  .meta a { color: var(--muted); }
+  h2 {
+    font-size: 1.25rem;
+    margin: 44px 0 12px;
+    padding-left: 12px;
+    border-left: 4px solid var(--accent);
+    line-height: 1.5;
+  }
+  .summary {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 24px 0;
+  }
+  .summary h2 {
+    margin: 0 0 8px;
+    padding-left: 0;
+    border-left: none;
+    font-size: 1.05rem;
+    color: var(--accent);
+  }
+  .summary ol { margin: 0; padding-left: 1.3em; }
+  .summary li { margin-bottom: 6px; }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
+  strong { font-weight: 700; }
+  ul, ol { padding-left: 1.4em; }
+  li { margin-bottom: 6px; }
+  p { margin: 16px 0; }
+  blockquote {
+    margin: 20px 0;
+    padding: 12px 20px;
+    background: var(--card);
+    border-left: 4px solid var(--accent);
+    border-radius: 4px;
+    color: var(--text);
+  }
+  blockquote p { margin: 0; }
+  code {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 0.9em;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 0.95rem;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: var(--card);
+    font-weight: 700;
+  }
+  footer {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 24px 40px;
+    color: var(--muted);
+    font-size: 0.8rem;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>AIを「使っている」だけでは稼げない ― McKinsey最新調査、高収益化に成功したのはわずか6%。勝敗を分けたのは投資額ではなく「業務の再設計」</h1>
+  <p class="meta">
+    Highliteトレンド記事 #043 | 2026-08-30 | テーマ: 企業のAI活用事例<br>
+    ソース:
+    <a href="https://www.theregister.com/ai-and-ml/2026/08/25/mckinsey-says-enterprise-ai-is-finally-on-the-road-to-roi/5292388" target="_blank" rel="noopener">The Register「McKinsey says enterprise AI is finally 'on the road to ROI'」</a>(2026-08-25) /
+    <a href="https://www.techtimes.com/articles/325590/20260826/record-ai-spending-cant-move-earnings-needle-94-enterprises-mckinsey-finds.htm" target="_blank" rel="noopener">Tech Times「Record AI Spending Can't Move Earnings Needle for 94% of Enterprises, McKinsey Finds」</a>(2026-08-26) /
+    <a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai" target="_blank" rel="noopener">McKinsey & Company「The State of AI: Global Survey 2026」</a> /
+    <a href="https://news.ycombinator.com/item?id=49433759" target="_blank" rel="noopener">Hacker News「The state of AI in 2026: On the road to ROI」</a>
+    + Web横断調査(直近30日中心)
+  </p>
+
+  <div class="summary">
+    <h2>結論サマリー(3行)</h2>
+    <ol>
+      <li>McKinseyが世界97カ国・1,719人の経営層を対象に行った最新調査で、AIを日常的に使う企業は88%に達した一方、事業全体の収益(EBIT)に有意な効果を出せている「ハイパフォーマー」はわずか6%と、前年からほぼ横ばいだった。</li>
+      <li>明暗を分けたのは投資額ではなく「業務プロセスをAI前提で作り直したかどうか」。ハイパフォーマー企業は他社の約3倍の頻度で個々の業務フローを根本から再設計していた。</li>
+      <li>Highliteのように中小企業のAI・Web活用を支援する立場にとって、この調査は「ツール導入の提案」から「業務再設計の伴走」へと提供価値を移す必要性を裏付ける材料になる。</li>
+    </ol>
+  </div>
+
+  <h2>1. 「ようやくROIへの道が見えた」―しかし現実は厳しい</h2>
+  <p>McKinsey & Companyが毎年実施している「State of AI」調査の2026年版が8月下旬に公開され、The RegisterやTech Timesなど複数のメディアが取り上げた。生成AIブームから4年が経ち、調査を主導したMcKinseyは「企業のAIはついにROI(投資対効果)への道を歩み始めた」と総括している。</p>
+  <p>だが見出しの裏にある数字は楽観一辺倒ではない。Tech Timesは記事タイトルに「記録的なAI投資も、94%の企業では収益の針を動かせていない」と刺激的な表現を用いた。AIを"使ってはいる"ことと、AIで"稼げている"ことの間には、依然として大きな溝があるというのが今回調査の核心だ。</p>
+
+  <h2>2. 数字が示す現実:88%が導入、稼げているのはわずか6%</h2>
+  <p>調査結果を整理すると次のようになる。</p>
+
+  <table>
+    <tr><th>指標</th><th>数値</th></tr>
+    <tr><td>日常的にAIを利用している組織</td><td>88%</td></tr>
+    <tr><td>何らかのEBIT(利払前・税引前利益)押し上げ効果を実感</td><td>37%</td></tr>
+    <tr><td>EBITの5%以上をAIの成果と説明できる「AIハイパフォーマー」</td><td>6%(前年から横ばい)</td></tr>
+    <tr><td>AIエージェントを少なくとも試験導入している組織</td><td>62%</td></tr>
+    <tr><td>少なくとも1業務でエージェントを本格運用中</td><td>23%</td></tr>
+  </table>
+
+  <p>「6%」という数字が2025年調査から変わっていない点は重要だ。この1年でAI予算・利用率は明らかに拡大したにもかかわらず、"本当に稼げている"企業の比率は増えていない。多くの企業が「導入したが成果は横ばい」という足踏み状態にあることを、この調査は数字で裏付けている。</p>
+
+  <h2>3. 明暗を分けたのは「投資額」ではなく「業務の再設計」</h2>
+  <p>今回の調査でMcKinseyが最も強調しているのが、ハイパフォーマー企業と他社を分ける要因だ。ハイパフォーマー企業は、他の企業に比べておよそ3倍の頻度で「個々の業務フローを根本から再設計していた」。単にAIチャットボットやコピー生成ツールを既存の業務に"追加"するのではなく、業務プロセスそのものをAI前提で組み直した企業だけが、収益貢献として説明できる成果を出せている。</p>
+  <p>McKinseyのシニアパートナーKate Smaje氏は「AIのビジネス価値は、AIモデルにいくら使ったかとの相関は薄れていく。むしろ、日々の業務フローをどれだけうまく再設計し、検証可能な統制のもとでAIを機能させられるかにかかっている」と述べている。同じくシニアパートナーのAlex Sukharevsky氏も「2026年は、2025年の"試験導入"を本格運用に転換する年になるべきだ。評価の仕組み、統制、そして成果を再現可能にする"ヒューマンウェア"が伴って初めて成果は実質化する」とコメントしている。ツールへの投資額そのものより、"人と業務の設計"が効いてくるという指摘は、AIツール選定に予算の大半を使いがちな企業への警鐘とも読める。</p>
+
+  <h2>4. エージェント熱は本物、だが「試すだけ」では成果にならない</h2>
+  <p>AIエージェントへの関心は数字上も本物だ。62%の組織が何らかの形でAIエージェントを試験導入しており、23%は少なくとも1つの業務領域で本格運用まで進んでいる。ただし前述の通り、"試している"ことと"収益貢献として説明できる"ことの間には大きな壁がある。Hacker Newsでもこの調査は取り上げられ、AIを外部ツールに頼らず内製しようとする姿勢について、1990年代に企業が自社でデータベースを構築しようとした頃の教訓になぞらえる声が寄せられるなど、「ツールを持つこと」と「使いこなす体制を作ること」は別問題だという受け止めが議論の軸になっている。</p>
+
+  <h2>Highliteへの示唆</h2>
+  <ol>
+    <li><strong>提案の軸を「ツール導入」から「業務再設計」へ</strong> ― ハイパフォーマー企業の共通点は投資額ではなく業務フローの作り直しだった。Web制作・AIデザイン支援においても「AIツールを入れる」提案ではなく「顧客の集客・受注フローをAI前提で組み直す」提案へと軸足を移す価値がある。</li>
+    <li><strong>「94%は稼げていない」は営業トークではなく共感の入口に</strong> ― 中小企業の経営者の多くも「AIを試したが何も変わらなかった」という感覚を持っている。この調査の数字は、その感覚が世界共通であることを裏付ける材料であり、Highliteが「なぜ成果が出ないのか」を説明する信頼できる根拠になる。</li>
+    <li><strong>エージェント案件は"本格運用まで伴走する"設計で差別化</strong> ― 62%が試験導入する一方、本格運用は23%にとどまる。この"試験→本格運用"のギャップを埋める伴走型のサポートこそ、ツール販売だけでは提供できないHighliteの付加価値として言語化できる。</li>
+  </ol>
+</main>
+<footer>Highlite内部資料・非公開</footer>
+</body>
+</html>

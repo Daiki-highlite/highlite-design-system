@@ -1,0 +1,129 @@
+{
+  "_meta": {
+    "schema_version": "1.0",
+    "phase": "poc",
+    "template": "launch",
+    "created_at": "2026-05-23",
+    "created_by": "Yuto Furukawa",
+    "client_slug": "nextstride"
+  },
+
+  "company": {
+    "name": "株式会社ネクストストライド",
+    "name_en": "NextStride Inc.",
+    "tagline": "一歩先へ、ともに歩むデジタルシフト。",
+    "industry": "ITコンサルティング / DX伴走支援事業",
+    "description": "中小企業のデジタルシフトを「伴走型」で支援するITコンサルティング会社。システム導入から現場定着・業務フロー改善までトータルでサポート。",
+    "logo_path": ""
+  },
+
+  "brand": {
+    "color_primary": "#005BAC",
+    "color_secondary": "#F2F7FC",
+    "color_accent": "#0A84D6",
+    "color_text": "#0E1520",
+    "color_bg": "#F4F7FA",
+    "color_dark": "#001E3C",
+    "font_heading": "'Inter', 'Helvetica Neue', Arial, sans-serif",
+    "font_body": "'Noto Sans JP', 'Hiragino Kaku Gothic ProN', sans-serif"
+  },
+
+  "website_goal": {
+    "primary_purpose": "Webからのリード獲得（新規顧客の問い合わせ増）・サービス認知拡大",
+    "target_audience": "DXの必要性を感じつつも「何から始めていいか分からない」と悩む、地方・中小企業の経営者やIT担当役員",
+    "key_message": "ITの専門知識がなくても安心して「丸投げ」から始められる、もっとも身近な伴走パートナー",
+    "success_metrics": [
+      "Webからの月間問い合わせ数の増加",
+      "「DX伴走支援」というサービスの認知拡大",
+      "インバウンドリードの安定獲得"
+    ]
+  },
+
+  "content": {
+    "nav": {
+      "logo_text": "NextStride",
+      "links": [
+        { "label": "About", "href": "#about" },
+        { "label": "Services", "href": "#services" },
+        { "label": "Results", "href": "#about" },
+        { "label": "Contact", "href": "#contact" }
+      ],
+      "cta": { "text": "無料相談する", "href": "#contact" }
+    },
+
+    "hero": {
+      "label": "DX Consulting & Support",
+      "headline": "変わる楽しさを、\nすべての現場へ。",
+      "subheadline": "あなたの会社の「わからない」を、テクノロジーと伴走支援で「できる」に変える。",
+      "description": "「DXと言われても、何から手をつければいいか分からない」「高額なシステムを導入したが使いこなせなかった」。そんな悩みを抱える中小企業のために、私たちは現場に寄り添ったIT活用をご提案します。業務の見える化からツールの定着まで、御社の一員となってサポートします。",
+      "cta_primary": { "text": "まずは無料で相談してみる", "href": "#contact" },
+      "cta_secondary": { "text": "サービスを見る", "href": "#services" }
+    },
+
+    "about": {
+      "label": "About",
+      "title": "伴走型だから、\n定着する。",
+      "body": "中小企業のデジタルシフトを「伴走型」で支援するITコンサルティング会社です。単なるシステムの導入にとどまらず、現場の社員が使いこなせるようになるまでの教育や業務フローの改善までトータルでサポートします。\n\nテクノロジーを通じて、企業の持続可能な成長と働く人の笑顔を生み出すことをミッションとしています。",
+      "stats": [
+        { "value": "150社+", "label": "DX支援実績" },
+        { "value": "94.8%", "label": "継続・リピート率" },
+        { "value": "月45h", "label": "平均業務削減時間" }
+      ]
+    },
+
+    "services": {
+      "label": "Services",
+      "title": "3つの強みで、\nDXを根付かせる。",
+      "description": "「導入して終わり」にしない。現場が自走できるようになるまで、私たちは離れません。",
+      "items": [
+        {
+          "icon": "◆",
+          "title": "現場主導の伴走型コンサルティング",
+          "description": "経営層だけでなく、実際にシステムを使う現場スタッフへのヒアリングと丁寧なレクチャーを徹底し、形骸化しない「本当に使えるDX」を実現します。"
+        },
+        {
+          "icon": "◇",
+          "title": "課題に合わせた柔軟なツール選定",
+          "description": "特定のベンダーに依存せず、ノーコードツールやクラウドサービスを組み合わせ、御社の予算と規模に最適かつコストパフォーマンスの高い仕組みを構築します。"
+        },
+        {
+          "icon": "◈",
+          "title": "徹底した業務プロセスの可視化",
+          "description": "ツール導入の前に、まずは現在の業務フローをすべて洗い出して無駄を徹底排除。デジタル化の効果を最大化するための土台作りからサポートします。"
+        }
+      ]
+    },
+
+    "contact": {
+      "label": "Contact",
+      "headline": "「何から始めればいいか」\nそこから、一緒に考えます。",
+      "description": "ITの専門知識は不要です。まずは現状の課題やお悩みをお聞かせください。初回のご相談は無料で承っております。",
+      "cta_text": "まずは無料で相談してみる",
+      "cta_href": "mailto:contact@nextstride-sample.co.jp",
+      "email": "contact@nextstride-sample.co.jp",
+      "address": "東京都渋谷区"
+    },
+
+    "footer": {
+      "copyright": "© 2026 NextStride Inc. All rights reserved.",
+      "links": [
+        { "label": "Privacy Policy", "href": "#" },
+        { "label": "Company Info", "href": "#about" }
+      ]
+    }
+  },
+
+  "poc_notes": {
+    "sales_context": "既存の紹介中心の営業から脱却するためWebサイト全面リニューアルを検討。現在の簡易的なホームページでは「DX伴走支援」という強みが伝わっていないことが判明。",
+    "client_pain_points": [
+      "Webからの問い合わせが年間数件しかなく機会損失が発生",
+      "「DX伴走支援」という強みがサイトから伝わっていない",
+      "サイトを通じた信頼感の担保ができていない"
+    ],
+    "proposed_solution": "伴走型支援の「安心感」と「実績」を前面に打ち出す、インバウンドリード獲得に特化した1ページ完結型サイトを提案。",
+    "next_steps": [
+      "TOPページのワイヤーフレーム（構成案）と概算見積もりを作成",
+      "次回ミーティングにて提示"
+    ]
+  }
+}

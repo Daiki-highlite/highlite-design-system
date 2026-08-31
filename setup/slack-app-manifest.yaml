@@ -1,0 +1,31 @@
+# ---------------------------------------------------------------
+# Brandri Bot — Slack アプリ マニフェスト
+# api.slack.com/apps → Create New App → From an app manifest
+# にこの内容を貼り付けて作成する
+# ---------------------------------------------------------------
+display_information:
+  name: Brandri Bot
+  description: Brandri記事のレビュー進行と公開を自動化するbot
+  background_color: "#1a1a1a"
+
+features:
+  bot_user:
+    display_name: brandri-bot
+    always_online: true
+
+oauth_config:
+  scopes:
+    bot:
+      - chat:write          # ドラフト投稿・スレッド返信
+      - reactions:read      # 👀 👍 🗑️ の読み取り
+      - reactions:write     # ☑️ 🗓️ ✅ の付与、🗓️ の削除
+      - channels:history    # 公開チャンネルのメッセージ/スレッド読み取り
+      - groups:history      # 非公開チャンネル（#int-brandri は private）の読み取り
+      - channels:read       # チャンネル情報
+      - groups:read         # 非公開チャンネル情報
+      - users:read          # ユーザーID解決
+
+settings:
+  org_deploy_enabled: false
+  socket_mode_enabled: false
+  token_rotation_enabled: false

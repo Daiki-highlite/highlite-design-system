@@ -13,6 +13,8 @@ description: Highlite Liteフェーズ（受注後デリバリー）のスキル
 
 | Step | サブスキル | トリガーフレーズ |
 |---|---|---|
+| **PoC生成（営業時）** | `website-poc.md` | 「PoC作って」「見込み客にサイト見せたい」「営業用サイト生成」 |
+| **サイト本制作（案件後）** | `website-build.md` | 「サイト本番作って」「Figma納品まで進めて」「フェーズ2へ移行」 |
 | 01 キックオフ | `kickoff.md` | 「キックオフ資料作って」「初回MTG準備」 |
 | 02 定例セット | （`project-mgmt/status-sync.md` と連携） | 「アジェンダ作って」 |
 | 03 チームビルド | （`people-mgmt/onboarding.md` と連携） | 「アサイン提案して」 |

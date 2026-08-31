@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>営業タスク管理 | Highlite</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --slate:      #3D5070;
+      --slate-dark: #2a3a52;
+      --slate-light:#5a6f8a;
+      --teal:       #4A9A8A;
+      --purple:     #7B6FA0;
+      --blue:       #4A7CAC;
+      --pink:       #C47A8A;
+      --amber:      #D4874A;
+      --green:      #4A8A5A;
+      --bg:         #F4F3F0;
+      --card:       #FFFFFF;
+      --text:       #1a1a2e;
+      --muted:      #7a8499;
+      --border:     #E0DDD8;
+      --font-en:    'Optima','Gill Sans','Trebuchet MS',sans-serif;
+      --font-ja:    'Noto Sans JP','Hiragino Kaku Gothic ProN',sans-serif;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:var(--font-ja); background:var(--bg); color:var(--text); min-height:100vh; }
+
+    /* ── Layout ── */
+    .layout { display:flex; min-height:100vh; }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width:252px; background:var(--slate-dark); color:white;
+      padding:32px 0; position:fixed; top:0; left:0; bottom:0;
+      display:flex; flex-direction:column; z-index:100; overflow-y:auto;
+    }
+    .sidebar-logo { padding:0 24px 24px; border-bottom:1px solid rgba(255,255,255,0.08); }
+    .sidebar-logo-label { font-family:var(--font-en); font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.35); margin-bottom:6px; }
+    .sidebar-logo-title { font-size:14px; font-weight:400; line-height:1.5; color:rgba(255,255,255,.9); }
+
+    .sidebar-nav { padding:16px 0; flex:1; }
+    .nav-section-label { font-family:var(--font-en); font-size:9px; letter-spacing:.15em; text-transform:uppercase; color:rgba(255,255,255,.3); padding:0 24px; margin:16px 0 4px; }
+    .nav-item {
+      display:flex; align-items:center; gap:10px;
+      padding:8px 24px; font-size:13px; color:rgba(255,255,255,.6);
+      cursor:pointer; transition:background .15s,color .15s;
+      border-left:2px solid transparent; user-select:none;
+    }
+    .nav-item:hover { background:rgba(255,255,255,.06); color:rgba(255,255,255,.9); }
+    .nav-item.active { background:rgba(255,255,255,.08); color:white; border-left-color:var(--teal); }
+    .nav-seg-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+    .nav-count { margin-left:auto; font-size:11px; background:rgba(255,255,255,.1); padding:1px 7px; border-radius:10px; color:rgba(255,255,255,.45); }
+
+    .sidebar-progress { padding:20px 24px; border-top:1px solid rgba(255,255,255,.08); }
+    .sidebar-progress-label { font-size:11px; color:rgba(255,255,255,.4); margin-bottom:8px; display:flex; justify-content:space-between; }
+    .prog-wrap { background:rgba(255,255,255,.1); border-radius:4px; height:5px; overflow:hidden; }
+    .prog-fill { height:100%; background:var(--teal); border-radius:4px; transition:width .4s; }
+
+    /* ── Main ── */
+    .main { margin-left:252px; flex:1; padding:40px 48px 80px; }
+
+    .topbar { display:flex; align-items:center; justify-content:space-between; margin-bottom:32px; flex-wrap:wrap; gap:12px; }
+    .topbar-title { font-size:22px; font-weight:400; color:var(--slate-dark); }
+    .type-filters { display:flex; gap:8px; }
+    .type-btn {
+      padding:6px 16px; border-radius:20px; border:1px solid var(--border);
+      background:white; font-size:12px; font-family:var(--font-ja);
+      color:var(--muted); cursor:pointer; transition:all .15s; display:flex; align-items:center; gap:6px;
+    }
+    .type-btn:hover { border-color:var(--slate-light); color:var(--slate); }
+    .type-btn.active-do  { background:#FFF0E8; border-color:var(--amber); color:var(--amber); }
+    .type-btn.active-re  { background:#EAF4F2; border-color:var(--teal);  color:var(--teal); }
+    .type-btn.active-all { background:var(--slate); border-color:var(--slate); color:white; }
+
+    /* ── Stats ── */
+    .stats-row { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:40px; }
+    .stat-card { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:20px 24px; }
+    .stat-label { font-size:11px; color:var(--muted); margin-bottom:6px; font-family:var(--font-en); letter-spacing:.06em; }
+    .stat-value { font-size:28px; font-weight:300; color:var(--slate-dark); line-height:1; }
+    .stat-sub { font-size:12px; color:var(--muted); margin-top:4px; }
+
+    /* ── Segment Section ── */
+    .seg-section { margin-bottom:48px; }
+    .seg-header { display:flex; align-items:center; gap:12px; margin-bottom:16px; flex-wrap:wrap; }
+    .seg-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+    .seg-title { font-size:15px; font-weight:500; color:var(--slate-dark); }
+    .seg-sub { font-size:12px; color:var(--muted); }
+    .seg-prog-wrap { margin-left:auto; display:flex; align-items:center; gap:10px; font-size:12px; color:var(--muted); }
+    .seg-prog-bar { width:80px; height:4px; background:var(--border); border-radius:4px; overflow:hidden; }
+    .seg-prog-fill { height:100%; border-radius:4px; transition:width .4s; }
+
+    /* ── Task Card ── */
+    .task-list { display:flex; flex-direction:column; gap:8px; }
+    .task-card {
+      background:var(--card); border:1px solid var(--border); border-radius:8px;
+      padding:14px 18px; display:flex; align-items:flex-start; gap:14px;
+      transition:opacity .2s,border-color .2s; position:relative;
+    }
+    .task-card:hover { border-color:var(--slate-light); }
+    .task-card.done { opacity:.45; }
+    .task-card.done .task-title { text-decoration:line-through; color:var(--muted); }
+    .task-card.hidden { display:none; }
+
+    /* Type stripe */
+    .task-card::before {
+      content:''; position:absolute; left:0; top:0; bottom:0;
+      width:3px; border-radius:8px 0 0 8px;
+    }
+    .task-card.type-active::before  { background:var(--amber); }
+    .task-card.type-passive::before { background:var(--teal); }
+
+    .task-check {
+      width:20px; height:20px; border:1.5px solid var(--border); border-radius:4px;
+      flex-shrink:0; margin-top:1px; display:flex; align-items:center; justify-content:center;
+      transition:background .15s,border-color .15s; cursor:pointer;
+    }
+    .task-check:hover { border-color:var(--teal); }
+    .task-card.done .task-check { background:var(--teal); border-color:var(--teal); }
+    .task-check svg { display:none; }
+    .task-card.done .task-check svg { display:block; }
+
+    .task-body { flex:1; min-width:0; }
+    .task-title { font-size:13.5px; color:var(--text); line-height:1.5; margin-bottom:6px; }
+    .task-meta  { display:flex; align-items:center; gap:7px; flex-wrap:wrap; }
+
+    /* Type badge */
+    .type-badge {
+      display:inline-flex; align-items:center; gap:4px;
+      padding:2px 9px; border-radius:3px; font-size:11px; font-family:var(--font-en);
+    }
+    .type-badge.active  { background:#FFF0E8; color:var(--amber); }
+    .type-badge.passive { background:#EAF4F2; color:var(--teal); }
+
+    /* Status badge */
+    .status-badge {
+      display:inline-flex; align-items:center; gap:5px;
+      padding:2px 9px; border-radius:20px; font-size:11px; cursor:pointer; white-space:nowrap;
+    }
+    .status-badge::before { content:''; width:6px; height:6px; border-radius:50%; }
+    .status-todo   { background:#F3F4F6; color:#6B7280; }
+    .status-todo::before   { background:#9CA3AF; }
+    .status-doing  { background:#DBEAFE; color:#1E40AF; }
+    .status-doing::before  { background:#3B82F6; }
+    .status-done   { background:#D1FAE5; color:#065F46; }
+    .status-done::before   { background:var(--teal); }
+
+    /* Priority */
+    .pri { padding:2px 8px; border-radius:3px; font-size:11px; font-family:var(--font-en); }
+    .pri-highest { background:#FEF3C7; color:#92400E; }
+    .pri-high    { background:#FEE2E2; color:#991B1B; }
+    .pri-mid     { background:#DBEAFE; color:#1E40AF; }
+    .pri-low     { background:#F3F4F6; color:#6B7280; }
+
+    /* ── Detail Panel ── */
+    .task-detail-toggle {
+      margin-left:auto; font-size:11px; color:var(--muted); cursor:pointer;
+      padding:2px 10px; border-radius:3px; border:1px solid var(--border);
+      background:white; transition:all .15s; font-family:var(--font-ja);
+      display:inline-flex; align-items:center; flex-shrink:0;
+    }
+    .task-detail-toggle:hover { border-color:var(--slate-light); color:var(--slate); }
+    .task-detail-toggle.open { background:var(--bg); border-color:var(--slate-light); color:var(--slate); }
+    .task-detail { display:none; margin-top:14px; padding-top:14px; border-top:1px solid var(--border); }
+    .task-detail.visible { display:block; }
+    .detail-section { margin-bottom:16px; }
+    .detail-section:last-child { margin-bottom:0; }
+    .detail-h { font-size:11.5px; font-weight:500; color:var(--slate); margin-bottom:6px; letter-spacing:.02em; }
+    .detail-body { font-size:12px; color:var(--text); line-height:1.7; }
+    .detail-body ul { padding-left:16px; margin-top:4px; }
+    .detail-body li { margin-bottom:3px; }
+    .detail-body strong { color:var(--slate-dark); }
+    .detail-table { width:100%; border-collapse:collapse; font-size:11.5px; margin-top:4px; }
+    .detail-table th { background:var(--bg); padding:5px 8px; text-align:left; font-weight:500; color:var(--slate); border:1px solid var(--border); }
+    .detail-table td { padding:5px 8px; border:1px solid var(--border); color:var(--text); line-height:1.5; vertical-align:top; }
+    .detail-code { background:var(--bg); border:1px solid var(--border); border-radius:4px; padding:10px 12px; font-size:11.5px; line-height:1.7; font-family:monospace; white-space:pre-wrap; color:var(--text); margin-top:4px; }
+    .detail-flow { display:flex; flex-wrap:wrap; gap:4px; align-items:center; margin-top:8px; }
+    .detail-flow-step { background:var(--bg); border:1px solid var(--border); padding:4px 10px; border-radius:4px; color:var(--slate); font-size:11.5px; }
+    .detail-flow-arrow { color:var(--muted); font-size:12px; }
+
+    /* ── Prereq Badge ── */
+    .prereq-badge { padding:2px 7px; border-radius:3px; font-size:10px; font-family:var(--font-en); letter-spacing:.04em; font-weight:500; }
+    .prereq-L0 { background:#E8ECF1; color:#3D5070; }
+    .prereq-L1 { background:#DBEAFE; color:#1E40AF; }
+    .prereq-L2 { background:#FEE2E2; color:#991B1B; }
+    .prereq-L3 { background:#FEF3C7; color:#92400E; }
+    .prereq-L4 { background:#EDE9FE; color:#5B21B6; }
+    .prereq-L5 { background:#FCE7F3; color:#9D174D; }
+    .prereq-L6 { background:#D1FAE5; color:#065F46; }
+
+    /* ── Prereq Panel ── */
+    .prereq-btn {
+      padding:6px 16px; border-radius:20px; border:1px solid var(--slate-light);
+      background:white; font-size:12px; font-family:var(--font-ja);
+      color:var(--slate); cursor:pointer; transition:all .15s; display:flex; align-items:center; gap:6px;
+    }
+    .prereq-btn:hover { background:var(--bg); }
+    .prereq-btn.active { background:var(--slate-dark); border-color:var(--slate-dark); color:white; }
+    .prereq-section {
+      display:none; margin-bottom:32px; background:var(--card);
+      border:1px solid var(--border); border-radius:12px; overflow:hidden;
+    }
+    .prereq-section.visible { display:block; }
+    .prereq-section-hd {
+      padding:20px 28px; background:var(--slate-dark); color:white;
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    .prereq-section-hd-title { font-size:15px; font-weight:400; }
+    .prereq-section-hd-sub { font-size:11px; color:rgba(255,255,255,.45); margin-top:3px; }
+    .prereq-section-close {
+      background:rgba(255,255,255,.12); border:none; color:white;
+      width:28px; height:28px; border-radius:50%; cursor:pointer; font-size:18px;
+      display:flex; align-items:center; justify-content:center; transition:background .15s; line-height:1;
+    }
+    .prereq-section-close:hover { background:rgba(255,255,255,.22); }
+    .prereq-body { padding:24px 28px; }
+    .prereq-L0-hero {
+      background:linear-gradient(135deg,#2a3a52,#3D5070);
+      border-radius:8px; padding:20px 24px; margin-bottom:24px; color:white;
+    }
+    .prereq-L0-hero-eyebrow { font-size:10px; font-family:var(--font-en); letter-spacing:.12em; color:rgba(255,255,255,.45); margin-bottom:6px; }
+    .prereq-L0-hero-h { font-size:14px; margin-bottom:16px; line-height:1.5; }
+    .prereq-L0-items { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+    .prereq-L0-item { background:rgba(255,255,255,.08); border-radius:6px; padding:12px 14px; }
+    .prereq-L0-item-num { font-size:10px; font-family:var(--font-en); color:rgba(255,255,255,.35); margin-bottom:4px; }
+    .prereq-L0-item-name { font-size:12.5px; font-weight:500; margin-bottom:4px; }
+    .prereq-L0-item-desc { font-size:11px; color:rgba(255,255,255,.6); line-height:1.5; }
+    .prereq-divider { font-size:10px; font-family:var(--font-en); letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin:0 0 14px; }
+    .prereq-layers-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:28px; }
+    .prereq-layer-card { border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+    .prereq-layer-hd { padding:10px 14px; }
+    .prereq-layer-eyebrow { font-size:9px; font-family:var(--font-en); letter-spacing:.1em; opacity:.7; }
+    .prereq-layer-htitle { font-size:13px; font-weight:500; margin-top:2px; }
+    .prereq-layer-timing { font-size:11px; opacity:.7; margin-top:3px; }
+    .prereq-layer-items { padding:10px 14px; border-top:1px solid rgba(0,0,0,.05); }
+    .prereq-layer-item { display:flex; gap:7px; padding:4px 0; border-bottom:1px solid var(--bg); }
+    .prereq-layer-item:last-child { border-bottom:none; }
+    .prereq-layer-item-dot { width:5px; height:5px; border-radius:50%; margin-top:5px; flex-shrink:0; }
+    .prereq-layer-item-name { font-size:12px; color:var(--text); font-weight:500; line-height:1.4; }
+    .prereq-layer-item-desc { font-size:11px; color:var(--muted); line-height:1.4; margin-top:2px; }
+    .prereq-layer-tasks { padding:8px 14px; display:flex; flex-wrap:wrap; gap:4px; border-top:1px solid var(--bg); }
+    .prereq-task-tag { font-size:10px; font-family:var(--font-en); background:var(--bg); border:1px solid var(--border); padding:1px 7px; border-radius:3px; color:var(--muted); }
+    .prereq-tl { display:grid; grid-template-columns:1fr auto 1fr auto 1fr; gap:10px; align-items:start; }
+    .prereq-tl-col { background:var(--bg); border-radius:8px; padding:14px 16px; }
+    .prereq-tl-label { font-size:10px; font-family:var(--font-en); letter-spacing:.08em; font-weight:500; color:var(--muted); margin-bottom:10px; text-transform:uppercase; }
+    .prereq-tl-item { display:flex; align-items:flex-start; gap:7px; padding:4px 0; }
+    .prereq-tl-dot { width:6px; height:6px; border-radius:50%; margin-top:4px; flex-shrink:0; }
+    .prereq-tl-text { font-size:12px; color:var(--text); line-height:1.4; }
+    .prereq-tl-arrow { color:var(--border); font-size:24px; display:flex; align-items:center; padding-top:30px; }
+
+    /* ── Status Menu ── */
+    .status-menu {
+      position:fixed; background:white; border:1px solid var(--border);
+      border-radius:8px; box-shadow:0 8px 24px rgba(0,0,0,.12);
+      padding:6px; z-index:1000; min-width:140px; display:none;
+    }
+    .status-menu.visible { display:block; }
+    .status-menu-item {
+      display:flex; align-items:center; gap:8px;
+      padding:8px 12px; border-radius:5px; font-size:13px; cursor:pointer; color:var(--text);
+    }
+    .status-menu-item:hover { background:var(--bg); }
+    .sm-dot { width:8px; height:8px; border-radius:50%; }
+  </style>
+</head>
+<body>
+<div class="layout">
+
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-label">Highlite</div>
+      <div class="sidebar-logo-title">営業タスク管理<br>ターゲット × アクション</div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">ステータス</div>
+      <div class="nav-item active" onclick="filterSeg('all',this)">
+        <span class="nav-seg-dot" style="background:#9CA3AF"></span>すべて
+        <span class="nav-count" id="cnt-all">0</span>
+      </div>
+      <div class="nav-item" onclick="filterSeg('todo',this)">
+        <span class="nav-seg-dot" style="background:#9CA3AF"></span>未着手
+        <span class="nav-count" id="cnt-todo">0</span>
+      </div>
+      <div class="nav-item" onclick="filterSeg('doing',this)">
+        <span class="nav-seg-dot" style="background:#3B82F6"></span>進行中
+        <span class="nav-count" id="cnt-doing">0</span>
+      </div>
+      <div class="nav-item" onclick="filterSeg('done',this)">
+        <span class="nav-seg-dot" style="background:#4A9A8A"></span>完了
+        <span class="nav-count" id="cnt-done">0</span>
+      </div>
+
+      <div class="nav-section-label">セグメント</div>
+      <div class="nav-item" onclick="filterSeg('s1',this)">
+        <span class="nav-seg-dot" style="background:#C47A8A"></span>① スタートアップ
+        <span class="nav-count" id="cnt-s1">0</span>
+      </div>
+      <div class="nav-item" onclick="filterSeg('s2',this)">
+        <span class="nav-seg-dot" style="background:#4A7CAC"></span>② SaaS企業
+        <span class="nav-count" id="cnt-s2">0</span>
+      </div>
+      <div class="nav-item" onclick="filterSeg('s3',this)">
+        <span class="nav-seg-dot" style="background:#D4874A"></span>③ IPO・調達後
+        <span class="nav-count" id="cnt-s3">0</span>
+      </div>
+      <div class="nav-item" onclick="filterSeg('s4',this)">
+        <span class="nav-seg-dot" style="background:#7B6FA0"></span>④ 大手新規事業
+        <span class="nav-count" id="cnt-s4">0</span>
+      </div>
+      <div class="nav-item" onclick="filterSeg('s5',this)">
+        <span class="nav-seg-dot" style="background:#4A9A8A"></span>⑤ ラグジュアリー
+        <span class="nav-count" id="cnt-s5">0</span>
+      </div>
+      <div class="nav-item" onclick="filterSeg('s6',this)">
+        <span class="nav-seg-dot" style="background:#5a6f8a"></span>⑥ エージェンシー
+        <span class="nav-count" id="cnt-s6">0</span>
+      </div>
+      <div class="nav-item" onclick="filterSeg('common',this)">
+        <span class="nav-seg-dot" style="background:#4A8A5A"></span>共通タスク
+        <span class="nav-count" id="cnt-common">0</span>
+      </div>
+    </nav>
+
+    <div class="sidebar-progress">
+      <div class="sidebar-progress-label">
+        <span>全体進捗</span><span id="prog-pct">0%</span>
+      </div>
+      <div class="prog-wrap"><div class="prog-fill" id="prog-bar" style="width:0%"></div></div>
+    </div>
+  </aside>
+
+  <!-- ── Main ── -->
+  <main class="main">
+    <div class="topbar">
+      <div class="topbar-title" id="view-title">すべてのタスク</div>
+      <div class="type-filters">
+        <button class="type-btn active-all" id="btn-all"    onclick="filterType('all')">すべて</button>
+        <button class="type-btn"            id="btn-active" onclick="filterType('active')">▶ 能動的アクション</button>
+        <button class="type-btn"            id="btn-passive" onclick="filterType('passive')">◎ 受動的アクション</button>
+        <button class="prereq-btn"          id="btn-prereq"  onclick="togglePrereq()">前提条件マップ</button>
+      </div>
+    </div>
+
+    <div class="prereq-section" id="prereq-section">
+      <div class="prereq-section-hd">
+        <div>
+          <div class="prereq-section-hd-title">前提条件マップ</div>
+          <div class="prereq-section-hd-sub">能動的タスクを実施するために事前に揃えるべきもの</div>
+        </div>
+        <button class="prereq-section-close" onclick="togglePrereq()">×</button>
+      </div>
+      <div class="prereq-body" id="prereq-body"></div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-label">Total Tasks</div>
+        <div class="stat-value" id="st-total">0</div>
+        <div class="stat-sub">全タスク</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Active Actions</div>
+        <div class="stat-value" style="color:var(--amber)" id="st-active">0</div>
+        <div class="stat-sub">能動的アクション</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Passive Actions</div>
+        <div class="stat-value" style="color:var(--teal)" id="st-passive">0</div>
+        <div class="stat-sub">受動的アクション</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Completed</div>
+        <div class="stat-value" style="color:var(--green)" id="st-done">0</div>
+        <div class="stat-sub">完了</div>
+      </div>
+    </div>
+
+    <div id="task-container"></div>
+  </main>
+</div>
+
+<!-- Status Menu -->
+<div class="status-menu" id="status-menu">
+  <div class="status-menu-item" onclick="setStatus('todo')"><div class="sm-dot" style="background:#9CA3AF"></div>未着手</div>
+  <div class="status-menu-item" onclick="setStatus('doing')"><div class="sm-dot" style="background:#3B82F6"></div>進行中</div>
+  <div class="status-menu-item" onclick="setStatus('done')"><div class="sm-dot" style="background:#4A9A8A"></div>完了</div>
+</div>
+
+<script>
+const SEGMENTS = [
+  { key:'s1', label:'① スタートアップ', sub:'シード〜シリーズA', color:'#C47A8A' },
+  { key:'s2', label:'② SaaS・プロダクト系企業', sub:'シリーズB以降', color:'#4A7CAC' },
+  { key:'s3', label:'③ IPO準備中・大型調達後の企業', sub:'2,000万案件ライン', color:'#D4874A' },
+  { key:'s4', label:'④ 大手・中堅企業の新規事業部門', sub:'法人・大手向け', color:'#7B6FA0' },
+  { key:'s5', label:'⑤ ラグジュアリー・高感度ブランド', sub:'KGI② ターゲット', color:'#4A9A8A' },
+  { key:'s6', label:'⑥ デザイン会社・エージェンシー', sub:'ホワイトラベル', color:'#5a6f8a' },
+  { key:'common', label:'共通タスク', sub:'全セグメントに横断', color:'#4A8A5A' },
+];
+
+const TASKS = [
+  // ── Segment 1：スタートアップ ──
+  { id:'a01', seg:'s1', type:'active',  pri:'high',    prereq:'L1', title:'LinkedIn：調達リリース直後のスタートアップ創業者リストを作成しDMを送る' },
+  { id:'a02', seg:'s1', type:'active',  pri:'high',    prereq:'L3', title:'PoC先出し営業：ターゲット企業5社のPoCを作成して送付する' },
+  { id:'a03', seg:'s1', type:'active',  pri:'mid',     prereq:'L2', title:'VC・エンジェル投資家3名に紹介依頼をする' },
+  { id:'a04', seg:'s1', type:'passive', pri:'mid',                  title:'Brandriに「スタートアップのブランド立ち上げ × AI」テーマの記事を公開する' },
+  { id:'a05', seg:'s1', type:'passive', pri:'mid',                  title:'LPにスタートアップ向けの訴求メッセージを追加する' },
+  // ── Segment 2：SaaS ──
+  { id:'b01', seg:'s2', type:'active',  pri:'highest', prereq:'L1', title:'「デザイン外注コスト削減」切り口でSaaS系経営者10名にLinkedIn DMを送る' },
+  { id:'b02', seg:'s2', type:'active',  pri:'high',    prereq:'L4', title:'プロダクト系コミュニティ（SaaS Meetup等）に参加・登壇申込をする' },
+  { id:'b03', seg:'s2', type:'active',  pri:'high',    prereq:'L0', title:'既存顧客・知人3名以上に紹介依頼をする' },
+  { id:'b04', seg:'s2', type:'passive', pri:'high',                 title:'Brandriに「SaaS企業のデザイン内製化」テーマの記事を公開する' },
+  { id:'b05', seg:'s2', type:'passive', pri:'high',                 title:'Google リスティング広告を出稿する（デザイン内製化キーワード）' },
+  // ── Segment 3：IPO・調達後 ──
+  { id:'c01', seg:'s3', type:'active',  pri:'highest', prereq:'L0', title:'PR Times・BRIDGEの調達リリースを定期モニタリングする仕組みを作る' },
+  { id:'c02', seg:'s3', type:'active',  pri:'highest', prereq:'L1', title:'調達発表した企業のCEO・CMOにLinkedIn DMを送る（週次で実施）' },
+  { id:'c03', seg:'s3', type:'active',  pri:'high',    prereq:'L2', title:'弁護士・会計士・VC担当者3名以上に「ブランドリニューアルの紹介依頼」をする' },
+  { id:'c04', seg:'s3', type:'passive', pri:'mid',                  title:'「調達後のブランドリニューアル」をテーマにしたコンテンツを発信する' },
+  // ── Segment 4：大手新規事業 ──
+  { id:'d01', seg:'s4', type:'active',  pri:'high',    prereq:'L1', title:'イノベーション部門・事業開発担当者にLinkedIn DMを送る（月5名）' },
+  { id:'d02', seg:'s4', type:'active',  pri:'high',    prereq:'L5', title:'法人向けAIブランディング研修パッケージを作成する' },
+  { id:'d03', seg:'s4', type:'active',  pri:'mid',     prereq:'L4', title:'新規事業・イノベーション系イベントに参加・登壇申込をする' },
+  { id:'d04', seg:'s4', type:'passive', pri:'mid',                  title:'「大手企業の新規事業ブランディング」テーマのコンテンツを発信する' },
+  // ── Segment 5：ラグジュアリー ──
+  { id:'e01', seg:'s5', type:'active',  pri:'high',    prereq:'L0', title:'ターゲットカテゴリ別の課題分析記事を月1本出す（逆算型ポートフォリオ）' },
+  { id:'e02', seg:'s5', type:'active',  pri:'mid',     prereq:'L0', title:'ラグジュアリー隣接クリエイター（フォトグラファー・PRエージェンシー）とSNSで接点をつくる' },
+  { id:'e03', seg:'s5', type:'passive', pri:'high',                 title:'Brandriにラグジュアリー × AI テーマの記事を月1本公開する' },
+  { id:'e04', seg:'s5', type:'passive', pri:'high',                 title:'VOGUE Business Japan・WWD Japanへの掲載・取材機会を探る' },
+  { id:'e05', seg:'s5', type:'passive', pri:'high',                 title:'ポートフォリオ・サイトをラグジュアリー目線で整備する' },
+  // ── Segment 6：エージェンシー ──
+  { id:'f01', seg:'s6', type:'active',  pri:'high',    prereq:'L1', title:'中規模制作会社のCDO・プロデューサー5名にLinkedIn DMを送る' },
+  { id:'f02', seg:'s6', type:'active',  pri:'high',    prereq:'L0', title:'「AI案件ホワイトラベル提案書」を作成する' },
+  { id:'f03', seg:'s6', type:'passive', pri:'mid',                  title:'エージェンシー向けホワイトラベル提案資料を整備する' },
+  // ── 共通 ──
+  { id:'g01', seg:'common', type:'active',  pri:'highest', prereq:'L6', title:'既存接点・過去会話リストを作成し掘り起こしアプローチを実施する' },
+  { id:'g02', seg:'common', type:'active',  pri:'high',    prereq:'L3', title:'PoC先出し営業のワークフローを確立する（1件30分以内を目標）' },
+  { id:'g03', seg:'common', type:'active',  pri:'high',    prereq:'L0', title:'紹介依頼用のHighlite紹介資料（1枚）を作成する' },
+  { id:'g04', seg:'common', type:'passive', pri:'high',               title:'LinkedIn（Yuto名義）週2本投稿を継続する' },
+  { id:'g05', seg:'common', type:'passive', pri:'mid',                title:'Brandriのコンテンツカレンダーを作成し月1本公開を継続する' },
+];
+
+const DETAILS = {
+  'a01': `
+    <div class="detail-section">
+      <div class="detail-h">DMテンプレート（3〜4行で完結させる）</div>
+      <div class="detail-code">◯◯さん、シリーズA調達おめでとうございます。
+Highliteというブランディング × AI実装の会社を運営している古川と申します。
+調達後のブランド構築・デザイン内製化支援を得意としており、御社のフェーズに合いそうだと思いご連絡しました。
+15分だけお話しできますか？</div>
+      <div class="detail-body" style="margin-top:6px">「なぜ今あなたに連絡したか」を1行で書くことでスパム感が消える。</div>
+    </div>
+    <div class="detail-section">
+      <div class="detail-h">望ましいターゲットスタートアップの条件</div>
+      <table class="detail-table">
+        <tr><th>条件</th><th>理由</th></tr>
+        <tr><td>シード〜シリーズA（調達直後）</td><td>予算が生まれ、ブランドを整えようとするタイミング</td></tr>
+        <tr><td>デザイン専任がいない</td><td>内製化支援ニーズが直接ある</td></tr>
+        <tr><td>BtoC / 採用強化中</td><td>ブランドの見た目が事業KPIに直結</td></tr>
+        <tr><td>プロダクトはあるがサイトが弱い</td><td>PoCの刺さりどころが明確</td></tr>
+        <tr><td>AI活用に前向き</td><td>Highliteのメッセージと噛み合う</td></tr>
+      </table>
+    </div>
+    <div class="detail-section">
+      <div class="detail-h">LinkedInでの声のかけ方</div>
+      <div class="detail-body"><ul>
+        <li>PR Times / BRIDGE / Startup DBで直近1〜3ヶ月の調達ニュースをモニタリング</li>
+        <li>創業者名を特定してLinkedInで検索</li>
+        <li>コネクション申請 → 承認後にDM（InMailより転換率が高い）</li>
+        <li>申請時のメッセージに一言添えるだけで承認率が上がる</li>
+      </ul></div>
+    </div>
+    <div class="detail-section">
+      <div class="detail-h">信用を勝ち取るステップ（いきなりDMは最終手段）</div>
+      <div class="detail-flow">
+        <div class="detail-flow-step">① プロフィール整備</div>
+        <div class="detail-flow-arrow">→</div>
+        <div class="detail-flow-step">② 週2本投稿継続</div>
+        <div class="detail-flow-arrow">→</div>
+        <div class="detail-flow-step">③ 相手の投稿にコメント</div>
+        <div class="detail-flow-arrow">→</div>
+        <div class="detail-flow-step">④ DM送付</div>
+      </div>
+    </div>`,
+  'a02': `
+    <div class="detail-section">
+      <div class="detail-h">5社に絞る理由</div>
+      <div class="detail-body">質のためです。「この企業のために作った」感が伝わることで刺さる。10社に薄く送るより5社に深く作った方が転換率が高く、送付後のフォローアップも5社なら対応できる。</div>
+    </div>
+    <div class="detail-section">
+      <div class="detail-h">Highliteの強みが再現されるターゲット条件</div>
+      <table class="detail-table">
+        <tr><th>強み</th><th>刺さる企業の状態</th></tr>
+        <tr><td>AIデザイン内製化支援</td><td>デザイナーがいない or 外注費が高い</td></tr>
+        <tr><td>ブランディング</td><td>ブランドが弱い・バラバラ</td></tr>
+        <tr><td>Webサイト + ブランドシステム</td><td>サイトが古い・ブランドと乖離している</td></tr>
+        <tr><td>AIノウハウ共有</td><td>AI活用を推進したいが手が回っていない</td></tr>
+      </table>
+    </div>
+    <div class="detail-section">
+      <div class="detail-h">5社の選定プロセス</div>
+      <div class="detail-body"><ul>
+        <li>PR Times / BRIDGEで直近1〜3ヶ月に調達したスタートアップをリストアップ（20社程度）</li>
+        <li>各社サイト・SNSを見て「ブランドが弱い」「デザインが古い」企業を絞る</li>
+        <li>「デザイン専任がいなさそう」＋「AI活用に前向き」でさらに絞る → 5社</li>
+      </ul>
+      業種候補：HR Tech / フィンテック / ライフスタイルDtoC / SaaS / 教育テック</div>
+    </div>`,
+  'a03': `
+    <div class="detail-section">
+      <div class="detail-h">なぜVCへの紹介依頼が有効か</div>
+      <div class="detail-body">1人のVCは複数のポートフォリオ企業を持つ。<strong>1件の紹介依頼 → 複数の「信頼付き」リードが入る。</strong>自分でDMを送るより転換率が3〜5倍高い（信頼の転移が起きるため）。</div>
+    </div>
+    <div class="detail-section">
+      <div class="detail-h">繋がりがない場合の接点獲得方法</div>
+      <table class="detail-table">
+        <tr><th>方法</th><th>具体的な行動</th></tr>
+        <tr><td>LinkedIn</td><td>「VC」「エンジェル投資家」検索 → コネクション申請 → 投稿コメントで存在感を出す</td></tr>
+        <tr><td>スタートアップ系イベント</td><td>IVS、B Dash Camp、Startup Weekend</td></tr>
+        <tr><td>Twitter/X</td><td>発信量が多いVCに定期リプ → 認知獲得</td></tr>
+        <tr><td>既存顧客・知人経由</td><td>「VCに知り合いがいますか？」と直接聞く（最速）</td></tr>
+        <tr><td>エンジェルプラットフォーム</td><td>ANGEL PORT、FastGrow掲載投資家にコンタクト</td></tr>
+      </table>
+    </div>
+    <div class="detail-section">
+      <div class="detail-h">VCから紹介される企業の傾向</div>
+      <div class="detail-body"><ul>
+        <li>調達直後（投資したばかり）→ <strong>今まさに予算がある</strong></li>
+        <li>VCの審査を通っている → <strong>事業の実現可能性が担保されている</strong></li>
+        <li>成長フェーズに入っている → <strong>ブランドへの投資意欲が高い</strong></li>
+      </ul></div>
+    </div>
+    <div class="detail-section">
+      <div class="detail-h">紹介依頼のトーク例</div>
+      <div class="detail-code">「ポートフォリオ企業のブランド・デザイン基盤を整えるお手伝いをしています。
+投資後のフェーズで必要になる会社があれば、ご紹介いただけますか？」</div>
+    </div>`,
+  'a04': `
+    <div class="detail-section">
+      <div class="detail-h">AI検索時代のSEO（AEO）の考え方</div>
+      <div class="detail-body"><strong>従来SEO：</strong>キーワードで上位表示 　<strong>AI SEO：</strong>ChatGPT / Perplexity / Google AIが答えとして引用する情報源になること。</div>
+    </div>
+    <div class="detail-section">
+      <div class="detail-h">具体的な5つの戦略</div>
+      <div class="detail-body"><ul>
+        <li><strong>質問形式のタイトル</strong>：「スタートアップはいつブランディングを始めるべきか？」→ AIの質問に直接答える形</li>
+        <li><strong>構造化コンテンツ</strong>：見出し（H2/H3）+ 箇条書き + Q&amp;A形式 → AIが引用しやすい</li>
+        <li><strong>トピッククラスター</strong>：1テーマで複数記事 → 「この媒体はこの領域の専門家」とAIに認識される</li>
+        <li><strong>一次情報（最重要）</strong>：Highliteの実績・ノウハウ・体験談 → AIが「権威ある情報源」として扱う</li>
+        <li><strong>内部リンク</strong>：BrandriからHighlite LPへの導線を設ける</li>
+      </ul></div>
+    </div>
+    <div class="detail-section">
+      <div class="detail-h">狙うキーワード群</div>
+      <table class="detail-table">
+        <tr><th>キーワード</th><th>想定検索者</th></tr>
+        <tr><td>スタートアップ ブランディング</td><td>創業者・CMO</td></tr>
+        <tr><td>デザイン内製化 AI</td><td>経営者・デザイン責任者</td></tr>
+        <tr><td>デザインシステム 導入</td><td>プロダクトマネージャー・CTO</td></tr>
+        <tr><td>ブランドアイデンティティ 作り方</td><td>0→1フェーズの創業者</td></tr>
+        <tr><td>デザイナー採用 コスト</td><td>HR・COO</td></tr>
+        <tr><td>AIデザイン ツール 企業</td><td>DX推進担当</td></tr>
+      </table>
+    </div>
+    <div class="detail-section">
+      <div class="detail-h">Brandri運用サイクル（仕組み化）</div>
+      <div class="detail-flow">
+        <div class="detail-flow-step">週次：題材選定</div>
+        <div class="detail-flow-arrow">→</div>
+        <div class="detail-flow-step">AIで構成案作成</div>
+        <div class="detail-flow-arrow">→</div>
+        <div class="detail-flow-step">Yutoが体験を肉付け</div>
+        <div class="detail-flow-arrow">→</div>
+        <div class="detail-flow-step">公開</div>
+        <div class="detail-flow-arrow">→</div>
+        <div class="detail-flow-step">LinkedInでシェア</div>
+      </div>
+    </div>`,
+  'a05': `
+    <div class="detail-section">
+      <div class="detail-h">スタートアップ創業者の「痛み」（刺さるポイント）</div>
+      <div class="detail-body"><ul>
+        <li>デザイン外注費が高い（1サイト50〜100万円）</li>
+        <li>デザイナー採用が難しい・時期尚早</li>
+        <li>ブランドがバラバラで採用・営業・投資家対応で損している</li>
+        <li>AIを活用したいがデザインチームへの展開方法がわからない</li>
+      </ul></div>
+    </div>
+    <div class="detail-section">
+      <div class="detail-h">訴求メッセージ案</div>
+      <div class="detail-code">── ファーストビュー ──
+シリーズAの前に、ブランドの土台を作る。
+
+── サブコピー ──
+Highliteは、スタートアップが「外注に頼らず」ブランドを実装できる
+デザイン基盤をAIとともに構築します。
+
+── 提供価値 ──
+・ブランドアイデンティティの設計（VI・トーン）
+・デザインシステムの構築（チームが自走できる状態に）
+・AIワークフローの導入（デザイン制作コストを削減）
+・Webサイトの実装
+
+── CTA ──
+まず話してみる（無料相談）</div>
+    </div>`
+};
+
+const PREREQ_LAYERS = [
+  {
+    key:'L1', label:'Layer 1', title:'LinkedIn DM系', timing:'Layer 0完了後',
+    color:'#1E40AF', bg:'#DBEAFE',
+    items:[
+      { name:'DMテンプレートの作成', desc:'セグメントごとに3〜4行のテンプレを用意' },
+      { name:'リストアップ体制', desc:'PR Times / BRIDGE / Startup DBで調達情報をモニタリング' },
+      { name:'送付後のフォロー設計', desc:'「返信なし → X日後にリマインド」の動き方を決める' },
+    ],
+    tasks:['a01','b01','c02','d01','f01']
+  },
+  {
+    key:'L2', label:'Layer 2', title:'VC・弁護士・会計士への紹介依頼', timing:'実績資料完成後',
+    color:'#991B1B', bg:'#FEE2E2',
+    items:[
+      { name:'実績資料', desc:'過去案件の概要・成果（ポートフォリオ的なもの）' },
+      { name:'Highlite概要資料', desc:'サービス内容・対象企業・価格帯の概要' },
+      { name:'紹介依頼1枚レター', desc:'「こんな会社を紹介してほしい」と具体的に書いた依頼文' },
+      { name:'LinkedIn投稿20本以上', desc:'専門家への紹介依頼は投稿実績が少ないと信頼されにくい' },
+    ],
+    tasks:['a03','c03']
+  },
+  {
+    key:'L3', label:'Layer 3', title:'PoC先出し営業', timing:'ワークフロー確立後',
+    color:'#92400E', bg:'#FEF3C7',
+    items:[
+      { name:'PoCワークフローの確立', desc:'1件30分以内で作れる制作フロー・テンプレの整備' },
+      { name:'過去PoCのサンプル', desc:'送付相手が「こんなクオリティが来る」と想定できるもの' },
+      { name:'送付用カバーメッセージ', desc:'「なぜこの企業のPoCを作ったか」を1〜2行で説明する文' },
+    ],
+    tasks:['a02','g02']
+  },
+  {
+    key:'L4', label:'Layer 4', title:'イベント参加・登壇', timing:'来月以降',
+    color:'#5B21B6', bg:'#EDE9FE',
+    items:[
+      { name:'Speaker Bio', desc:'登壇者プロフィール（200字程度）。登壇申込フォームに必要' },
+      { name:'発表テーマ案', desc:'「AIとブランディング」「デザイン内製化」等の具体テーマ' },
+      { name:'Highlite概要資料', desc:'当日の名刺代わりになる資料（Layer 0のものを流用）' },
+    ],
+    tasks:['b02','d03']
+  },
+  {
+    key:'L5', label:'Layer 5', title:'法人研修パッケージ', timing:'3ヶ月後',
+    color:'#9D174D', bg:'#FCE7F3',
+    items:[
+      { name:'研修カリキュラム文書', desc:'対象者・時間数・内容・アウトプット・料金のまとめ' },
+      { name:'サンプルスライド', desc:'研修の一部を見せられる資料' },
+      { name:'受講後のビフォーアフター', desc:'「受けるとチームがどうなるか」の提示' },
+    ],
+    tasks:['d02']
+  },
+  {
+    key:'L6', label:'Layer 6', title:'既存接点の掘り起こし', timing:'今週から可（最優先）',
+    color:'#065F46', bg:'#D1FAE5',
+    items:[
+      { name:'過去接点リストの整備', desc:'名前・会社・最後に話した時期・関係性の温度感をリスト化' },
+      { name:'掘り起こしメッセージテンプレ', desc:'「ご無沙汰しています」から始まる自然な連絡文' },
+    ],
+    tasks:['g01']
+  },
+];
+
+const PRI_LABEL = { highest:'最高', high:'高', mid:'中', low:'低' };
+const PRI_CLASS = { highest:'pri-highest', high:'pri-high', mid:'pri-mid', low:'pri-low' };
+const ST_LABEL  = { todo:'未着手', doing:'進行中', done:'完了' };
+const ST_CLASS  = { todo:'status-todo', doing:'status-doing', done:'status-done' };
+
+let statuses = {};
+let segFilter  = 'all';
+let typeFilter = 'all';
+let menuTargetId = null;
+
+function load() {
+  try { statuses = JSON.parse(localStorage.getItem('hl-sales-statuses') || '{}'); } catch(e) { statuses = {}; }
+  TASKS.forEach(t => { if (!statuses[t.id]) statuses[t.id] = 'todo'; });
+}
+function save() { localStorage.setItem('hl-sales-statuses', JSON.stringify(statuses)); }
+
+function render() {
+  const container = document.getElementById('task-container');
+  container.innerHTML = '';
+
+  const segs = (segFilter === 'all' || ['todo','doing','done'].includes(segFilter))
+    ? SEGMENTS
+    : SEGMENTS.filter(s => s.key === segFilter);
+
+  segs.forEach(seg => {
+    let tasks = TASKS.filter(t => t.seg === seg.key);
+
+    if (['todo','doing','done'].includes(segFilter))
+      tasks = tasks.filter(t => statuses[t.id] === segFilter);
+    if (typeFilter !== 'all')
+      tasks = tasks.filter(t => t.type === typeFilter);
+
+    if (!tasks.length) return;
+
+    const done = tasks.filter(t => statuses[t.id] === 'done').length;
+    const pct  = tasks.length ? Math.round(done / tasks.length * 100) : 0;
+
+    const sec = document.createElement('div');
+    sec.className = 'seg-section';
+    sec.innerHTML = `
+      <div class="seg-header">
+        <div class="seg-dot" style="background:${seg.color}"></div>
+        <div class="seg-title">${seg.label}</div>
+        <div class="seg-sub">${seg.sub}</div>
+        <div class="seg-prog-wrap">
+          <span>${done}/${tasks.length}</span>
+          <div class="seg-prog-bar">
+            <div class="seg-prog-fill" style="background:${seg.color};width:${pct}%"></div>
+          </div>
+        </div>
+      </div>
+      <div class="task-list" id="list-${seg.key}"></div>
+    `;
+    container.appendChild(sec);
+
+    const list = sec.querySelector(`#list-${seg.key}`);
+    tasks.forEach(task => {
+      const st = statuses[task.id];
+      const card = document.createElement('div');
+      card.className = `task-card type-${task.type} ${st === 'done' ? 'done' : ''}`;
+      card.dataset.id = task.id;
+      const hasDetail = !!DETAILS[task.id];
+      card.innerHTML = `
+        <div class="task-check" onclick="toggleDone(event,'${task.id}')">
+          <svg width="12" height="9" viewBox="0 0 12 9" fill="none">
+            <path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="task-body">
+          <div class="task-title">${task.title}</div>
+          <div class="task-meta">
+            <span class="type-badge ${task.type}">${task.type === 'active' ? '▶ 能動' : '◎ 受動'}</span>
+            <span class="status-badge ${ST_CLASS[st]}" onclick="openMenu(event,'${task.id}')">${ST_LABEL[st]}</span>
+            ${task.prereq ? `<span class="prereq-badge prereq-${task.prereq}">${task.prereq}</span>` : ''}
+            <span class="pri ${PRI_CLASS[task.pri]}">${PRI_LABEL[task.pri]}</span>
+            ${hasDetail ? `<button class="task-detail-toggle" id="dtoggle-${task.id}" onclick="toggleDetail(event,'${task.id}')">▸ 詳細</button>` : ''}
+          </div>
+          ${hasDetail ? `<div class="task-detail" id="detail-${task.id}">${DETAILS[task.id]}</div>` : ''}
+        </div>
+      `;
+      list.appendChild(card);
+    });
+  });
+
+  updateStats();
+  updateCounts();
+}
+
+function togglePrereq() {
+  const section = document.getElementById('prereq-section');
+  const btn = document.getElementById('btn-prereq');
+  const isOpen = section.classList.toggle('visible');
+  btn.classList.toggle('active', isOpen);
+  if (isOpen) {
+    renderPrereqPanel();
+    section.scrollIntoView({ behavior:'smooth', block:'nearest' });
+  }
+}
+
+function renderPrereqPanel() {
+  const body = document.getElementById('prereq-body');
+  if (body.dataset.rendered) return;
+  body.dataset.rendered = '1';
+
+  body.innerHTML = `
+    <div class="prereq-L0-hero">
+      <div class="prereq-L0-hero-eyebrow">Layer 0 — すべての能動施策の前提</div>
+      <div class="prereq-L0-hero-h">まず揃えるべき3点 ── これがない状態で能動施策を始めても効果が出ない</div>
+      <div class="prereq-L0-items">
+        <div class="prereq-L0-item">
+          <div class="prereq-L0-item-num">01</div>
+          <div class="prereq-L0-item-name">Highlite 1枚紹介資料</div>
+          <div class="prereq-L0-item-desc">何ができる・誰向け・強み・連絡先。誰に見せても1分で理解できる状態</div>
+        </div>
+        <div class="prereq-L0-item">
+          <div class="prereq-L0-item-num">02</div>
+          <div class="prereq-L0-item-name">LinkedInプロフィール整備</div>
+          <div class="prereq-L0-item-desc">写真・肩書き・会社名・経歴。「この人は何者か」が一目でわかる</div>
+        </div>
+        <div class="prereq-L0-item">
+          <div class="prereq-L0-item-num">03</div>
+          <div class="prereq-L0-item-name">LinkedIn投稿 最低10本</div>
+          <div class="prereq-L0-item-desc">発信履歴が「信用の証拠」になる。投稿がない状態でDMは逆効果</div>
+        </div>
+      </div>
+    </div>
+    <div class="prereq-divider">能動施策別の前提条件 — Layer 1 〜 6</div>
+    <div class="prereq-layers-grid" id="prereq-grid"></div>
+    <div class="prereq-divider">推奨着手順序</div>
+    <div class="prereq-tl">
+      <div class="prereq-tl-col">
+        <div class="prereq-tl-label">今週</div>
+        <div class="prereq-tl-item"><div class="prereq-tl-dot" style="background:#3D5070"></div><div class="prereq-tl-text">Layer 0：1枚紹介資料を作成</div></div>
+        <div class="prereq-tl-item"><div class="prereq-tl-dot" style="background:#3D5070"></div><div class="prereq-tl-text">LinkedInプロフィール整備</div></div>
+        <div class="prereq-tl-item"><div class="prereq-tl-dot" style="background:#3D5070"></div><div class="prereq-tl-text">投稿開始（週2本）</div></div>
+        <div class="prereq-tl-item"><div class="prereq-tl-dot" style="background:#065F46"></div><div class="prereq-tl-text"><strong>Layer 6：既存接点の掘り起こし</strong>（今すぐ可）</div></div>
+      </div>
+      <div class="prereq-tl-arrow">→</div>
+      <div class="prereq-tl-col">
+        <div class="prereq-tl-label">来月</div>
+        <div class="prereq-tl-item"><div class="prereq-tl-dot" style="background:#1E40AF"></div><div class="prereq-tl-text">Layer 1：LinkedIn DM 解禁（投稿10本達成後）</div></div>
+        <div class="prereq-tl-item"><div class="prereq-tl-dot" style="background:#92400E"></div><div class="prereq-tl-text">Layer 3：PoC先出し営業（ワークフロー確立後）</div></div>
+        <div class="prereq-tl-item"><div class="prereq-tl-dot" style="background:#5B21B6"></div><div class="prereq-tl-text">Layer 4：イベント登壇申込</div></div>
+      </div>
+      <div class="prereq-tl-arrow">→</div>
+      <div class="prereq-tl-col">
+        <div class="prereq-tl-label">3ヶ月後</div>
+        <div class="prereq-tl-item"><div class="prereq-tl-dot" style="background:#991B1B"></div><div class="prereq-tl-text">Layer 2：VC・士業への紹介依頼（実績資料完成後）</div></div>
+        <div class="prereq-tl-item"><div class="prereq-tl-dot" style="background:#9D174D"></div><div class="prereq-tl-text">Layer 5：法人研修パッケージ展開</div></div>
+      </div>
+    </div>
+  `;
+
+  const grid = document.getElementById('prereq-grid');
+  PREREQ_LAYERS.forEach(layer => {
+    const taskTags = layer.tasks.map(tid => `<span class="prereq-task-tag">${tid}</span>`).join('');
+    grid.innerHTML += `
+      <div class="prereq-layer-card">
+        <div class="prereq-layer-hd" style="background:${layer.bg}">
+          <div class="prereq-layer-eyebrow" style="color:${layer.color}">${layer.label}</div>
+          <div class="prereq-layer-htitle" style="color:${layer.color}">${layer.title}</div>
+          <div class="prereq-layer-timing" style="color:${layer.color}">⏱ ${layer.timing}</div>
+        </div>
+        <div class="prereq-layer-items">
+          ${layer.items.map(item => `
+            <div class="prereq-layer-item">
+              <div class="prereq-layer-item-dot" style="background:${layer.color}"></div>
+              <div>
+                <div class="prereq-layer-item-name">${item.name}</div>
+                <div class="prereq-layer-item-desc">${item.desc}</div>
+              </div>
+            </div>`).join('')}
+        </div>
+        <div class="prereq-layer-tasks">${taskTags}</div>
+      </div>`;
+  });
+}
+
+function toggleDetail(e, id) {
+  e.stopPropagation();
+  const panel = document.getElementById('detail-' + id);
+  const btn   = document.getElementById('dtoggle-' + id);
+  const isOpen = panel.classList.toggle('visible');
+  btn.textContent = isOpen ? '▾ 閉じる' : '▸ 詳細';
+  btn.classList.toggle('open', isOpen);
+}
+
+function toggleDone(e, id) {
+  e.stopPropagation();
+  statuses[id] = statuses[id] === 'done' ? 'todo' : 'done';
+  save(); render();
+}
+
+function openMenu(e, id) {
+  e.stopPropagation();
+  menuTargetId = id;
+  const menu = document.getElementById('status-menu');
+  menu.style.left = e.clientX + 'px';
+  menu.style.top  = (e.clientY + 8) + 'px';
+  menu.classList.add('visible');
+}
+function setStatus(st) {
+  if (menuTargetId) { statuses[menuTargetId] = st; save(); render(); }
+  document.getElementById('status-menu').classList.remove('visible');
+  menuTargetId = null;
+}
+document.addEventListener('click', () => {
+  document.getElementById('status-menu').classList.remove('visible');
+  menuTargetId = null;
+});
+
+function filterSeg(f, el) {
+  segFilter = f;
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  el.classList.add('active');
+  const labels = {
+    all:'すべてのタスク', todo:'未着手のタスク', doing:'進行中のタスク', done:'完了したタスク',
+    s1:'① スタートアップ', s2:'② SaaS・プロダクト系企業', s3:'③ IPO準備中・大型調達後',
+    s4:'④ 大手・中堅企業の新規事業', s5:'⑤ ラグジュアリー・高感度ブランド',
+    s6:'⑥ デザイン会社・エージェンシー', common:'共通タスク',
+  };
+  document.getElementById('view-title').textContent = labels[f] || 'タスク一覧';
+  render();
+}
+
+function filterType(t) {
+  typeFilter = t;
+  document.querySelectorAll('.type-btn').forEach(b => {
+    b.classList.remove('active-all','active-do','active-re');
+  });
+  const map = { all:'active-all', active:'active-do', passive:'active-re' };
+  document.getElementById('btn-all').classList.toggle('active-all',    t === 'all');
+  document.getElementById('btn-active').classList.toggle('active-do',  t === 'active');
+  document.getElementById('btn-passive').classList.toggle('active-re', t === 'passive');
+  render();
+}
+
+function updateStats() {
+  const all     = TASKS.length;
+  const active  = TASKS.filter(t => t.type === 'active').length;
+  const passive = TASKS.filter(t => t.type === 'passive').length;
+  const done    = TASKS.filter(t => statuses[t.id] === 'done').length;
+  const pct     = all ? Math.round(done / all * 100) : 0;
+
+  document.getElementById('st-total').textContent   = all;
+  document.getElementById('st-active').textContent  = active;
+  document.getElementById('st-passive').textContent = passive;
+  document.getElementById('st-done').textContent    = done;
+  document.getElementById('prog-pct').textContent   = pct + '%';
+  document.getElementById('prog-bar').style.width   = pct + '%';
+}
+
+function updateCounts() {
+  const keys = ['all','todo','doing','done','s1','s2','s3','s4','s5','s6','common'];
+  const counts = {};
+  keys.forEach(k => counts[k] = 0);
+  TASKS.forEach(t => {
+    const st = statuses[t.id];
+    counts.all++;
+    counts[st] = (counts[st] || 0) + 1;
+    counts[t.seg] = (counts[t.seg] || 0) + 1;
+  });
+  keys.forEach(k => {
+    const el = document.getElementById('cnt-' + k);
+    if (el) el.textContent = counts[k] || 0;
+  });
+}
+
+load(); render();
+</script>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>AIでWeb制作はどう変わったか - 2026年7月、現場のリアルなトレンド</title>
+<style>
+  :root {
+    --text: #1f2430;
+    --muted: #6b7280;
+    --accent: #0f6b5c;
+    --bg: #fafaf8;
+    --card: #ffffff;
+    --border: #e5e3dc;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic UI", Meiryo, sans-serif;
+    font-size: 16px;
+    line-height: 1.8;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 64px;
+  }
+  h1 {
+    font-size: 1.7rem;
+    line-height: 1.5;
+    margin: 0 0 8px;
+    letter-spacing: 0.01em;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 20px;
+    margin-bottom: 32px;
+  }
+  h2 {
+    font-size: 1.25rem;
+    margin: 44px 0 12px;
+    padding-left: 12px;
+    border-left: 4px solid var(--accent);
+    line-height: 1.5;
+  }
+  .summary {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin: 24px 0;
+  }
+  .summary h2 {
+    margin: 0 0 8px;
+    padding-left: 0;
+    border-left: none;
+    font-size: 1.05rem;
+    color: var(--accent);
+  }
+  .summary ol { margin: 0; padding-left: 1.3em; }
+  .summary li { margin-bottom: 6px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+    margin: 16px 0;
+    background: var(--card);
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th { background: #f1efe8; font-weight: 600; }
+  blockquote {
+    margin: 20px 0;
+    padding: 14px 20px;
+    background: var(--card);
+    border-left: 4px solid #c9c5b8;
+    border-radius: 0 8px 8px 0;
+    color: #3d4351;
+  }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  strong { font-weight: 700; }
+  ul, ol { padding-left: 1.4em; }
+  li { margin-bottom: 6px; }
+  .aside {
+    font-size: 0.9rem;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    margin-top: 44px;
+    padding-top: 20px;
+  }
+  footer {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 24px 40px;
+    color: var(--muted);
+    font-size: 0.8rem;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>AIでWeb制作はどう変わったか - 2026年7月、現場のリアルなトレンド</h1>
+  <p class="meta">
+    Highliteトレンド記事 #001 | 2026-07-17 | テーマ: AI Webデザイン・サイト制作ツール<br>
+    ソース: Reddit 27スレッド / YouTube 5本 / Hacker News 30件 / GitHub 24件 + Web補足調査(直近30日)
+  </p>
+
+  <div class="summary">
+    <h2>結論サマリー(3行)</h2>
+    <ol>
+      <li>AIサイト制作ツールは「デザイン特化」「オールインワン」「コードファースト」の3レーンに分化が完了。ツール選びは"どれが最強か"ではなく"どのレーンか"の時代に。</li>
+      <li>現場の最大の悩みは「AIが作るデザインはどれも同じ顔になる」こと。差別化の鍵はプロンプト設計と"スキル"(指示テンプレート)に移った。</li>
+      <li>勝ち筋は「AIで下書き + プロが磨き込むハイブリッド」。これは制作会社にとって脅威ではなく、提供価値の再定義チャンス。</li>
+    </ol>
+  </div>
+
+  <h2>1. ツール市場は「3レーン」に分化した</h2>
+  <p>2026年7月時点のAIサイト制作ツールは、役割がはっきり3つに分かれた。</p>
+  <table>
+    <tr><th>レーン</th><th>代表ツール</th><th>向いている用途</th></tr>
+    <tr><td>デザイン特化</td><td>Framer、Webflow</td><td>マーケティングサイト、LP、ポートフォリオ</td></tr>
+    <tr><td>オールインワン</td><td>Wix、10Web、Hostinger</td><td>ホスティング込みで手軽に済ませたい事業者</td></tr>
+    <tr><td>コードファースト</td><td>v0、Lovable、Bolt、Replit</td><td>プロダクト開発の一部としてのWeb構築</td></tr>
+  </table>
+  <p>Webflowはビジュアルビルダーの枠を超え、コンテンツ・分析・A/Bテスト・AI下書きまで含むプラットフォームへ移行中(旧エディタは2026年8月4日に廃止予定)。「サイトを作るツール」から「サイトを運用するプラットフォーム」への進化が業界全体の方向性だ。</p>
+
+  <h2>2. 「AIデザインは全部同じ顔」問題と、その突破口</h2>
+  <p>この30日で最も熱かった現場の議論がこれ。10万回以上再生された<a href="https://www.youtube.com/watch?v=Ot582-E61ac" target="_blank" rel="noopener">AI LABSの解説動画</a>は核心を突いている。</p>
+  <blockquote>「モデルのデザイン力は日々良くなっている。でもある時点から、優れたデザインは全部同じに見え始める。本当の問いは、自分のデザインを何で際立たせるかだ」</blockquote>
+  <p>Redditの<a href="https://www.reddit.com/r/vibecoding/comments/1uq4ryi/how_do_you_get_claude_to_design_goodlooking_uis/" target="_blank" rel="noopener">r/vibecoding</a>でも「Claudeにテンプレ感のない良いUIを作らせるには?」というスレッドが85ポイントを集め、回答の主流は<strong>プロンプトの構造化と"スキル"(デザイン指示のテンプレート化)</strong>だった。つまり、AI時代のデザイン差別化スキルは「手を動かす技術」から「良い指示を設計する技術」へシフトしている。</p>
+  <p>一方で、開発者コミュニティには冷静な現実もある。<a href="https://www.reddit.com/r/SaaS/comments/1uulsfs/i_spent_14_months_building_a_free_design_tool_4/" target="_blank" rel="noopener">r/SaaS</a>では「14ヶ月かけて無料のデザインツールを作ったが、GitHubスター4つ。誰も文句すら言ってくれない」という投稿が共感を集めた。ツールが乱立する今、「作れること」自体の価値は急落している。</p>
+
+  <h2>3. 勝ちパターンは「ハイブリッドモデル」</h2>
+  <p>業界データがこの流れを裏付ける。</p>
+  <ul>
+    <li>Webデザイナーの<strong>93%</strong>がすでにAIツールを使用(Clutch調査)</li>
+    <li>中小企業の<strong>87%</strong>が2026年にAIツールを導入</li>
+    <li>予算$1K〜$5Kの案件では「<strong>AIで土台生成 + プロが20〜40時間磨き込む</strong>」ハイブリッドが最もROIが高い</li>
+  </ul>
+  <p>AIが奪ったのは「初期レイアウト」「コピー下書き」「基本構造」といったコモディティ作業。制作会社の生き残る場所は<strong>コンバージョン戦略、ブランド設計、複雑なインタラクション、継続的な改善運用</strong>に明確に移動した。</p>
+
+  <h2>4. 日本市場の逆張りトレンド:「AI完璧主義への反動」</h2>
+  <p>国内のWeb制作会社ブログを横断すると、2026年の日本のデザイントレンドは面白い逆行を見せている。</p>
+  <ul>
+    <li><strong>レトロ・フューチャリズム / ハンドクラフト</strong> - AIが完璧なデザインを量産する時代だからこそ、手描きの揺らぎ・コラージュ・アナログ感が支持される</li>
+    <li><strong>ネイチャーハーモニー</strong> - 木目や石材のテクスチャ、オーガニックカラーで「デジタルだが温かい」表現</li>
+    <li><strong>没入型体験</strong> - WebGL、スクロール連動アニメーションによる深さの演出</li>
+  </ul>
+  <p>「AIで作れるもの」が標準化するほど、「AIっぽくないもの」がプレミアム化する。これは制作単価を守りたい事業者にとって重要な示唆だ。</p>
+
+  <h2>5. Highliteへの示唆</h2>
+  <ol>
+    <li><strong>「AI + 人の磨き込み」パッケージの言語化</strong> - ハイブリッドモデルは既にHighliteのAIデザイン支援と同じ構造。「AIで速く、プロの目で深く」を商品説明に明示する価値がある。</li>
+    <li><strong>"温かみ"は差別化資産</strong> - poc-warmth.htmlの方向性は世界的トレンド(反AI完璧主義)と合致。提案時のストーリーとして使える。</li>
+    <li><strong>顧客教育コンテンツの好機</strong> - 中小企業の87%がAI導入済み=「AIで自作 vs プロに頼む」の判断に迷う層が急増中。この比較記事自体がリード獲得コンテンツになる。</li>
+  </ol>
+
+  <p class="aside"><em>余談: 今週はジョージ・ルーカスの「AIを拒否するのは車を拒否して馬に乗るようなもの」発言が<a href="https://www.reddit.com/r/singularity/comments/1uxwzi4/george_lucas_says_rejecting_ai_is_like_rejecting/" target="_blank" rel="noopener">Reddit</a>で1,600ポイント超の大論争に。最多共感コメントは「今回は人間の方が馬なんだよなあ」(323票)。AIへの期待と不安が同居する空気感は、顧客企業の経営者も同じだと心得たい。</em></p>
+</main>
+<footer>Highlite内部資料・非公開</footer>
+</body>
+</html>

@@ -1,0 +1,33 @@
+name: brandri-sync
+# 毎日 3回（朝昼夕 JST）状態を同期する。頻度は必要に応じて調整
+on:
+  schedule:
+    - cron: "0 0,4,8 * * *"   # 09:00 / 13:00 / 17:00 JST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: branch_yuto
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r scripts/brandri/requirements.txt
+      - name: Sync state
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python -m scripts.brandri.sync
+      - name: Commit changes
+        run: |
+          git config user.name  "brandri-bot"
+          git config user.email "bot@highlite.local"
+          git add marketing/articles/brandri
+          git commit -m "brandri: sync review state" || echo "no changes"
+          git push

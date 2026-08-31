@@ -1,0 +1,124 @@
+{
+  "_meta": {
+    "schema_version": "1.0",
+    "phase": "poc",
+    "created_at": "2026-05-23",
+    "created_by": "Yuto Furukawa",
+    "client_slug": "_example"
+  },
+
+  "company": {
+    "name": "サクラ設計株式会社",
+    "name_en": "Sakura Design Co., Ltd.",
+    "tagline": "空間に、物語を。",
+    "industry": "建築・インテリアデザイン",
+    "description": "創業25年、住宅・商業施設のインテリアデザインを手がけるスタジオ。",
+    "logo_path": ""
+  },
+
+  "brand": {
+    "color_primary": "#5B3D3D",
+    "color_secondary": "#FAF6F2",
+    "color_accent": "#C4956A",
+    "color_text": "#1A1410",
+    "color_bg": "#F5F0EB",
+    "color_dark": "#2A1F1A",
+    "font_heading": "Georgia, 'Times New Roman', serif",
+    "font_body": "'Noto Sans JP', 'Hiragino Kaku Gothic ProN', sans-serif"
+  },
+
+  "website_goal": {
+    "primary_purpose": "リード獲得（設計依頼の問い合わせ増）",
+    "target_audience": "新築・リノベーションを検討している30〜50代の個人・法人",
+    "key_message": "25年の実績と感性が生む、唯一無二の空間設計",
+    "success_metrics": ["月間問い合わせ数 +30%", "ポートフォリオページ滞在時間 2分以上"]
+  },
+
+  "content": {
+    "nav": {
+      "logo_text": "Sakura Design",
+      "links": [
+        { "label": "About", "href": "#about" },
+        { "label": "Services", "href": "#services" },
+        { "label": "Works", "href": "#services" },
+        { "label": "Contact", "href": "#contact" }
+      ],
+      "cta": { "text": "相談する", "href": "#contact" }
+    },
+
+    "hero": {
+      "label": "Interior & Architecture",
+      "headline": "空間に、\n物語を。",
+      "subheadline": "あなたの理想を、かたちにする。",
+      "description": "住宅から商業施設まで、ひとつひとつの空間に物語を宿すインテリアデザイン。25年の経験が、あなたの想いを唯一無二の場所へと変えます。",
+      "cta_primary": { "text": "サービスを見る", "href": "#services" },
+      "cta_secondary": { "text": "会社について", "href": "#about" }
+    },
+
+    "about": {
+      "label": "About",
+      "title": "感性と経験が\n生む設計",
+      "body": "サクラ設計は1999年の創業以来、「空間に物語を宿す」という哲学のもと、住宅・店舗・ホテルのインテリアデザインを手がけてきました。\n\nお客様の価値観やライフスタイルを丁寧にヒアリングし、機能性と審美性を両立した空間を提案します。",
+      "stats": [
+        { "value": "25", "label": "Years of Experience" },
+        { "value": "800+", "label": "Projects Completed" },
+        { "value": "98%", "label": "Client Satisfaction" }
+      ]
+    },
+
+    "services": {
+      "label": "Services",
+      "title": "私たちのサービス",
+      "description": "空間の企画・設計から施工監理まで、ワンストップでサポートします。",
+      "items": [
+        {
+          "icon": "◆",
+          "title": "住宅インテリア設計",
+          "description": "新築・リノベーションの内装設計。素材選定から家具コーディネートまで、生活の質を高める住空間をつくります。"
+        },
+        {
+          "icon": "◇",
+          "title": "商業施設デザイン",
+          "description": "レストラン・ホテル・ショップの空間設計。ブランドイメージを空間に落とし込み、顧客体験を最大化します。"
+        },
+        {
+          "icon": "◈",
+          "title": "コンサルティング",
+          "description": "空間の課題発見から改善提案まで。既存空間の価値向上を、設計の視点からサポートします。"
+        }
+      ]
+    },
+
+    "contact": {
+      "label": "Contact",
+      "headline": "空間づくりの\nご相談、お待ちしています。",
+      "description": "はじめての方でも、まずはお気軽にご連絡ください。初回相談は無料です。",
+      "cta_text": "無料相談を予約する",
+      "cta_href": "mailto:info@sakura-design.jp",
+      "email": "info@sakura-design.jp",
+      "address": "東京都渋谷区神宮前 3-1-1"
+    },
+
+    "footer": {
+      "copyright": "© 2026 Sakura Design Co., Ltd.",
+      "links": [
+        { "label": "Privacy Policy", "href": "#" },
+        { "label": "Company Info", "href": "#about" }
+      ]
+    }
+  },
+
+  "poc_notes": {
+    "sales_context": "2026-05-23 展示会でのリード。Webサイトが5年以上更新されておらず刷新を検討中。",
+    "client_pain_points": [
+      "既存サイトが古くスマホ対応していない",
+      "問い合わせフォームが使いにくい",
+      "実績ポートフォリオが見づらい"
+    ],
+    "proposed_solution": "モバイルファーストの1ページ完結型サイトでブランド刷新。問い合わせをCTA設計で増加。",
+    "next_steps": [
+      "PoCをメールで送付（2026-05-26まで）",
+      "デザイン方向性確認MTG設定"
+    ]
+  }
+}

@@ -1,0 +1,93 @@
+# ---------------------------------------------------------------
+# Brandri 記事パイプライン 設定
+# confidentiality: internal
+# update_triggers: チャンネル変更 / カデンス変更 / 公開手段の変更
+# spec: docs/brandri-article-pipeline.md
+# rev: 2026-08-13 (r5 / 案B: Pro執筆・Slack投稿のみ自動化)
+# ---------------------------------------------------------------
+
+repo:
+  owner: musickappa
+  name: highlite-design-system
+  branch: branch_yuto
+  # Slack投稿に貼る記事リンクのベース
+  blob_base: "https://github.com/musickappa/highlite-design-system/blob/branch_yuto"
+
+slack:
+  channel_id: C0BNHP6HU04
+  channel_name: "#int-brandri"
+  # bot自身のuser ID。「未処理コメント」判定と、bot自身の👍除外に使用
+  bot_user_id: "U0BPA2V7FRD"
+  # 承認者の限定はしない（チャンネルメンバーを増やさない前提）
+  # bot以外のメンバーの👍はすべて有効な承認として扱う
+  restrict_approvers: false
+
+reactions:
+  reviewing: "eyes"                    # 👀 レビュー中／修正依頼中
+  approved: "+1"                       # 👍 承認
+  dropped: "wastebasket"               # 🗑️ ボツ
+  scheduled: "spiral_calendar_pad"     # 🗓️ 公開日確定（bot付与）
+  published: "white_check_mark"        # ✅ 公開済み（bot付与）
+  comment_handled: "ballot_box_with_check"  # ☑️ コメント処理済み（bot付与・コメント側）
+
+cadence:
+  # サマリ収集は既存フローで毎日継続（このパイプラインの管轄外）
+
+  # 記事の選定・執筆・Slack投稿：週1回・水曜
+  generation_day: "Wed"
+  generation_count: 1
+  # 選定の対象範囲（直近n日分のサマリ）
+  selection_window_days: 7
+
+  # 公開：週1回・木曜
+  publish_day: "Thu"
+  # 投稿日から公開までの最短日数。8 = 翌週木曜（レビュー期間8日間）
+  # 3 に変えると同週木曜公開（レビュー1日）になるが、修正が入ると間に合わない
+  publish_lead_days: 8
+
+  # 承認済み在庫の上限。週1生成なら通常到達しないが、承認が溜まった場合の安全弁
+  max_queue_size: 4
+  # Slack投稿からこの日数で鮮度切れ
+  ttl_days: 28
+  # 未レビューのまま放置された場合のリマインド
+  reminder_after_days: 4
+
+review:
+  # 承認の管理は人が行う（👍を付ける＝承認 / 外す＝取り消し）
+  # botは👍に触れない。「承認するけどタイポだけ直して」を成立させるため
+  revoke_approval_on_revision: false
+  # ただし👍が付いた状態で修正を反映した場合は、版のズレをスレッドで通知する
+  notify_on_revision_with_approval: true
+
+paths:
+  summaries: "marketing/articles"
+  drafts: "marketing/articles/brandri/drafts"
+  scheduled: "marketing/articles/brandri/scheduled"
+  published: "marketing/articles/brandri/published"
+  dropped: "marketing/articles/brandri/dropped"
+  selection_log: "marketing/articles/brandri/_selection-log.md"
+  dropped_log: "marketing/articles/brandri/_dropped-log.md"
+  state: "marketing/articles/brandri/_state.json"
+
+content:
+  min_chars: 1500
+  max_chars: 2800
+  # 一次情報セクション（実務ではこうだった）が書けない題材は選定しない
+  require_first_party_section: true
+  max_quote_chars: 50
+  max_quotes_per_article: 1
+  target_clusters:
+    - startup      # 調達後スタートアップ（pre-PMF）
+    - medical      # 美容医療・ヘルスケア
+    - saas         # レガシーSaaSのデザイン内製化
+    - luxury       # KGI②③向け（ADA / 高感度ブランド文脈）
+
+# 案B（Pro環境で執筆）ではAnthropic APIを使わないため llm 設定は不要。
+# APIで自動執筆する案Cに切り替える場合は legacy/ を参照。
+
+publish:
+  # A: repo_pr | B: cms_api | C: manual  ← 未決。現状はmanual
+  mode: "manual"
+  target_site: "https://brandri.jp"
+  # t29（robots.txt）解消済みのため警告は不要
+  warn_if_robots_blocked: false

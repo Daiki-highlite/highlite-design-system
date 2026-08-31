@@ -1,0 +1,129 @@
+{
+  "_meta": {
+    "schema_version": "1.0",
+    "phase": "poc",
+    "template": "warmth",
+    "created_at": "2026-05-23",
+    "created_by": "Yuto Furukawa",
+    "client_slug": "cafe-komorebi"
+  },
+
+  "company": {
+    "name": "カフェ・コモレビ",
+    "name_en": "Café Komorebi",
+    "tagline": "木漏れ日のような、心地よいひとときを。",
+    "industry": "飲食業（自家焙煎コーヒー・オーガニックカフェ）",
+    "description": "厳選したオーガニック生豆を店内で自家焙煎した珈琲と、体に優しい手作りのヴィーガンスイーツを提供するカフェ。地域の方々に愛され、自然と笑顔が集まる場所を目指しています。",
+    "logo_path": ""
+  },
+
+  "brand": {
+    "color_primary": "#8E9A86",
+    "color_secondary": "#FAF7F2",
+    "color_accent": "#A0785A",
+    "color_text": "#2C2417",
+    "color_bg": "#F5F0E8",
+    "color_dark": "#2A3022",
+    "font_heading": "Georgia, 'Times New Roman', 'Noto Serif JP', serif",
+    "font_body": "'Noto Sans JP', 'Hiragino Kaku Gothic ProN', sans-serif"
+  },
+
+  "website_goal": {
+    "primary_purpose": "店舗の認知拡大・新規顧客の来店促進、オンラインショップ（コーヒー豆・焼き菓子）への誘導",
+    "target_audience": "20〜40代のオーガニックな食や丁寧な暮らしに関心がある方、ゆっくり過ごせるカフェを探している近隣住民や観光客",
+    "key_message": "素材と空間に徹底的にこだわっており、ひとりでも誰かとでも、心からリラックスして過ごせる特別な場所",
+    "success_metrics": [
+      "Webからの来店・メニュー確認数の増加",
+      "オンラインショップへの誘導（コーヒー豆・焼き菓子の通販）",
+      "Instagram依存からの脱却・情報の一元化"
+    ]
+  },
+
+  "content": {
+    "nav": {
+      "logo_text": "Café Komorebi",
+      "links": [
+        { "label": "こだわり", "href": "#about" },
+        { "label": "メニュー", "href": "#services" },
+        { "label": "Online Shop", "href": "#contact" },
+        { "label": "Access", "href": "#contact" }
+      ],
+      "cta": { "text": "オンラインショップ", "href": "#contact" }
+    },
+
+    "hero": {
+      "label": "Organic Coffee & Vegan Sweets — 鎌倉",
+      "headline": "今日を、すこし\n愛おしくする1杯。",
+      "subheadline": "店主こだわりの自家焙煎珈琲と、体に優しい焼き菓子で、心ほどける時間を。",
+      "description": "ドアを開けると広がる、香ばしいコーヒーの香りと心地よい音楽。Café Komorebiでは、毎日少しずつ丁寧に豆を焙煎し、いつでも挽きたて・淹れたてをご用意しています。卵や乳製品を使わない手作りスイーツとともに、お気に入りの席で特別なひとときをお過ごしください。",
+      "cta_primary": { "text": "メニュー・アクセスを見る", "href": "#services" },
+      "cta_secondary": { "text": "オンラインショップへ", "href": "#contact" }
+    },
+
+    "about": {
+      "label": "About",
+      "title": "木漏れ日が差し込む、\nあなたの居場所へ。",
+      "body": "厳選したオーガニック生豆を店内で自家焙煎した珈琲と、体に優しい手作りのヴィーガンスイーツを提供するカフェです。\n\n木漏れ日が差し込むような温かみのある空間で、忙しい日常から少し離れてホッと一息つける時間をお届けします。地域の方々に愛され、自然と笑顔が集まる場所を目指しています。",
+      "stats": [
+        { "value": "8種類+", "label": "シングルオリジン珈琲豆" },
+        { "value": "90%以上", "label": "地元のお客様リピート率" },
+        { "value": "年5,000個", "label": "手作りマフィン販売数" }
+      ]
+    },
+
+    "services": {
+      "label": "Our Menu",
+      "title": "3つのこだわりが、\n特別な時間をつくる。",
+      "description": "素材・空間・珈琲。すべてに理由があります。",
+      "items": [
+        {
+          "icon": "☕",
+          "title": "店内で仕上げる新鮮な自家焙煎珈琲",
+          "description": "世界各国の農園から届くオーガニック生豆を使用。豆本来の個性を最大限に引き出すため、その日の気温や湿度に合わせて丁寧に焙煎しています。"
+        },
+        {
+          "icon": "🌿",
+          "title": "体に優しいオーガニック＆ヴィーガンスイーツ",
+          "description": "白砂糖や化学添加物は不使用。国産小麦や有機植物性素材をベースに毎日焼き上げるマフィンやタルトは、ヘルシーでありながら満足感のある味わいです。"
+        },
+        {
+          "icon": "🪴",
+          "title": "心からリラックスできるナチュラルな空間",
+          "description": "木のぬくもりを大切にしたインテリアと、たくさんの観葉植物に囲まれた店内。おひとりでの読書や、大切な人との語らいに最適な穏やかな時間が流れています。"
+        }
+      ]
+    },
+
+    "contact": {
+      "label": "Visit & Shop",
+      "headline": "鎌倉で、お待ちして\nいます。",
+      "description": "店頭でのご来店はもちろん、オンラインショップではお気に入りのコーヒー豆や焼き菓子をお届けします。お気軽にご連絡ください。",
+      "cta_text": "メニュー・アクセスを見る",
+      "cta_href": "mailto:info@cafe-komorebi-sample.com",
+      "email": "info@cafe-komorebi-sample.com",
+      "address": "神奈川県鎌倉市"
+    },
+
+    "footer": {
+      "copyright": "© 2026 Café Komorebi. All rights reserved.",
+      "links": [
+        { "label": "Online Shop", "href": "#" },
+        { "label": "Instagram", "href": "#" }
+      ]
+    }
+  },
+
+  "poc_notes": {
+    "sales_context": "オープン3年、Instagramのみで情報発信中。メニュー・アクセス情報がタイムラインに埋もれてしまうため公式サイトを立ち上げたい。",
+    "client_pain_points": [
+      "初めての顧客がメニューや営業時間を調べにくい",
+      "今後はコーヒー豆のネット販売に力を入れたいがECへの導線がない",
+      "Instagram依存で情報が分散している"
+    ],
+    "proposed_solution": "カフェの世界観（ビジュアルトーン）を表現しつつ、来店促進とEC誘導を両立するブランドサイトを提案。",
+    "next_steps": [
+      "店内・外観・メニューの写真素材をお借りする",
+      "カフェの世界観を表現したデザイン構成案を作成"
+    ]
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "_comment": "Brandri記事レビュー依頼の親投稿テンプレート（r2）。本文全文は載せず、GitHubのmdへリンクする。{{}} を実値に置換して使用。",
+  "text": "📄 今週のBrandri記事ドラフト {{ARTICLE_ID}}｜{{TITLE}}",
+  "blocks": [
+    {
+      "type": "header",
+      "text": { "type": "plain_text", "text": "📄 {{TITLE}}", "emoji": true }
+    },
+    {
+      "type": "context",
+      "elements": [
+        { "type": "mrkdwn", "text": "`{{ARTICLE_ID}}`  ｜  v{{VERSION}}  ｜  {{CHAR_COUNT}}字" }
+      ]
+    },
+    {
+      "type": "section",
+      "text": { "type": "mrkdwn", "text": "{{LEAD}}" }
+    },
+    {
+      "type": "section",
+      "fields": [
+        { "type": "mrkdwn", "text": "*想定読者*\n{{TARGET_CLUSTER}}" },
+        { "type": "mrkdwn", "text": "*キーワード*\n{{KEYWORDS}}" },
+        { "type": "mrkdwn", "text": "*公開予定*\n{{SCHEDULED_DATE}}" },
+        { "type": "mrkdwn", "text": "*鮮度切れ*\n{{EXPIRES_AT}}" }
+      ]
+    },
+    {
+      "type": "section",
+      "text": { "type": "mrkdwn", "text": "*📝 本文を読む*\n{{GITHUB_URL}}" }
+    },
+    {
+      "type": "context",
+      "elements": [
+        { "type": "mrkdwn", "text": "*選定*  今週の候補{{CANDIDATE_COUNT}}本中 スコア {{SCORE}}/10\n{{SELECTION_RATIONALE}}\n*出典*  {{SOURCE_URLS}}" }
+      ]
+    },
+    { "type": "divider" },
+    {
+      "type": "context",
+      "elements": [
+        {
+          "type": "mrkdwn",
+          "text": ":eyes: レビュー開始 ／ :+1: 承認 ／ :wastebasket: ボツ\n修正依頼はこの投稿の *スレッド* にコメントしてください（反映後 :ballot_box_with_check: を付けます）"
+        }
+      ]
+    }
+  ]
+}
