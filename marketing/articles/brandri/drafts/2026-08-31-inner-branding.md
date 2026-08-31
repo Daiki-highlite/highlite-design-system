@@ -21,11 +21,11 @@ sources:
   author: Highlite 編集部
   year: 2026
   type: 編
-status: revision_requested
-version: 1
+status: reviewing
+version: 2
 review:
   approved_by: []
-  revision_rounds: 0
+  revision_rounds: 1
 schedule:
   posted_at: '2026-08-31T16:11:38.321785+09:00'
   expires_at: '2026-09-28'
