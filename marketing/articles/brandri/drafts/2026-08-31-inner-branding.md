@@ -3,24 +3,40 @@ title: 三人に聞くと、うちの強みが三つ出てくる
 cat: インナー
 target_cluster: startup
 target_reader:
-  - executive
+- executive
 slug: inner-branding
 keyword: インナーブランディング
 keywords:
-  - インナーブランディング
+- インナーブランディング
 related:
-  - t: 診断
-    href: index.html#diagnostic
-  - t: ブランドとは何か
-    href: basics/what-is-brand.html
-  - t: 育てる
-    href: situations/grow.html
+- t: 診断
+  href: index.html#diagnostic
+- t: ブランドとは何か
+  href: basics/what-is-brand.html
+- t: 育てる
+  href: situations/grow.html
 sources:
-  - key: highlite-inner-branding
-    title: 「インナーブランディング」をめぐる編集ノート
-    author: Highlite 編集部
-    year: 2026
-    type: 編
+- key: highlite-inner-branding
+  title: 「インナーブランディング」をめぐる編集ノート
+  author: Highlite 編集部
+  year: 2026
+  type: 編
+status: draft
+version: 1
+review:
+  approved_by: []
+  revision_rounds: 0
+schedule:
+  posted_at: '2026-08-31T16:11:38.321785+09:00'
+  expires_at: '2026-09-28'
+  scheduled_date: '2026-09-10'
+  published_at: null
+  published_url: null
+id: br-2026-08-31
+slack:
+  channel: C0BNHP6HU04
+  ts: '1788160298.523579'
+  permalink: https://highlite-brand.slack.com/archives/C0BNHP6HU04/p1788160298523579
 ---
 
 理念は額に入れて飾ってある。朝礼でも読み上げている。それなのに、営業に同行すると、話している中身が人によって違う。悪気はない。ただ、自分だけが同じことを言い続けている気がする。
